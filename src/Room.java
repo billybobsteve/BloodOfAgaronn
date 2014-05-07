@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Room extends Screen{
 	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private Room parentRoom;
-	private ArrayList<Room> successors = new ArrayList<Room>();
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	Player player = new Player();
 	
@@ -37,17 +36,11 @@ public class Room extends Screen{
 		}
 
 	}
-
-
-	public ArrayList<Room> getSuccessors(){
-		return successors;
-	}
 	
 
 	@Override
 	public Room nextScreen() {
-		// TODO Auto-generated method stub
-		return null;
+		
 	}
 	
 	
