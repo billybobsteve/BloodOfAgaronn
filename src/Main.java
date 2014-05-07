@@ -5,8 +5,6 @@ import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -28,7 +26,7 @@ public class Main implements Runnable {
 	}
 
 	public Main() {
-		ScreenManager screenManager = new ScreenManager();
+		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
 	}
 
@@ -57,11 +55,13 @@ public class Main implements Runnable {
 		
 		Graphics2D g_ = screenManager.getGraphics();
 		
+		BufferedImage image = null;
+		
 		try {
-			BufferedImage image = ImageIO.read(new FileInputStream("splashscreen.png"));
+			image = ImageIO.read(new FileInputStream("splashscreen.png"));
 		} catch (Exception e) { e.printStackTrace(); }
 		
-		//g_.drawImage(image,
+		g_.drawImage(image, (screenManager.getWidth()-(image.getWidth()/2)), (screenManager.getHeight()-(image.getWidth()/2)), null); 
 		
 		while(gameRunning) {
 			Graphics2D g = screenManager.getGraphics();
