@@ -53,21 +53,19 @@ public class Main implements Runnable {
 		content.add(button, BorderLayout.CENTER);
 		frame.validate();
 		
-		Graphics2D g_ = screenManager.getGraphics();
-		
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(new FileInputStream("splashscreen.png"));
-		} catch (Exception e) { e.printStackTrace(); }
-		
-		g_.drawImage(image, (screenManager.getWidth()-(image.getWidth()/2)), (screenManager.getHeight()-(image.getWidth()/2)), null); 
-		
 		while(gameRunning) {
 			Graphics2D g = screenManager.getGraphics();
 			//currentScreen.draw(g);
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
+						
+			BufferedImage image = null;
+			
+			try {
+				image = ImageIO.read(new FileInputStream("splash_screen.png"));
+			} catch (Exception e) { e.printStackTrace(); }
+			
+			g.drawImage(image, 0, 0, null); 
 			
 			//tell Swing that it is time to update
 			screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
