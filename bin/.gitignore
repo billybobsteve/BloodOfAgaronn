@@ -1,3 +1,6 @@
+/FullScreen.class
+/Main.class
+/Map.class
 /MovableSprite.class
 /NoRepaintsManager.class
 /Room.class
@@ -5,6 +8,3 @@
 /ScreenManager$1.class
 /ScreenManager.class
 /Sprite.class
-/FullScreen.class
-/Main.class
-/Map.class
