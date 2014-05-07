@@ -3,15 +3,21 @@ import java.util.ArrayList;
 
 
 public class Room extends Screen{
-	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-	public Room(){
-		
-	}
+	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	private Room parentRoom;
+	private ArrayList<Room> successors = new ArrayList<Room>();
+	ArrayList<Door> doors = new ArrayList<Door>(); 
+	Player player = new Player();
 	
+	
+	public Room(){
+	
+	}
+
 	public void addSprite(Sprite s){
 		sprites.add(s);
 	}
-	
+
 	public ArrayList<Sprite> getSprites(){
 		return sprites;
 	}
@@ -22,8 +28,28 @@ public class Room extends Screen{
 		}
 	}
 
-	public Screen successor(){
+	public Room backtrack(Room original, Room r){
+		if(r.parentRoom == original){
+			return r;
+		}
+		else{
+			return backtrack(original, r.parentRoom);
+		}
+
+	}
+
+
+	public ArrayList<Room> getSuccessors(){
+		return successors;
+	}
+	
+
+	@Override
+	public Room nextScreen() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

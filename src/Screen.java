@@ -6,5 +6,5 @@ public abstract class Screen{
 	}
 	
 	public abstract void draw(Graphics g);
-	public abstract Screen successor();
+	public abstract Screen nextScreen();
 }

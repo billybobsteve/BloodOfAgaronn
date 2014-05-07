@@ -5,7 +5,6 @@ public class Map {
 		numberOfRooms = n;
 		
 	}
-	
 	public Room generateRoom(){
 		return new Room();
 	}
