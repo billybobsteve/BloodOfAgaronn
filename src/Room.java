@@ -6,11 +6,16 @@ public class Room extends Screen{
 	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private Room parentRoom;
 	ArrayList<Door> doors = new ArrayList<Door>(); 
-	Player player = new Player();
+	Player player;
 	
 	
 	public Room(){
 	
+	}
+	
+	public Room(ArrayList<Door> d, Player p){
+		doors = d;
+		player = p;
 	}
 
 	public void addSprite(Sprite s){
@@ -40,7 +45,9 @@ public class Room extends Screen{
 
 	@Override
 	public Room nextScreen() {
-		
+		for(Door d : doors){
+			
+		}
 	}
 	
 	
