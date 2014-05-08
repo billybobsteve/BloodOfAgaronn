@@ -153,6 +153,28 @@ public class ScreenManager
 			return 0;
 		}
 	}
+	
+	public int getMidX() {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return window.getWidth()/2;
+		} else
+		{
+			return 0;
+		}
+	}
+	
+	public int getFirstThirdX() {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return window.getWidth()*(1/3);
+		} else
+		{
+			return 0;
+		}
+	}
 
 	public int getHeight()
 	{
@@ -166,6 +188,55 @@ public class ScreenManager
 		}
 	}
 
+	public int getMidY() {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return window.getHeight()/2;
+		} else
+		{
+			return 0;
+		}
+	}
+	
+	public int getFirstThirdY() {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return window.getHeight()*(1/3);
+		} else
+		{
+			return 0;
+		}
+	}
+	
+	public int getScaledCharHeight() {
+		//TODO
+		return 0;
+	}
+	
+	public int getFractionOfScreenX(double fraction) {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return (int) (window.getWidth()*fraction);
+		} else
+		{
+			return 0;
+		}
+	}
+	
+	public int getFractionOfScreenY(double fraction) {
+		Window window = device.getFullScreenWindow();
+		if (window != null)
+		{
+			return (int) (window.getHeight()*fraction);
+		} else
+		{
+			return 0;
+		}
+	}
+	
 	public void restoreScreen()
 	{
 		Window window = device.getFullScreenWindow();
