@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 public class MainMenu extends Screen {
 
 	Main main;
+	JButton start, options, quit;
 	
 	public MainMenu(Main m) {
 		main = m;
@@ -27,9 +28,15 @@ public class MainMenu extends Screen {
 	}
 
 	public void setUpComponents() {
-		components.add(new JButton("Start"));
-		components.add(new JButton("Options"));
-		components.add(new JButton("Quit"));
+		start = new JButton("Start");
+		start.addActionListener(main);
+		options = new JButton("Options");
+		options.addActionListener(main);
+		quit = new JButton("Quit");
+		quit.addActionListener(main);
+		components.add(start);
+		components.add(options);
+		components.add(quit);
 	}
 
 	@Override

@@ -46,8 +46,11 @@ public class Room extends Screen{
 	@Override
 	public Room nextScreen() {
 		for(Door d : doors){
-			
+			if(player.intersects(d)){
+				return d.linkingRoom;
+			}
 		}
+		return null;
 	}
 	
 	

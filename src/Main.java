@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -8,18 +10,18 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.plaf.basic.BasicBorders;
 
 
-public class Main implements Runnable {
+public class Main implements Runnable, ActionListener {
 
 	Screen currentScreen;
+	MainMenu menu = null;
 	ScreenManager screenManager;
 	boolean gameRunning = true;
 
 	public static void main(String[] args) {
-		Thread t = new Thread(new Main());
-		t.start();
+		Thread thread = new Thread(new Main());
+		thread.start();
 	}
 
 	public Main() {
@@ -30,9 +32,9 @@ public class Main implements Runnable {
 	public void run() {
 		NoRepaintsManager.setAsManager();
 
-		MainMenu menu = new MainMenu(this);
+		menu = new MainMenu(this);
 		currentScreen = menu;
-		
+
 		/*
 		///Make some Swing components
 		JLabel label = new JLabel("Welcome!", SwingConstants.CENTER);
@@ -87,8 +89,11 @@ public class Main implements Runnable {
 		screenManager.restoreScreen();
 	}
 
-	public void exitProgram() {
-		System.exit(0);
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource().equals(menu.quit)) {
+			gameRunning = false;
+			System.exit(0);
+		}
 	}
 
 }
