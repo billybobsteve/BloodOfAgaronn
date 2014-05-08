@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 public class Sprite {
 	protected int x, y, width, height;
 	protected BufferedImage image;
+	protected boolean hidden = false;
 	public Sprite(int x, int y, int width, int height, String fileName){
 		this.x = x;
 		this.y = y;
@@ -37,11 +38,22 @@ public class Sprite {
 	public BufferedImage getImage(){
 		return image;
 	}
+	public void setHidden(boolean h){
+		hidden = h;
+	}
 	public boolean intersects(Sprite s){
-		return new Rectangle(x,y,width,height).intersects(new Rectangle(s.x,s.y,s.width,s.height));
+		if(!hidden)
+			return new Rectangle(x,y,width,height).intersects(new Rectangle(s.x,s.y,s.width,s.height));
+		return false;
+	}
+	public boolean intersects(Rectangle r){
+		if(!hidden)
+			return new Rectangle(x,y,width,height).intersects(r);
+		return false;
 	}
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		g.drawImage(image, x, y, width, height, null);
+		if(!hidden)
+			g.drawImage(image, x, y, width, height, null);
 	}
 	
 }

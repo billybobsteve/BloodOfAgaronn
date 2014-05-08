@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class MovableSprite extends Sprite{
-	int xVelocity, yVelocity;
+	int xVelocity, yVelocity, health;
 	boolean jumpHeightReached = false;
 	public MovableSprite(int x, int y, int width, int height, String fileName){
 		super(x,y,width,height,fileName);
@@ -17,19 +17,30 @@ public class MovableSprite extends Sprite{
 		xVelocity = xvel;
 	}
 	
+	public int getHealth(){
+		return health;
+	}
+	
+	public void hurt(int h){
+		health-=h;
+	}
+	
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
 		int tempx = x;
 		int tempy = y;
 		x+=xVelocity;
 		y+=yVelocity;
 		for(Sprite sprite : sprites){
-			if(this.intersects(sprite)){
+			if(this.intersects(sprite) && !(sprite instanceof MovableSprite)){
 				x = tempx;
 				y = tempy;
 				xVelocity = 0;
 				yVelocity = 0;
 				super.draw(g, sprites);
 				return;
+			}
+			else if(this.intersects(sprite) && sprite instanceof Enemy && this instanceof Player){
+				health-=((Enemy)sprite).getDamage();
 			}
 		}
 		if(yVelocity!=0 && !jumpHeightReached){
