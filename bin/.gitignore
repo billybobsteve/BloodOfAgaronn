@@ -1,12 +1,3 @@
-/Door.class
-/FullScreen.class
-/Main.class
-/Map.class
-/MovableSprite.class
-/NoRepaintsManager.class
-/Player.class
-/Room.class
-/Screen.class
-/ScreenManager$1.class
-/ScreenManager.class
-/Sprite.class
+*
+
+!.gitignore
