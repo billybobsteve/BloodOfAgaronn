@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 
 public class Room extends Screen{
-	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	private ArrayList<Sprite> sprites;
 	private Room parentRoom;
-	ArrayList<Door> doors = new ArrayList<Door>(); 
+	ArrayList<Door> doors; 
 	Player player;
 	
 	
@@ -13,9 +13,11 @@ public class Room extends Screen{
 	
 	}
 	
-	public Room(ArrayList<Door> d, Player p){
+	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s){
 		doors = d;
 		player = p;
+		parentRoom = pr;
+		sprites = s;
 	}
 
 	public void addSprite(Sprite s){
@@ -33,15 +35,8 @@ public class Room extends Screen{
 	}
 
 	public Room backtrack(Room original, Room r){
-		if(r.parentRoom == original){
-			return r;
-		}
-		else{
-			return backtrack(original, r.parentRoom);
-		}
-
+		return parentRoom;
 	}
-	
 
 	@Override
 	public Room nextScreen() {
@@ -50,7 +45,7 @@ public class Room extends Screen{
 				return d.linkingRoom;
 			}
 		}
-		return null;
+		return this;
 	}
 	
 	
