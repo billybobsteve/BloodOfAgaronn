@@ -2,14 +2,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class MovableSprite extends Sprite{
-	int xVelocity, yVelocity, health;
+	protected int xVelocity, yVelocity, health, jumpVelocity;
 	boolean jumpHeightReached = false;
 	public MovableSprite(int x, int y, int width, int height, String fileName){
 		super(x,y,width,height,fileName);
+		jumpVelocity = 10;
 	}
 	
 	public void jump(){
-		yVelocity=10;
+		yVelocity=jumpVelocity;
 		jumpHeightReached = false;
 	}
 	
