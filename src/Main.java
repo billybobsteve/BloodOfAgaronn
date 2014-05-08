@@ -3,6 +3,8 @@ import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Main implements Runnable, ActionListener {
 	MainMenu menu = null;
 	ScreenManager screenManager;
 	boolean gameRunning = true;
+	ControllerListener cL;
 
 	public static void main(String[] args) {
 		Thread thread = new Thread(new Main());
@@ -27,6 +30,7 @@ public class Main implements Runnable, ActionListener {
 	public Main() {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
+		cL = new ControllerListener();
 	}
 
 	public void run() {
@@ -93,6 +97,9 @@ public class Main implements Runnable, ActionListener {
 		if (e.getSource().equals(menu.quit)) {
 			gameRunning = false;
 			System.exit(0);
+		}
+		else if (e.getSource().equals(menu.start)) {
+			currentScreen = currentScreen.nextScreen();
 		}
 	}
 
