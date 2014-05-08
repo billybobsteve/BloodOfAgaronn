@@ -50,7 +50,7 @@ public class Room extends Screen{
 				return d.linkingRoom;
 			}
 		}
-		return this;
+		return null;
 	}
 	
 	
