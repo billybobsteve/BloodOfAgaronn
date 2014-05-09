@@ -14,11 +14,21 @@ public class Player extends MovableSprite{
 		baseHealth = health;
 	}
 	
+	public void addItem(Item i){
+		inventory.add(i);
+	}
+	
+	public ArrayList<Item> getInventory(){
+		return inventory;
+	}
+	
 	public void setWeapon(Weapon w){
+		inventory.add(w);
 		weapon = w;
 	}
 	
 	public void setArmor(Armor a){
+		inventory.add(a);
 		armor = a;
 		health = baseHealth + armor.getStrength();
 	}
