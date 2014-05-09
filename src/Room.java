@@ -1,13 +1,11 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
 public class Room extends Screen{
 	private ArrayList<Sprite> sprites;
 	private Room parentRoom;
 	ArrayList<Door> doors; 
 	Player player;
-	
 	
 	public Room(){
 	
@@ -37,8 +35,11 @@ public class Room extends Screen{
 	public Room backtrack(Room original, Room r){
 		return parentRoom;
 	}
+	
+	public void setDoors(ArrayList<Door> list){
+		doors = list;
+	}
 
-	@Override
 	public Room nextScreen() {
 		for(Door d : doors){
 			if(player.intersects(d)){
@@ -48,6 +49,4 @@ public class Room extends Screen{
 		return this;
 	}
 	
-	
-
 }
