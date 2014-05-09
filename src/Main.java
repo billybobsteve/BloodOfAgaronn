@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -54,15 +54,16 @@ public class Main implements Runnable, ActionListener {
 		JFrame frame = screenManager.getFullScreenWindow();
 		Container content = frame.getContentPane();
 		((JComponent)content).setOpaque(false);
-		content.setLayout(new BorderLayout());
-
+		content.setLayout(new GridLayout(1, 1));
+		LayoutManager border = new BorderLayout();
+		//content.add(border);
 		while(gameRunning) {
 			//ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
 			components = currentScreen.getJComponentsToDraw();
 			for (JComponent c : components) {
 				//Add them to the window
-				content.add(c, BorderLayout.NORTH);
-				content.add(c, BorderLayout.NORTH);
+				//content.add(c, BorderLayout.SOUTH);
+				content.add(c);
 				//TODO Reduce flicker
 			}
 
