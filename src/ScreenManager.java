@@ -106,8 +106,8 @@ public class ScreenManager
 		{
 			// ignore
 		}
-		frame.setVisible(false);
-		frame.setVisible(true);
+		//frame.setVisible(false);
+		//frame.setVisible(true);
 	}
 
 	public Graphics2D getGraphics()
