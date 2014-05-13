@@ -17,11 +17,12 @@ public class Sprite {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		try {
-			image = ImageIO.read(new File(fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if(fileName != null)
+			try {
+				image = ImageIO.read(new File(fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	public int getX(){
 		return x;
@@ -52,8 +53,8 @@ public class Sprite {
 		return false;
 	}
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		if(!hidden)
+		if(!hidden && image != null)
 			g.drawImage(image, x, y, width, height, null);
 	}
-	
+
 }
