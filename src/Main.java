@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class Main implements Runnable, ActionListener {
@@ -54,17 +55,29 @@ public class Main implements Runnable, ActionListener {
 		JFrame frame = screenManager.getFullScreenWindow();
 		Container content = frame.getContentPane();
 		((JComponent)content).setOpaque(false);
-		content.setLayout(new GridLayout(1, 1));
-		LayoutManager border = new BorderLayout();
-		//content.add(border);
+		JPanel panel = new JPanel(new GridLayout(1,3));
+		content.setLayout(new BorderLayout());
+		content.add(panel,BorderLayout.SOUTH);
+		components = currentScreen.getJComponentsToDraw();
+		for (JComponent c : components) {
+			//Add them to the window
+			//content.add(c, BorderLayout.SOUTH);
+			panel.add(c);
+			//TODO Reduce flicker
+		}
 		while(gameRunning) {
-			//ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
-			components = currentScreen.getJComponentsToDraw();
-			for (JComponent c : components) {
-				//Add them to the window
-				//content.add(c, BorderLayout.SOUTH);
-				content.add(c);
-				//TODO Reduce flicker
+
+			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
+
+			if (!components.equals(componentsReplacement)) {
+				components = componentsReplacement;
+				panel = new JPanel(new GridLayout(1,3));
+				content.setLayout(new BorderLayout());
+				content.add(panel,BorderLayout.SOUTH);
+				components = currentScreen.getJComponentsToDraw();
+				for (JComponent c : components) {
+					panel.add(c);
+				}
 			}
 
 			frame.validate();
@@ -103,5 +116,10 @@ public class Main implements Runnable, ActionListener {
 			currentScreen = currentScreen.nextScreen();
 		}
 	}
+	
+	public void playSound() {
+		
+	}
+
 
 }
