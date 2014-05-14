@@ -22,6 +22,13 @@ public class Main implements Runnable, ActionListener {
 	ScreenManager screenManager;
 	boolean gameRunning = true;
 	ControllerListener cL;
+	
+	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
+	
+	public static final int DAMAGE_SOUND = 0;
+	public static final int MOVEMENT_SOUND = 1;
+	public static final int JUMP_SOUND = 2;
+	//TODO add more sounds
 
 	public static void main(String[] args) {
 		Thread thread = new Thread(new Main());
@@ -32,6 +39,7 @@ public class Main implements Runnable, ActionListener {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
 		cL = new ControllerListener();
+		//initializeSoundEngine();
 	}
 
 	public void run() {
@@ -107,6 +115,12 @@ public class Main implements Runnable, ActionListener {
 		screenManager.restoreScreen();
 	}
 
+	public void initializeSoundEngine() {
+		sfx.add(new SoundClip("path/to/damage/sound"));
+		sfx.add(new SoundClip("path/to/movement/sound"));
+		sfx.add(new SoundClip("path/to/jump/sound"));
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(menu.quit)) {
 			gameRunning = false;
@@ -117,8 +131,8 @@ public class Main implements Runnable, ActionListener {
 		}
 	}
 	
-	public void playSound() {
-		
+	public void playSound(int sound) {
+		sfx.get(sound).play();
 	}
 
 
