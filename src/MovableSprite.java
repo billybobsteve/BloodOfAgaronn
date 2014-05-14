@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 public class MovableSprite extends Sprite{
 	protected int xVelocity, yVelocity, health, jumpVelocity;
-	protected boolean jumpHeightReached = false;
-	public MovableSprite(int x, int y, int width, int height, String fileName){
+	protected boolean jumpHeightReached = false, jumping = false;
+	public MovableSprite(int x, int y, int width, int height, int health, String fileName){
 		super(x,y,width,height,fileName);
 		jumpVelocity = -10;
 	}
 
 	public void jump(){
-		yVelocity=jumpVelocity;
-		jumpHeightReached = false;
+		if(!jumping){
+			yVelocity=jumpVelocity;
+			jumpHeightReached = false;
+			jumping = true;
+		}
 	}
 
 	public void setXVelocity(int xvel){
@@ -55,6 +58,7 @@ public class MovableSprite extends Sprite{
 			yVelocity+=1;
 			if(yVelocity == 0){
 				jumpHeightReached = true;
+				jumping = false;
 			}
 		}
 		else if(yVelocity !=0){

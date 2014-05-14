@@ -7,8 +7,8 @@ public class Player extends MovableSprite{
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private boolean attacking = false;
 	private int baseHealth;
-	public Player(int x, int y, int width, int height, String fileName,Weapon weapon,Armor armor) {
-		super(x, y, width, height, fileName);
+	public Player(int x, int y, int width, int height, int health, String fileName, Weapon weapon, Armor armor) {
+		super(x, y, width, height, health, fileName);
 		this.weapon = weapon;
 		setArmor(armor);
 		baseHealth = health;
