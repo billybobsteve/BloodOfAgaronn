@@ -8,13 +8,15 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundClip {
-	File file;
-	Clip clip;
+	private File file;
+	private Clip clip;
+	private AudioInputStream inputStream;
 	public SoundClip(String filename){
 		file = new File(filename);
 		try {
 			clip = AudioSystem.getClip();
-		} catch (LineUnavailableException e) {
+			inputStream = AudioSystem.getAudioInputStream(file);
+		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		}
 	}
@@ -22,10 +24,9 @@ public class SoundClip {
 		new Thread(new Runnable(){
 			public void run(){
 				try {
-					AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 					clip.open(inputStream);
 					clip.start();
-				} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+				} catch (IOException | LineUnavailableException e) {
 					e.printStackTrace();
 				}
 			}
