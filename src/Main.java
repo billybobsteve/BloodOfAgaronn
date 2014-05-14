@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 public class Main implements Runnable, ActionListener {
 
 	Screen currentScreen;
+	SplashScreen splash = null;
 	MainMenu menu = null;
 	ScreenManager screenManager;
 	boolean gameRunning = true;
@@ -44,9 +45,10 @@ public class Main implements Runnable, ActionListener {
 
 	public void run() {
 		NoRepaintsManager.setAsManager();
-
+		
 		menu = new MainMenu(this);
-		currentScreen = menu;
+		splash = new SplashScreen(this);
+		currentScreen = splash;
 
 		/*
 		///Make some Swing components
@@ -92,14 +94,6 @@ public class Main implements Runnable, ActionListener {
 
 			Graphics2D g = screenManager.getGraphics();
 			currentScreen.draw(g);
-
-			BufferedImage image = null;
-
-			try {
-				image = ImageIO.read(new FileInputStream("splash_screen.png"));
-			} catch (Exception e) { e.printStackTrace(); }
-
-			g.drawImage(image, 0, 0, null); 
 
 			//tell Swing that it is time to update
 			screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
