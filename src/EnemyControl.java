@@ -11,7 +11,14 @@ public class EnemyControl {
 		this.enemySpeed = enemySpeed;
 	}
 	public void moveAll(){
-		for(Enemy e : list){
+		for(int i = 0;i<list.size();i++){
+			Enemy e = list.get(i);
+			if(e.getHealth() <= 0){
+				e.setHidden(true);
+				list.remove(i);
+				i--;
+				continue;
+			}
 			if(distance(player, e)<=activationDistance)
 				e.activate();
 			if(e.isActive()){
