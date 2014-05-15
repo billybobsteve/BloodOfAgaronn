@@ -23,6 +23,8 @@ public class Main implements Runnable, ActionListener {
 	ScreenManager screenManager;
 	boolean gameRunning = true;
 	ControllerListener cL;
+	Player pc;
+	Map currentMap;
 	
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 	
@@ -40,13 +42,13 @@ public class Main implements Runnable, ActionListener {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
 		cL = new ControllerListener();
-		//initializeSoundEngine();
+		initializeSoundEngine();
 	}
 
 	public void run() {
 		NoRepaintsManager.setAsManager();
 		
-		menu = new MainMenu(this);
+		//menu = new MainMenu(this);
 		splash = new SplashScreen(this);
 		currentScreen = splash;
 
@@ -71,9 +73,7 @@ public class Main implements Runnable, ActionListener {
 		components = currentScreen.getJComponentsToDraw();
 		for (JComponent c : components) {
 			//Add them to the window
-			//content.add(c, BorderLayout.SOUTH);
 			panel.add(c);
-			//TODO Reduce flicker
 		}
 		while(gameRunning) {
 
@@ -110,9 +110,10 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	public void initializeSoundEngine() {
-		sfx.add(new SoundClip("path/to/damage/sound"));
+		sfx.add(new SoundClip("sounds/whisper.wav"));
+		/*sfx.add(new SoundClip("path/to/damage/sound"));
 		sfx.add(new SoundClip("path/to/movement/sound"));
-		sfx.add(new SoundClip("path/to/jump/sound"));
+		sfx.add(new SoundClip("path/to/jump/sound")); */
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -121,6 +122,8 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
+			currentMap = new Map(null, null);
+			//fix initialization
 			currentScreen = currentScreen.nextScreen();
 		}
 	}

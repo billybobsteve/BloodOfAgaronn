@@ -27,8 +27,10 @@ public class SplashScreen extends Screen {
 	}
 
 	public Screen nextScreen() {
-		if (System.currentTimeMillis() - timeSinceStart > DELAY)
+		if (System.currentTimeMillis() - timeSinceStart > DELAY) {
+			main.menu = new MainMenu(main);
 			return main.menu;
+		}
 		return this;
 	}
 

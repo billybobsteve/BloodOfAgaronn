@@ -13,6 +13,7 @@ public class MainMenu extends Screen {
 	public MainMenu(Main m) {
 		main = m;
 		setUpComponents();
+		main.playSound(0);
 	}
 
 	public void draw(Graphics g) {
@@ -34,8 +35,8 @@ public class MainMenu extends Screen {
 	}
 
 	public Screen nextScreen() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
+		//return main.currentMap.getNextRoom();
 	}
 
 }
