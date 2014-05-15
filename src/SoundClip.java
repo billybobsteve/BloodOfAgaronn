@@ -16,6 +16,8 @@ public class SoundClip {
 		try {
 			clip = AudioSystem.getClip();
 			inputStream = AudioSystem.getAudioInputStream(file);
+			clip.open(inputStream);
+
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		}
@@ -23,12 +25,7 @@ public class SoundClip {
 	public void play(){
 		new Thread(new Runnable(){
 			public void run(){
-				try {
-					clip.open(inputStream);
-					clip.start();
-				} catch (IOException | LineUnavailableException e) {
-					e.printStackTrace();
-				}
+				clip.start();
 			}
 		}).start();
 	}
