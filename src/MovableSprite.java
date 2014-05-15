@@ -38,12 +38,10 @@ public class MovableSprite extends Sprite{
 		for(Sprite sprite : sprites){
 			if(this.intersects(sprite) && !(sprite instanceof MovableSprite)){
 				if(!(sprite.intersects(new Rectangle(x,y,this.width-xVelocity,this.height)))){
-					System.out.println("blargh");
 					x = tempx;
 					xVelocity = 0;
 				}
 				if(!(sprite.intersects(new Rectangle(x,y,this.width,this.height-yVelocity)))){
-					System.out.println("bleep");
 					y = tempy;
 					yVelocity = 1;
 				}
