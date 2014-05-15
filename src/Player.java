@@ -6,7 +6,7 @@ public class Player extends MovableSprite{
 	private Armor armor;
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private boolean attacking = false;
-	private int baseHealth;
+	private final int baseHealth;
 	public Player(int x, int y, int width, int height, int health, String fileName, Weapon weapon, Armor armor) {
 		super(x, y, width, height, health, fileName);
 		this.weapon = weapon;
@@ -34,7 +34,7 @@ public class Player extends MovableSprite{
 	}
 	
 	public void setXVelocity(int xvel){
-		xVelocity = xvel-armor.getWeight();
+		xVelocity = (Math.abs(xvel)-armor.getWeight())*(xvel/Math.abs(xvel));
 	}
 	
 	public void attack(){
