@@ -7,6 +7,7 @@ public class Player extends MovableSprite{
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private boolean attacking = false;
 	private final int baseHealth;
+	private long startTime;
 	public Player(int x, int y, int width, int height, int health, String fileName, Weapon weapon, Armor armor) {
 		super(x, y, width, height, health, fileName);
 		this.weapon = weapon;
@@ -39,6 +40,7 @@ public class Player extends MovableSprite{
 	
 	public void attack(){
 		attacking = true;
+		startTime = System.currentTimeMillis();
 	}
 	
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
@@ -48,6 +50,10 @@ public class Player extends MovableSprite{
 					((Enemy)sprite).hurt(weapon.getDamage());
 				}
 			}
+		}
+		if(startTime - System.currentTimeMillis() >= 500){
+			attacking = false;
+			startTime = 0;
 		}
 		super.draw(g, sprites);
 	}

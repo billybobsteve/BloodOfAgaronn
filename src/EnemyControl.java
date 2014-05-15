@@ -25,7 +25,7 @@ public class EnemyControl {
 				int dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
 				e.setXVelocity(enemySpeed * dir);
 			}
-			if((Math.random())<.0001){
+			if(Math.random()<.0001){
 				e.jump();
 			}
 		}
