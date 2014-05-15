@@ -6,6 +6,7 @@ public class Room extends Screen{
 	private Room parentRoom;
 	ArrayList<Door> doors; 
 	Player player;
+//	EnemyControl ec = new EnemyControl();
 	
 	public Room(){
 	

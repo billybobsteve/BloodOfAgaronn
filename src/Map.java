@@ -5,9 +5,12 @@ public class Map {
 	static Player player;
 	static Room startingRoom;
 	static int counter = 0;
+	Room currRoom;
+	ScreenManager manager = new ScreenManager();
 	public Map(Player p, Room original){
 		player = p;
 		startingRoom = original;
+		currRoom = startingRoom;
 	}
 
 	public static Room generateMap(Room original, int n){
@@ -22,6 +25,10 @@ public class Map {
 			Room f = new Room(null, player, r,null);
 			counter++;
 		}
+	}
+	
+	public Room getNextRoom(){
+		return currRoom.nextScreen();
 	}
 
 	public static void main(String[] args){
