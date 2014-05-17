@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Map {
 
-	int counter = 0;
 	Room currRoom;
 	ScreenManager manager = new ScreenManager();
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
@@ -13,7 +12,7 @@ public class Map {
 	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-	Room startingRoom = new Room(null,player,null,sprites,ec );
+	Room startingRoom = new Room(null,player,null,sprites,ec);
 	public Map(){
 		currRoom = startingRoom;
 		doors.add(new Door(100,200,100,100,null, null));
@@ -27,24 +26,32 @@ public class Map {
 		if(n>10)
 			return;
 		generateNextLevel(original);
-		generateMap(original.doors.get(1).linkingRoom, n+1);
-		generateMap(original.doors.get(2).linkingRoom, n+1);
+		generateMap(original.doors.get(1).getLinkingRoom(), n+1);
+		generateMap(original.doors.get(2).getLinkingRoom(), n+1);
 	}
 
 	public void generateNextLevel(Room r){
 		for(Door d : r.doors){
 			ArrayList<Door> doors = new ArrayList<Door>();
+			Room f = new Room(doors, player, r,null, new EnemyControl(null, player, manager.getFractionOfScreenX(.2),manager.getFractionOfScreenX(.01)));
 			doors.add(d);
 			doors.add(new Door(100,200,100,100,null, null));
 			doors.add(new Door(400,400,100,100,null, null));
-			Room f = new Room(doors, player, r,null, new EnemyControl(null, player, manager.getFractionOfScreenX(.2),manager.getFractionOfScreenX(.01)));
-			counter++;
 		}
 	}
 
 	public Room getNextRoom(){
 		return currRoom.nextScreen();
 	}
+	
+	public void setCurrRoom(Room r){
+		currRoom = r;
+	}
+	
+	public Player getPlayer(){
+		return player;
+	}
+	
 	/*
 	public static void main(String[] args){
 		ArrayList<Door> doors = new ArrayList<Door>();
