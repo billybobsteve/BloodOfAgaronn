@@ -18,11 +18,12 @@ public class Map {
 		doors.add(new Door(100,200,100,100,null, null));
 		doors.add(new Door(400,400,100,100,null, null));
 		startingRoom.setDoors(doors);
+		generateMap(startingRoom, 0);
 	}
 
 	public Room generateMap(Room original, int n){
 		if(n>10)
-			return original;
+			return null;
 		generateNextLevel(original);
 		return generateMap(original, n+1);
 	}
