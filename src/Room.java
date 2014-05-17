@@ -6,17 +6,18 @@ public class Room extends Screen{
 	private Room parentRoom;
 	ArrayList<Door> doors; 
 	Player player;
-//	EnemyControl ec = new EnemyControl();
+	EnemyControl ec;
 	
 	public Room(){
 	
 	}
 	
-	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s){
+	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c){
 		doors = d;
 		player = p;
 		parentRoom = pr;
 		sprites = s;
+		ec = c;
 	}
 
 	public void addSprite(Sprite s){

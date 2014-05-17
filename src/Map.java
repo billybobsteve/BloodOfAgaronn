@@ -1,36 +1,41 @@
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
 public class Map {
-	static Player player;
-	static Room startingRoom;
-	static int counter = 0;
+	
+	int counter = 0;
 	Room currRoom;
 	ScreenManager manager = new ScreenManager();
-	public Map(Player p, Room original){
-		player = p;
+	Weapon defaultWeapon = new Weapon(5,0,30,60,null,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
+	Armor defaultArmor = new Armor(0,0,100,100,null,null,20,1);
+	Player player = new Player(0,0,100,100, 100,null, defaultWeapon,defaultArmor);
+	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
+	Room startingRoom = new Room(null,null,null,null,ec );
+	
+	public Map(Room original){
 		startingRoom = original;
 		currRoom = startingRoom;
 	}
 
-	public static Room generateMap(Room original, int n){
+	public Room generateMap(Room original, int n){
 		if(n>10)
 			return original;
 		generateNextLevel(original);
 		return generateMap(original, n+1);
 	}
 
-	public static void generateNextLevel(Room r){
+	public void generateNextLevel(Room r){
 		for(Door d : r.doors){
-			Room f = new Room(null, player, r,null);
+		//	Room f = new Room(null, player, r,null, new EnemyControl());
 			counter++;
 		}
 	}
-	
+
 	public Room getNextRoom(){
 		return currRoom.nextScreen();
 	}
-
+	/*
 	public static void main(String[] args){
 		ArrayList<Door> doors = new ArrayList<Door>();
 		Room original = new Room(null, null, null, null);
@@ -42,7 +47,7 @@ public class Map {
 		System.out.println(counter);
 
 	}
-
+	 */
 
 
 }
