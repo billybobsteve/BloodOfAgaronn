@@ -7,17 +7,18 @@ public class Map {
 	int counter = 0;
 	Room currRoom;
 	ScreenManager manager = new ScreenManager();
-	Weapon defaultWeapon = new Weapon(5,0,30,60,null,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
-	Armor defaultArmor = new Armor(0,0,100,100,null,null,20,1);
+	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
+	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
 	Player player = new Player(0,0,100,100, 100,null, defaultWeapon,defaultArmor);
 	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 	ArrayList<Door> doors = new ArrayList<Door>(); 
-	
-	Room startingRoom = new Room(null,player,null,null,ec );
+	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	Room startingRoom = new Room(null,player,null,sprites,ec );
 	public Map(){
 		currRoom = startingRoom;
 		doors.add(new Door(100,200,100,100,null, null));
 		doors.add(new Door(400,400,100,100,null, null));
+		startingRoom.addSprite(new Sprite(0,0,manager.getWidth(),manager.getHeight(),"BasedCutman.png"));
 		startingRoom.setDoors(doors);
 		generateMap(startingRoom, 0);
 	}
