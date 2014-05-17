@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Room extends Screen{
-	private ArrayList<Sprite> sprites;
+	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private Room parentRoom;
 	ArrayList<Door> doors; 
 	Player player;
