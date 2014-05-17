@@ -31,6 +31,11 @@ public class Main implements Runnable, ActionListener {
 	public static final int MOVEMENT_SOUND = 2;
 	public static final int JUMP_SOUND = 3;
 	//TODO add more sounds
+	
+	public static final int MOVE_LEFT = -1;
+	public static final int MOVE_RIGHT = 1;
+	public static final int JUMP = 0;
+
 
 	public static void main(String[] args) {
 		Thread thread = new Thread(new Main());
@@ -132,5 +137,16 @@ public class Main implements Runnable, ActionListener {
 		sfx.get(sound).play();
 	}
 
+	public void movePlayer(int i) {
+		if (i == MOVE_RIGHT) {
+			//TODO set X velocity
+		}
+		else if (i == MOVE_LEFT) {
+			//TODO set X velocity
+		}
+		else if (i == JUMP) {
+			//TODO jump
+		}
+	}
 
 }
