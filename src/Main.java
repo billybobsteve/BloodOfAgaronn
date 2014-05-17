@@ -2,17 +2,15 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+
 
 
 public class Main implements Runnable, ActionListener {
@@ -28,9 +26,10 @@ public class Main implements Runnable, ActionListener {
 	
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 	
-	public static final int DAMAGE_SOUND = 0;
-	public static final int MOVEMENT_SOUND = 1;
-	public static final int JUMP_SOUND = 2;
+	public static final int MENU_MUSIC = 0;
+	public static final int DAMAGE_SOUND = 1;
+	public static final int MOVEMENT_SOUND = 2;
+	public static final int JUMP_SOUND = 3;
 	//TODO add more sounds
 
 	public static void main(String[] args) {
@@ -122,7 +121,7 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			currentMap = new Map(null, null);
+			currentMap = new Map();
 			//fix initialization
 			currentScreen = currentScreen.nextScreen();
 		}
