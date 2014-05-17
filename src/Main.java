@@ -62,6 +62,8 @@ public class Main implements Runnable, ActionListener {
 		button.setBorder(null);
 		button.setToolTipText("This is helpful!"); */
 
+		currentMap = new Map();
+		
 		ArrayList<JComponent> components = null;
 		JFrame frame = screenManager.getFullScreenWindow();
 		Container content = frame.getContentPane();
@@ -107,7 +109,7 @@ public class Main implements Runnable, ActionListener {
 		}
 		screenManager.restoreScreen();
 	}
-
+	
 	public void initializeSoundEngine() {
 		sfx.add(new SoundClip("sounds/whisper.wav"));
 		/*sfx.add(new SoundClip("path/to/damage/sound"));
@@ -121,7 +123,6 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			currentMap = new Map();
 			//fix initialization
 			currentScreen = currentScreen.nextScreen();
 		}
