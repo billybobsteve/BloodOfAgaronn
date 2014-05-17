@@ -12,6 +12,7 @@ public class Map {
 	Player player = new Player(0,0,100,100, 100,null, defaultWeapon,defaultArmor);
 	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 	ArrayList<Door> doors = new ArrayList<Door>(); 
+	
 	Room startingRoom = new Room(null,player,null,null,ec );
 	public Map(){
 		currRoom = startingRoom;
@@ -21,11 +22,12 @@ public class Map {
 		generateMap(startingRoom, 0);
 	}
 
-	public Room generateMap(Room original, int n){
+	public void generateMap(Room original, int n){
 		if(n>10)
-			return null;
+			return;
 		generateNextLevel(original);
-		return generateMap(original, n+1);
+		generateMap(original.doors.get(1).linkingRoom, n+1);
+		generateMap(original.doors.get(2).linkingRoom, n+1);
 	}
 
 	public void generateNextLevel(Room r){
