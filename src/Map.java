@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class Map {
-	
+
 	int counter = 0;
 	Room currRoom;
 	ScreenManager manager = new ScreenManager();
@@ -11,11 +11,13 @@ public class Map {
 	Armor defaultArmor = new Armor(0,0,100,100,null,null,20,1);
 	Player player = new Player(0,0,100,100, 100,null, defaultWeapon,defaultArmor);
 	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
-	Room startingRoom = new Room(null,null,null,null,ec );
-	
-	public Map(Room original){
-		startingRoom = original;
+	ArrayList<Door> doors = new ArrayList<Door>(); 
+	Room startingRoom = new Room(null,player,null,null,ec );
+	public Map(){
 		currRoom = startingRoom;
+		doors.add(new Door(100,200,100,100,null, null));
+		doors.add(new Door(400,400,100,100,null, null));
+		startingRoom.setDoors(doors);
 	}
 
 	public Room generateMap(Room original, int n){
@@ -27,7 +29,11 @@ public class Map {
 
 	public void generateNextLevel(Room r){
 		for(Door d : r.doors){
-		//	Room f = new Room(null, player, r,null, new EnemyControl());
+			ArrayList<Door> doors = new ArrayList<Door>();
+			doors.add(d);
+			doors.add(new Door(100,200,100,100,null, null));
+			doors.add(new Door(400,400,100,100,null, null));
+			Room f = new Room(doors, player, r,null, new EnemyControl(null, player, manager.getFractionOfScreenX(.2),manager.getFractionOfScreenX(.01)));
 			counter++;
 		}
 	}

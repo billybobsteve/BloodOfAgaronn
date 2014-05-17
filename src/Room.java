@@ -45,7 +45,9 @@ public class Room extends Screen{
 	public Room nextScreen() {
 		for(Door d : doors){
 			if(player.intersects(d)){
-				return d.linkingRoom;
+				Room temp = d.linkingRoom;
+				d.linkingRoom = this;
+				return temp;
 			}
 		}
 		return this;
