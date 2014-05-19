@@ -26,6 +26,7 @@ public class Map {
 		if(n>10)
 			return;
 		generateNextLevel(original);
+		
 		generateMap(original.doors.get(1).getLinkingRoom(), n+1);
 		generateMap(original.doors.get(2).getLinkingRoom(), n+1);
 	}
@@ -33,7 +34,8 @@ public class Map {
 	public void generateNextLevel(Room r){
 		for(Door d : r.doors){
 			ArrayList<Door> doors = new ArrayList<Door>();
-			Room f = new Room(doors, player, r,null, new EnemyControl(null, player, manager.getFractionOfScreenX(.2),manager.getFractionOfScreenX(.01)));
+			Room f = new Room(doors, player, r, null, new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01)));
+			d.setLinkingRoom(f);
 			doors.add(d);
 			doors.add(new Door(100,200,100,100,null, null));
 			doors.add(new Door(400,400,100,100,null, null));
