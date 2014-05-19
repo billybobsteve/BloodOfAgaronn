@@ -30,6 +30,10 @@ public class EnemyControl {
 			}
 		}
 	}
+	
+	public void setList(ArrayList<Enemy> enemies){
+		list = enemies;
+	}
 	private int distance(MovableSprite m1, MovableSprite m2){
 		return (int)Math.sqrt(Math.pow(m1.getX()-m2.getX(),2)+Math.pow(m1.getY()-m2.getY(),2));
 	}

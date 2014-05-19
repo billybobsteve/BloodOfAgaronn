@@ -8,6 +8,7 @@ public class Room extends Screen{
 	Player player;
 	EnemyControl ec;
 	
+	
 	public Room(){
 	
 	}
@@ -18,6 +19,15 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
+		ec.setList(generateEnemies(10));
+	}
+	
+	public ArrayList<Enemy> generateEnemies(int n){
+		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+		for(int i = 0; i<n; i++){
+			enemies.add(new Enemy(1,1,100,100,50,null,20));
+		}
+		return enemies;
 	}
 
 	public void addSprite(Sprite s){
