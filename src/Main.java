@@ -5,11 +5,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 
 
 
@@ -20,9 +20,11 @@ public class Main implements Runnable, ActionListener {
 	MainMenu menu = null;
 	ScreenManager screenManager;
 	boolean gameRunning = true;
-	ControllerListener cL;
+	Thread init;
+	ControllerLiason cL;
 	Player pc;
 	Map currentMap;
+	static Thread thread;
 	
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 	
@@ -38,15 +40,45 @@ public class Main implements Runnable, ActionListener {
 
 
 	public static void main(String[] args) {
-		Thread thread = new Thread(new Main());
+		thread = new Thread(new Main());
 		thread.start();
 	}
 
 	public Main() {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
-		cL = new ControllerListener();
-		initializeSoundEngine();
+		init = new Thread() {
+			public void run() {
+				initializeSoundEngine();
+				initializeController();
+			}
+		};
+		init.start(); 
+	}
+	
+	public void initializeController() {
+		cL = new ControllerLiason();
+		if(cL.initialize()) {
+			Scanner in = new Scanner(System.in);
+			String input = "";
+			while(!input.equals("Q"))
+			{
+				input = in.nextLine();
+				
+				for(int i = 0; i < input.length(); i++)
+				{
+					if(input.charAt(i) == ' ')
+						cL.wait(400);
+					else
+						cL.sendData("" + input.charAt(i));
+				}
+				
+				cL.wait(200);
+			}
+			in.close();
+			cL.close();
+		}
+		System.out.println("Done.");
 	}
 
 	public void run() {
@@ -55,6 +87,8 @@ public class Main implements Runnable, ActionListener {
 		//menu = new MainMenu(this);
 		splash = new SplashScreen(this);
 		currentScreen = splash;
+		
+		currentMap = new Map();
 
 		/*
 		///Make some Swing components
@@ -66,8 +100,6 @@ public class Main implements Runnable, ActionListener {
 		//button.addActionListener();
 		button.setBorder(null);
 		button.setToolTipText("This is helpful!"); */
-
-		currentMap = new Map();
 		
 		ArrayList<JComponent> components = null;
 		JFrame frame = screenManager.getFullScreenWindow();
