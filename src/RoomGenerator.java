@@ -7,7 +7,7 @@ public class RoomGenerator {
 		sprites.addAll(ec.getEnemies());
 		sprites.add(player);
 		for(int i = 0;i<sm.getWidth();i+=256){
-			sprites.add(new Sprite(i,48,256,48,floorName));
+			sprites.add(new Sprite(i,sm.getHeight()-48,256,48,floorName));
 		}
 		return new Room(doors, player, previous, sprites, ec);
 	}
