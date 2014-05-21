@@ -25,15 +25,15 @@ public class Main implements Runnable, ActionListener {
 	Player pc;
 	Map currentMap;
 	static Thread thread;
-	
+
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
-	
+
 	public static final int MENU_MUSIC = 0;
 	public static final int DAMAGE_SOUND = 1;
 	public static final int MOVEMENT_SOUND = 2;
 	public static final int JUMP_SOUND = 3;
 	//TODO add more sounds
-	
+
 	public static final int MOVE_LEFT = -1;
 	public static final int MOVE_RIGHT = 1;
 	public static final int JUMP = 0;
@@ -55,7 +55,7 @@ public class Main implements Runnable, ActionListener {
 		};
 		init.start(); 
 	}
-	
+
 	public void initializeController() {
 		cL = new ControllerLiason();
 		if(cL.initialize()) {
@@ -64,7 +64,7 @@ public class Main implements Runnable, ActionListener {
 			while(!input.equals("Q"))
 			{
 				input = in.nextLine();
-				
+
 				for(int i = 0; i < input.length(); i++)
 				{
 					if(input.charAt(i) == ' ')
@@ -72,7 +72,7 @@ public class Main implements Runnable, ActionListener {
 					else
 						cL.sendData("" + input.charAt(i));
 				}
-				
+
 				cL.wait(200);
 			}
 			in.close();
@@ -83,12 +83,10 @@ public class Main implements Runnable, ActionListener {
 
 	public void run() {
 		NoRepaintsManager.setAsManager();
-		
+
 		//menu = new MainMenu(this);
 		splash = new SplashScreen(this);
 		currentScreen = splash;
-		
-		currentMap = new Map();
 
 		/*
 		///Make some Swing components
@@ -100,7 +98,7 @@ public class Main implements Runnable, ActionListener {
 		//button.addActionListener();
 		button.setBorder(null);
 		button.setToolTipText("This is helpful!"); */
-		
+
 		ArrayList<JComponent> components = null;
 		JFrame frame = screenManager.getFullScreenWindow();
 		Container content = frame.getContentPane();
@@ -146,25 +144,24 @@ public class Main implements Runnable, ActionListener {
 		}
 		screenManager.restoreScreen();
 	}
-	
+
 	public void initializeSoundEngine() {
 		sfx.add(new SoundClip("sounds/whisper.wav"));
 		/*sfx.add(new SoundClip("path/to/damage/sound"));
 		sfx.add(new SoundClip("path/to/movement/sound"));
 		sfx.add(new SoundClip("path/to/jump/sound")); */
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(menu.quit)) {
 			gameRunning = false;
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			//fix initialization
-			currentScreen = currentScreen.nextScreen();
+			currentMap = new Map();
 		}
 	}
-	
+
 	public void playSound(int sound) {
 		sfx.get(sound).play();
 	}

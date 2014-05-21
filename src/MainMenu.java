@@ -9,7 +9,7 @@ public class MainMenu extends Screen {
 
 	Main main;
 	JButton start, options, quit;
-	
+
 	public MainMenu(Main m) {
 		main = m;
 		setUpComponents();
@@ -35,7 +35,9 @@ public class MainMenu extends Screen {
 	}
 
 	public Screen nextScreen() {
-		return main.currentMap.getNextRoom();
+		if (main.currentMap != null)
+			return main.currentMap.getNextRoom();
+		return this;
 	}
 
 }
