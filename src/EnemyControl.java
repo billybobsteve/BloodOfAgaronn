@@ -10,6 +10,9 @@ public class EnemyControl {
 		this.activationDistance = activationDistance;
 		this.enemySpeed = enemySpeed;
 	}
+	public ArrayList<Enemy> getEnemies(){
+		return list;
+	}
 	public void moveAll(){
 		for(int i = 0;i<list.size();i++){
 			Enemy e = list.get(i);
