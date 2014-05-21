@@ -16,7 +16,4 @@ public class Door extends Sprite {
 		linkingRoom = r;
 	}
 	
-	
-	
-
 }
