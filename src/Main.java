@@ -44,6 +44,8 @@ public class Main implements Runnable, ActionListener {
 		thread.start();
 	}
 
+	//TODO Update components
+	
 	public Main() {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
