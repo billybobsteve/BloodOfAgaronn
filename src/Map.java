@@ -12,14 +12,14 @@ public class Map {
 	EnemyControl ec = new EnemyControl(null, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-	Room startingRoom = new Room(null,player,null,sprites,ec);
+	Room startingRoom;
 	public Map(){
-		currRoom = startingRoom;
 		doors.add(new Door(100,200,100,100,null, null));
 		doors.add(new Door(400,400,100,100,null, null));
-		startingRoom.addSprite(new Sprite(0,0,manager.getWidth(),manager.getHeight(),"BasedCutman.png"));
+		startingRoom = RoomGenerator.getRandomRoom(doors, player, null, ec ,manager);
 		startingRoom.setDoors(doors);
 		generateMap(startingRoom, 0);
+		currRoom = startingRoom;
 	}
 
 	public void generateMap(Room original, int n){
@@ -27,7 +27,7 @@ public class Map {
 			return;
 		generateNextLevel(original);
 		for(int i = 0; i<original.doors.size(); i++){
-			if(original.doors.get(i).getLinkingRoom() != original)
+			//if(original.doors.get(i).getLinkingRoom() != original)
 				generateMap(original.doors.get(i).getLinkingRoom(), n+1);
 		}
 	}
