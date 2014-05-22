@@ -114,9 +114,8 @@ public class Main implements Runnable, ActionListener {
 			panel.add(c);
 		}
 		while(gameRunning) {
-
+			//?
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
-
 			if (!components.equals(componentsReplacement)) {
 				components = componentsReplacement;
 				panel = new JPanel(new GridLayout(1,3));
@@ -124,9 +123,11 @@ public class Main implements Runnable, ActionListener {
 				content.add(panel,BorderLayout.SOUTH);
 				components = currentScreen.getJComponentsToDraw();
 				for (JComponent c : components) {
-					panel.add(c);
+					if(!(currentScreen instanceof Room))
+						panel.add(c);
 				}
 			}
+			
 
 			frame.validate();
 

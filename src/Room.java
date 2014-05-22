@@ -1,9 +1,11 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Room extends Screen{
 	private ArrayList<Sprite> sprites;
 	private Room parentRoom;
+	private ScreenManager manager;
 	ArrayList<Door> doors; 
 	Player player;
 	EnemyControl ec;
@@ -13,13 +15,14 @@ public class Room extends Screen{
 	
 	}
 	
-	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c){
+	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
 		doors = d;
 		player = p;
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
 		ec.setList(generateEnemies(10));
+		this.manager = manager;
 	}
 	
 	public ArrayList<Enemy> generateEnemies(int n){
@@ -39,6 +42,8 @@ public class Room extends Screen{
 	}
 
 	public void draw(Graphics g){
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
 		for(Sprite sprite : sprites){
 			sprite.draw(g,sprites);
 		}
