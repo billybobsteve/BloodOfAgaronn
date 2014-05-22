@@ -122,9 +122,8 @@ public class Main implements Runnable, ActionListener {
 				content.setLayout(new BorderLayout());
 				content.add(panel,BorderLayout.SOUTH);
 				components = currentScreen.getJComponentsToDraw();
-				for (JComponent c : components) {
-					if(!(currentScreen instanceof Room))
-						panel.add(c);
+				for (JComponent c : components) {	
+					panel.add(c);
 				}
 			}
 			
@@ -135,7 +134,8 @@ public class Main implements Runnable, ActionListener {
 			currentScreen.draw(g);
 
 			//tell Swing that it is time to update
-			screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
+			if(currentScreen instanceof MainMenu)
+				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
 
 			g.dispose();
 			screenManager.update();
