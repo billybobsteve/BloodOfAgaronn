@@ -9,7 +9,8 @@ public class Map {
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
 	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
 	Player player = new Player(0,0,100,100, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
-	EnemyControl ec = new EnemyControl(new ArrayList<Enemy>(), player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	Room startingRoom;
@@ -21,6 +22,7 @@ public class Map {
 		
 		generateMap(startingRoom, 0);
 		currRoom = startingRoom;
+		enemies.add(new Enemy(100,100,100,100,30,"DudeBroDude.png",10));
 	}
 
 	public void generateMap(Room original, int n){

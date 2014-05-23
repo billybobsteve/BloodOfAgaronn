@@ -21,14 +21,15 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
-		ec.setList(generateEnemies(10));
+		ec.setList(generateEnemies(3));
+		sprites.addAll(ec.getEnemies());
 		this.manager = manager;
 	}
 	
 	public ArrayList<Enemy> generateEnemies(int n){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<n; i++){
-			enemies.add(new Enemy(1,1,100,100,50,null,20));
+			enemies.add(new Enemy((200*i)+100,100,100,150,50,"DudeBroMan.png",20));
 		}
 		return enemies;
 	}
@@ -44,6 +45,7 @@ public class Room extends Screen{
 	public void draw(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
+		ec.moveAll();
 		for(Sprite sprite : sprites){
 			sprite.draw(g,sprites);
 		}
