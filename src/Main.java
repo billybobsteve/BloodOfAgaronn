@@ -7,9 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 
 
@@ -25,6 +28,9 @@ public class Main implements Runnable, ActionListener {
 	Player pc;
 	Map currentMap;
 	static Thread thread;
+	JFrame frame;
+	Container content;
+	JPanel panel;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
@@ -45,7 +51,7 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	//TODO Update components
-	
+
 	public Main() {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
@@ -58,8 +64,27 @@ public class Main implements Runnable, ActionListener {
 		init.start(); 
 	}
 
+	public void initializeKeyboardController() {
+		Action right = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		        
+		    }
+		};
+		panel.getInputMap().put(KeyStroke.getKeyStroke(37, java.awt.event.InputEvent.SHIFT_DOWN_MASK, false));
+		System.out.println(arg0.getKeyCode());
+		// TODO Auto-generated method stub
+		if (arg0.getKeyCode() == 37)
+			this.movePlayer(this.MOVE_LEFT);
+		else if (arg0.getKeyCode() == 39)
+			this.movePlayer(this.MOVE_RIGHT);
+		else if (arg0.getKeyCode() == 38)
+			this.movePlayer(this.JUMP);
+		//TODO CROUCH
+
+	}
+
 	public void initializeController() {
-		cL = new ControllerLiason();
+		cL = new ControllerLiason(this);
 		if(cL.initialize()) {
 			Scanner in = new Scanner(System.in);
 			String input = "";
@@ -102,19 +127,22 @@ public class Main implements Runnable, ActionListener {
 		button.setToolTipText("This is helpful!"); */
 
 		ArrayList<JComponent> components = null;
-		JFrame frame = screenManager.getFullScreenWindow();
-		Container content = frame.getContentPane();
+		frame = screenManager.getFullScreenWindow();
+
+		content = frame.getContentPane();
 		((JComponent)content).setOpaque(false);
-		JPanel panel = new JPanel(new GridLayout(1,3));
+		panel = new JPanel(new GridLayout(1,3));
+
 		content.setLayout(new BorderLayout());
 		content.add(panel,BorderLayout.SOUTH);
+
+
 		components = currentScreen.getJComponentsToDraw();
 		for (JComponent c : components) {
 			//Add them to the window
 			panel.add(c);
 		}
 		while(gameRunning) {
-			//?
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
 			if (!components.equals(componentsReplacement)) {
 				components = componentsReplacement;
@@ -126,7 +154,7 @@ public class Main implements Runnable, ActionListener {
 					panel.add(c);
 				}
 			}
-			
+
 
 			frame.validate();
 
@@ -134,7 +162,7 @@ public class Main implements Runnable, ActionListener {
 			currentScreen.draw(g);
 
 			//tell Swing that it is time to update
-			if(currentScreen instanceof MainMenu)
+			if(currentScreen == menu)
 				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
 
 			g.dispose();
@@ -170,15 +198,22 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	public void movePlayer(int i) {
-		if (i == MOVE_RIGHT) {
-			//TODO set X velocity
+		if (currentScreen == this.menu) {
+			//BUTTONS
 		}
-		else if (i == MOVE_LEFT) {
-			//TODO set X velocity
-		}
-		else if (i == JUMP) {
-			//TODO jump
-		}
+		else 
+			if (i == MOVE_RIGHT) {
+				//TODO set X velocity
+				currentMap.player.setXVelocity(5);
+			}
+			else if (i == MOVE_LEFT) {
+				//TODO set X velocity
+				currentMap.player.setXVelocity(-5);
+			}
+			else if (i == JUMP) {
+				currentMap.player.jump();
+			}
 	}
+
 
 }

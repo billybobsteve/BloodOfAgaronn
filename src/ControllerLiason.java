@@ -16,21 +16,23 @@ import java.util.Scanner;
 import arduino_interface.ArduinoTest2;
 
 
-public class ControllerLiason implements KeyListener, SerialPortEventListener {
+public class ControllerLiason implements SerialPortEventListener {
 
 	BufferedReader input;
 	OutputStream output;
 	SerialPort serialPort = null;
 	String programName, portName = "/dev/tty.usbmodem";
+	Main main;
 
 	final int DATA_RATE = 9600;
 
-	public ControllerLiason() {
+	public ControllerLiason(Main m) {
 		programName = getClass().getName();
+		main = m;
 	}
 
 	public boolean initialize() {
-		
+
 		CommPortIdentifier portID = null;
 		Enumeration ports = CommPortIdentifier.getPortIdentifiers();
 		System.out.println("Trying ports:");
@@ -78,14 +80,14 @@ public class ControllerLiason implements KeyListener, SerialPortEventListener {
 			System.out.println(e);
 		}
 	}
-	
+
 	public synchronized void close() {
 		if(serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
 		}
 	}
-	
+
 
 	public void serialEvent(SerialPortEvent event) {
 		try {
@@ -98,30 +100,11 @@ public class ControllerLiason implements KeyListener, SerialPortEventListener {
 		}
 		catch(Exception e) { System.out.println(e); }
 	}
-	
+
 	public void wait(int delay) {
 		try {
 			Thread.sleep(delay);
 		}
 		catch(Exception e) { System.out.println(e); }
 	}
-	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
