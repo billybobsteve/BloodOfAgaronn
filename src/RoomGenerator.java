@@ -5,9 +5,22 @@ public class RoomGenerator {
 	public static Room getRandomRoom(ArrayList<Door> doors, Player player, Room previous, EnemyControl ec, ScreenManager sm){
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		sprites.addAll(ec.getEnemies());
+		sprites.addAll(doors);
 		sprites.add(player);
 		for(int i = 0;i<sm.getWidth();i+=256){
-			sprites.add(new Sprite(i,sm.getHeight()-48,256,48,floorName));
+			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
+		}
+		return new Room(doors, player, previous, sprites, ec, sm);
+	}
+	public static Room getStartingRoom(ArrayList<Door> doors, Player player, Room previous, EnemyControl ec, ScreenManager sm){
+		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+		sprites.addAll(ec.getEnemies());
+		sprites.addAll(doors);
+		sprites.add(new Sprite(200,200,300,100,"BasedCutman.png"));
+		
+		sprites.add(player);
+		for(int i = 0;i<sm.getWidth();i+=256){
+			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 		}
 		return new Room(doors, player, previous, sprites, ec, sm);
 	}

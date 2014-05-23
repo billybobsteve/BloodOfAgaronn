@@ -29,7 +29,7 @@ public class Room extends Screen{
 	public ArrayList<Enemy> generateEnemies(int n){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<n; i++){
-			enemies.add(new Enemy((200*i)+100,100,100,150,50,"DudeBroMan.png",20));
+			enemies.add(new Enemy((200*i)+100,100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		}
 		return enemies;
 	}

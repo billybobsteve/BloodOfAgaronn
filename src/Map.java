@@ -4,6 +4,15 @@ import java.util.ArrayList;
 
 public class Map {
 
+	public static final int FLOOR_HEIGHT = 49;
+	public static final int FLOOR_WIDTH = 256;
+	public static final int PLAYER_HEIGHT = 148;
+	public static final int PLAYER_WIDTH = 123;
+	public static final int ENEMY_HEIGHT = 150;
+	public static final int ENEMY_WIDTH = 100;
+	public static final int DOOR_HEIGHT = 221;
+	public static final int DOOR_WIDTH = 187;
+	
 	Room currRoom;
 	ScreenManager manager = new ScreenManager();
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
@@ -15,14 +24,13 @@ public class Map {
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	Room startingRoom;
 	public Map(){
-		doors.add(new Door(100,200,100,100,null, null));
-		doors.add(new Door(400,400,100,100,null, null));
+		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
+		doors.add(new Door(400,400,187,201,"DoorManBro.png", null));
 		startingRoom = RoomGenerator.getRandomRoom(doors, player, null, ec ,manager);
 		startingRoom.setDoors(doors);
 		
 		generateMap(startingRoom, 0);
 		currRoom = startingRoom;
-		enemies.add(new Enemy(100,100,100,100,30,"DudeBroDude.png",10));
 	}
 
 	public void generateMap(Room original, int n){
@@ -39,8 +47,8 @@ public class Map {
 		for(Door d : r.doors){
 			ArrayList<Door> doors = new ArrayList<Door>();
 			doors.add(d);
-			doors.add(new Door(100,200,100,100,null, null));
-			doors.add(new Door(400,400,100,100,null, null));
+			doors.add(new Door(100,200,187,201,"DoorManBro.png", null));
+			doors.add(new Door(400,400,187,201,"DoorManBro.png", null));
 			Room f = RoomGenerator.getRandomRoom(doors, player, r, ec, manager);
 			d.setLinkingRoom(f);
 
