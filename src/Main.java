@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.DefaultKeyboardFocusManager;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -55,6 +58,10 @@ public class Main implements Runnable, ActionListener {
 	public Main() {
 		screenManager = new ScreenManager();
 		screenManager.setFullScreen(screenManager.getCurrentDisplayMode(),null);
+		screenManager.getFullScreenWindow().setVisible(false);		
+		screenManager.getFullScreenWindow().setVisible(true);
+
+		
 		init = new Thread() {
 			public void run() {
 				initializeSoundEngine();
@@ -65,14 +72,17 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	public void initializeKeyboard() {
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
 		Action pressedAction = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
 		        System.out.println("Pls work");
 		    }
 		};
 		System.out.println("keyboard");
-		
-		//System.out.println(panel.isFocusable());
+		screenManager.getFullScreenWindow().enableInputMethods(true);
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W,0), "blargh");
+		panel.getActionMap().put("blargh", pressedAction);
+		//System.out.println(panel.isFocusable()); 
 	}
 	
 	public void initializeController() {
@@ -134,8 +144,7 @@ public class Main implements Runnable, ActionListener {
 			//Add them to the window
 			panel.add(c);
 		}
-
-		initializeKeyboard();
+		boolean b = false;
 		System.out.println(frame.isVisible());
 		while(gameRunning) {
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
@@ -149,8 +158,6 @@ public class Main implements Runnable, ActionListener {
 					panel.add(c);
 				}
 			}
-
-
 			frame.validate();
 
 			Graphics2D g = screenManager.getGraphics();
@@ -166,6 +173,11 @@ public class Main implements Runnable, ActionListener {
 			Screen nextScreen = currentScreen.nextScreen();
 			if (nextScreen != null && nextScreen != currentScreen) 
 				currentScreen = nextScreen;
+			if(b == false){
+				initializeKeyboard();
+				b = true;
+			}
+
 		}
 		screenManager.restoreScreen();
 	}

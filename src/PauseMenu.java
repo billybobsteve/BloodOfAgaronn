@@ -10,7 +10,9 @@ public class PauseMenu extends JPanel implements ActionListener{
 	JButton inventory = new JButton("Inventory");
 	JButton settings = new JButton("Settings");
 	JButton quit = new JButton("Quit");
+	Player p;
 	public PauseMenu(Player p, int x, int y, int width, int height){
+		this.p = p;
 		setBounds(x, y, width, height);
 		setLayout(new GridLayout(1,4));
 		add(resume);
@@ -31,7 +33,7 @@ public class PauseMenu extends JPanel implements ActionListener{
 			
 		}
 		else if(e.getSource() == settings){
-			
+			new Inventory(this.getX(),this.getY(),this.getWidth(),this.getHeight(),p.getInventory());
 		}
 		else if(e.getSource() == quit){
 			
