@@ -75,12 +75,12 @@ public class Main implements Runnable, ActionListener {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
 		Action pressedAction = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("Pls work");
+		    	movePlayer(MOVE_RIGHT);
 		    }
 		};
 		System.out.println("keyboard");
 		screenManager.getFullScreenWindow().enableInputMethods(true);
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W,0), "blargh");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0), "blargh");
 		panel.getActionMap().put("blargh", pressedAction);
 		//System.out.println(panel.isFocusable()); 
 	}
