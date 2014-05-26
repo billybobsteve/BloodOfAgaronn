@@ -21,7 +21,7 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
-		ec.setList(generateEnemies(3));
+		ec.setList(generateStartingEnemies());
 		sprites.addAll(ec.getEnemies());
 		this.manager = manager;
 	}
@@ -31,6 +31,16 @@ public class Room extends Screen{
 		for(int i = 0; i<n; i++){
 			enemies.add(new Enemy((200*i)+100,100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		}
+		return enemies;
+	}
+	
+	public ArrayList<Enemy> generateStartingEnemies(){
+		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+		for(int i = 0; i<3; i++){
+			enemies.add(new Enemy(200+(i*300),100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+		}
+		enemies.add(new Enemy(200,manager.getHeight()-Map.FLOOR_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+		enemies.add(new Enemy(600,manager.getHeight()-Map.FLOOR_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		return enemies;
 	}
 

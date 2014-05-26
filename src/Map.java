@@ -25,8 +25,8 @@ public class Map {
 	Room startingRoom;
 	public Map(){
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
-		doors.add(new Door(400,400,187,201,"DoorManBro.png", null));
-		startingRoom = RoomGenerator.getRandomRoom(doors, player, null, ec ,manager);
+		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,50,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
+		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, ec ,manager);
 		startingRoom.setDoors(doors);
 		
 		generateMap(startingRoom, 0);
