@@ -64,25 +64,19 @@ public class Main implements Runnable, ActionListener {
 		init.start(); 
 	}
 
-	public void initializeKeyboardController() {
-		Action right = new AbstractAction() {
+	public void initializeKeyboard() {
+		Action pressedAction = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
-		        
+		        System.out.println("Pls work");
 		    }
 		};
-		panel.getInputMap().put(KeyStroke.getKeyStroke(37, java.awt.event.InputEvent.SHIFT_DOWN_MASK, false));
-		System.out.println(arg0.getKeyCode());
-		// TODO Auto-generated method stub
-		if (arg0.getKeyCode() == 37)
-			this.movePlayer(this.MOVE_LEFT);
-		else if (arg0.getKeyCode() == 39)
-			this.movePlayer(this.MOVE_RIGHT);
-		else if (arg0.getKeyCode() == 38)
-			this.movePlayer(this.JUMP);
-		//TODO CROUCH
-
+		System.out.println("keyboard");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("SPACE"),
+                "pressed");
+		panel.getActionMap().put("pressed",
+                pressedAction);
 	}
-
+	
 	public void initializeController() {
 		cL = new ControllerLiason(this);
 		if(cL.initialize()) {
@@ -142,6 +136,9 @@ public class Main implements Runnable, ActionListener {
 			//Add them to the window
 			panel.add(c);
 		}
+
+		initializeKeyboard();
+		
 		while(gameRunning) {
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
 			if (!components.equals(componentsReplacement)) {
@@ -171,7 +168,6 @@ public class Main implements Runnable, ActionListener {
 			Screen nextScreen = currentScreen.nextScreen();
 			if (nextScreen != null && nextScreen != currentScreen) 
 				currentScreen = nextScreen;
-
 		}
 		screenManager.restoreScreen();
 	}
@@ -214,6 +210,41 @@ public class Main implements Runnable, ActionListener {
 				currentMap.player.jump();
 			}
 	}
+/*
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("test");
+		// TODO Auto-generated method stub
+		if (e.getKeyCode() == 37)
+			this.movePlayer(this.MOVE_LEFT);
+		else if (e.getKeyCode() == 39)
+			this.movePlayer(this.MOVE_RIGHT);
+		else if (e.getKeyCode() == 38)
+			this.movePlayer(this.JUMP);
+		//TODO CROUCH
+	}
 
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("test");
+		// TODO Auto-generated method stub
+		if (e.getKeyCode() == 37)
+			this.movePlayer(this.MOVE_LEFT);
+		else if (e.getKeyCode() == 39)
+			this.movePlayer(this.MOVE_RIGHT);
+		else if (e.getKeyCode() == 38)
+			this.movePlayer(this.JUMP);
+		//TODO CROUCH
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("test");
+
+	}
+*/
 
 }
