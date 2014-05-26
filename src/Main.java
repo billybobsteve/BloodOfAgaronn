@@ -185,7 +185,7 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			currentMap = new Map();
+			currentMap = new Map(screenManager);
 		}
 	}
 
