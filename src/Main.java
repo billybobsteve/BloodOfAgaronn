@@ -54,7 +54,7 @@ public class Main implements Runnable, ActionListener {
 
 	public Main() {
 		screenManager = new ScreenManager();
-		screenManager.setFullScreen(screenManager.getCurrentDisplayMode());
+		screenManager.setFullScreen(screenManager.getCurrentDisplayMode(),null);
 		init = new Thread() {
 			public void run() {
 				initializeSoundEngine();
@@ -71,10 +71,8 @@ public class Main implements Runnable, ActionListener {
 		    }
 		};
 		System.out.println("keyboard");
-		panel.getInputMap().put(KeyStroke.getKeyStroke("SPACE"),
-                "pressed");
-		panel.getActionMap().put("pressed",
-                pressedAction);
+		
+		//System.out.println(panel.isFocusable());
 	}
 	
 	public void initializeController() {
@@ -138,7 +136,7 @@ public class Main implements Runnable, ActionListener {
 		}
 
 		initializeKeyboard();
-		
+		System.out.println(frame.isVisible());
 		while(gameRunning) {
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
 			if (!components.equals(componentsReplacement)) {

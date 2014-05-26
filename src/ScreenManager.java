@@ -1,8 +1,21 @@
-import java.awt.*;
+import java.awt.DisplayMode;
+import java.awt.EventQueue;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+
+import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 public class ScreenManager
 {
@@ -68,7 +81,7 @@ public class ScreenManager
 		return true;
 	}
 	
-	public void setFullScreen(DisplayMode displayMode)
+	public void setFullScreen(DisplayMode displayMode, ArrayList<Action> actions)
 	{
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +90,26 @@ public class ScreenManager
 		frame.setResizable(false);
 
 		device.setFullScreenWindow(frame);
+		frame.addKeyListener(new KeyListener(){
 
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println("hello");
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		if (displayMode != null && device.isDisplayChangeSupported())
 		{
 			try
