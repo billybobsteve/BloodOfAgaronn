@@ -14,7 +14,7 @@ public class Map {
 	public static final int DOOR_WIDTH = 187;
 	
 	Room currRoom;
-	ScreenManager manager = new ScreenManager();
+	ScreenManager manager;
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
 	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
 	Player player = new Player(0,0,100,100, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
@@ -23,7 +23,7 @@ public class Map {
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	Room startingRoom;
-	public Map(){
+	public Map(ScreenManager m){
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,50,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, ec ,manager);
@@ -31,6 +31,7 @@ public class Map {
 		
 		generateMap(startingRoom, 0);
 		currRoom = startingRoom;
+		manager = m;
 	}
 
 	public void generateMap(Room original, int n){
