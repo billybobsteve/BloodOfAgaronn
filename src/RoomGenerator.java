@@ -16,10 +16,10 @@ public class RoomGenerator {
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		sprites.addAll(ec.getEnemies());
 		sprites.addAll(doors);
-		sprites.add(new Sprite(800,250,200,50,"BasedCutman.png"));
-		sprites.add(new Sprite(500,450,200,50,"BasedCutman.png"));
-		sprites.add(new Sprite(200,650,200,50,"BasedCutman.png"));
-		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,250,350,50,"BasedCutman.png"));
+		sprites.add(new Sprite(800,225,200,50,"BasedCutman.png"));
+		sprites.add(new Sprite(500,425,200,50,"BasedCutman.png"));
+		sprites.add(new Sprite(200,625,200,50,"BasedCutman.png"));
+		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,200,350,50,"BasedCutman.png"));
 		
 		sprites.add(player);
 		for(int i = 0;i<sm.getWidth();i+=256){

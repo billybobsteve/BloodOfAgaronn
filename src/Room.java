@@ -16,6 +16,8 @@ public class Room extends Screen{
 	}
 	
 	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
+		
+		this.manager = manager;
 		doors = d;
 		player = p;
 		parentRoom = pr;
@@ -23,7 +25,7 @@ public class Room extends Screen{
 		ec = c;
 		ec.setList(generateStartingEnemies());
 		sprites.addAll(ec.getEnemies());
-		this.manager = manager;
+	
 	}
 	
 	public ArrayList<Enemy> generateEnemies(int n){
@@ -37,12 +39,11 @@ public class Room extends Screen{
 	public ArrayList<Enemy> generateStartingEnemies(){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<3; i++){
-			enemies.add(new Enemy(200+(i*300),100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+			enemies.add(new Enemy(200+(i*300),50,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		}
-		System.out.println("sdf" +( enemies != null));
-		System.out.println("asd" + (manager != null));
-		enemies.add(new Enemy(200,manager.getHeight()-Map.FLOOR_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
-		//enemies.add(new Enemy(600,manager.getHeight()-Map.FLOOR_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+
+		enemies.add(new Enemy(500,manager.getHeight()-Map.FLOOR_HEIGHT-Map.ENEMY_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+		enemies.add(new Enemy(900,manager.getHeight()-Map.FLOOR_HEIGHT-Map.ENEMY_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		return enemies;
 	}
 
