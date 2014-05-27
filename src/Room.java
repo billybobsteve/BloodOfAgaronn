@@ -9,14 +9,14 @@ public class Room extends Screen{
 	ArrayList<Door> doors; 
 	Player player;
 	EnemyControl ec;
-	
-	
+
+
 	public Room(){
-	
+
 	}
-	
+
 	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
-		
+
 		this.manager = manager;
 		doors = d;
 		player = p;
@@ -25,9 +25,9 @@ public class Room extends Screen{
 		ec = c;
 		ec.setList(generateStartingEnemies());
 		sprites.addAll(ec.getEnemies());
-	
+
 	}
-	
+
 	public ArrayList<Enemy> generateEnemies(int n){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<n; i++){
@@ -35,7 +35,7 @@ public class Room extends Screen{
 		}
 		return enemies;
 	}
-	
+
 	public ArrayList<Enemy> generateStartingEnemies(){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<3; i++){
@@ -67,7 +67,7 @@ public class Room extends Screen{
 	public Room backtrack(Room original, Room r){
 		return parentRoom;
 	}
-	
+
 	public void setDoors(ArrayList<Door> list){
 		doors = list;
 	}
@@ -76,12 +76,22 @@ public class Room extends Screen{
 		for(Door d : doors){
 			if(player.intersects(d)){
 				Room temp = d.getLinkingRoom();
-				player.setX(300);
+				if(d.getX() > manager.getWidth()/2){
+					d.setX(0);
+					player.setX(d.getX()+200);
+					player.setY(d.getY());
+				}
+				else{
+					d.setX(manager.getWidth()-Map.DOOR_WIDTH);
+					player.setX(d.getX()-200);
+					player.setY(d.getY());
+				}
+				player.setX(200);
 				d.setLinkingRoom(this);
 				return temp;
 			}
 		}
 		return this;
 	}
-	
+
 }

@@ -30,6 +30,13 @@ public class Sprite {
 	public int getY(){
 		return y;
 	}
+	public void setX(int n){
+		x = n;
+	}
+	
+	public void setY(int n){
+		x = n;
+	}
 	public int getWidth(){
 		return width;
 	}
