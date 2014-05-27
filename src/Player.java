@@ -19,6 +19,14 @@ public class Player extends MovableSprite{
 		inventory.add(i);
 	}
 	
+	public void setX(int n){
+		x = n;
+	}
+	
+	public void setY(int n){
+		x = n;
+	}
+	
 	public ArrayList<Item> getInventory(){
 		return inventory;
 	}

@@ -76,6 +76,7 @@ public class Room extends Screen{
 		for(Door d : doors){
 			if(player.intersects(d)){
 				Room temp = d.getLinkingRoom();
+				player.setX(300);
 				d.setLinkingRoom(this);
 				return temp;
 			}
