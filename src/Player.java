@@ -43,6 +43,10 @@ public class Player extends MovableSprite{
 	}
 	
 	public void setXVelocity(int xvel){
+		if(xvel == 0){
+			xVelocity = 0;
+			return;
+		}
 		xVelocity = (Math.abs(xvel)-armor.getWeight())*(xvel/Math.abs(xvel));
 	}
 	

@@ -46,6 +46,7 @@ public class Main implements Runnable, ActionListener {
 	public static final int MOVE_LEFT = -1;
 	public static final int MOVE_RIGHT = 1;
 	public static final int JUMP = 0;
+	public static final int STOP = 2;
 
 
 	public static void main(String[] args) {
@@ -71,17 +72,40 @@ public class Main implements Runnable, ActionListener {
 		init.start(); 
 	}
 
+	@SuppressWarnings("serial")
 	public void initializeKeyboard() {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
-		Action pressedAction = new AbstractAction() {
+		Action right = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
 		    	movePlayer(MOVE_RIGHT);
 		    }
 		};
+		Action left = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	movePlayer(MOVE_LEFT);
+		    }
+		};
+		Action jump = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	movePlayer(JUMP);
+		    }
+		};
+		Action stop = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	movePlayer(STOP);
+		    }
+		};
 		System.out.println("keyboard");
 		screenManager.getFullScreenWindow().enableInputMethods(true);
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0), "blargh");
-		panel.getActionMap().put("blargh", pressedAction);
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0,false),"right");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A,0,false), "left");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W,0,false), "jump");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0, true), "stop");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A,0, true), "stop");
+		panel.getActionMap().put("right", right);
+		panel.getActionMap().put("left", left);
+		panel.getActionMap().put("jump", jump);
+		panel.getActionMap().put("stop", stop);
 		//System.out.println(panel.isFocusable()); 
 	}
 	
@@ -218,6 +242,9 @@ public class Main implements Runnable, ActionListener {
 			}
 			else if (i == JUMP) {
 				currentMap.player.jump();
+			}
+			else if(i == STOP){
+				currentMap.player.setXVelocity(0);
 			}
 	}
 /*

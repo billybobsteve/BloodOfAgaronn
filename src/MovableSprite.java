@@ -7,7 +7,7 @@ public class MovableSprite extends Sprite{
 	protected boolean jumpHeightReached = false, jumping = false;
 	public MovableSprite(int x, int y, int width, int height, int health, String fileName){
 		super(x,y,width,height,fileName);
-		jumpVelocity = -10;
+		jumpVelocity = -25;
 	}
 
 	public void jump(){
@@ -36,7 +36,7 @@ public class MovableSprite extends Sprite{
 		x+=xVelocity;
 		y+=yVelocity;
 		for(Sprite sprite : sprites){
-			if(this.intersects(sprite) && !(sprite instanceof MovableSprite)){
+			if(this.intersects(sprite) && !(sprite instanceof MovableSprite || sprite instanceof Door)){
 				if(!(sprite.intersects(new Rectangle(x,y,this.width-xVelocity,this.height)))){
 					x = tempx;
 					xVelocity = 0;
@@ -44,6 +44,7 @@ public class MovableSprite extends Sprite{
 				if(!(sprite.intersects(new Rectangle(x,y,this.width,this.height-yVelocity)))){
 					y = tempy;
 					yVelocity = 1;
+					jumping = false;
 				}
 				super.draw(g, sprites);
 				return;
@@ -56,7 +57,6 @@ public class MovableSprite extends Sprite{
 			yVelocity+=1;
 			if(yVelocity == 0){
 				jumpHeightReached = true;
-				jumping = false;
 			}
 		}
 		else if(yVelocity !=0){
