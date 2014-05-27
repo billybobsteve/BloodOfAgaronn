@@ -22,11 +22,13 @@ public class EnemyControl {
 				i--;
 				continue;
 			}
+			System.out.println("asdf"+distance(player,e));
 			if(distance(player, e)<=activationDistance)
 				e.activate();
 			if(e.isActive()){
 				int dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
 				e.setXVelocity(enemySpeed * dir);
+				System.out.println(enemySpeed+"a");
 			}
 			if(Math.random()<.0001){
 				e.jump();
