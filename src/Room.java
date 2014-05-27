@@ -23,9 +23,13 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
-		ec.setList(generateStartingEnemies());
+		ec.setList(generateEnemies(3));
 		sprites.addAll(ec.getEnemies());
 
+	}
+	
+	public void setEnemies(ArrayList<Enemy> list){
+		ec.setList(list);
 	}
 
 	public ArrayList<Enemy> generateEnemies(int n){
@@ -44,6 +48,7 @@ public class Room extends Screen{
 
 		enemies.add(new Enemy(500,manager.getHeight()-Map.FLOOR_HEIGHT-Map.ENEMY_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
 		enemies.add(new Enemy(900,manager.getHeight()-Map.FLOOR_HEIGHT-Map.ENEMY_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+		sprites.addAll(enemies);
 		return enemies;
 	}
 

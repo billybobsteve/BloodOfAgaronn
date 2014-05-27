@@ -30,6 +30,7 @@ public class Map {
 		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
 		ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, ec ,manager);
+		startingRoom.setEnemies(startingRoom.generateStartingEnemies());
 		startingRoom.setDoors(doors);
 		generateMap(startingRoom, 0);
 		currRoom = startingRoom;
