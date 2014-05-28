@@ -96,17 +96,26 @@ public class Main implements Runnable, ActionListener {
 		    	movePlayer(STOP);
 		    }
 		};
+		Action attack = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				currentMap.player.attack();
+			}
+		};
 		System.out.println("keyboard");
 		screenManager.getFullScreenWindow().enableInputMethods(true);
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0,false),"right");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A,0,false), "left");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W,0,false), "jump");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D,0, true), "stop");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A,0, true), "stop");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), "jump");
+		//panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop");
+		//panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "left");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "right");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "attack");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
-		panel.getActionMap().put("stop", stop);
+		//panel.getActionMap().put("stop", stop);
+		panel.getActionMap().put("attack", attack);
 	}
 	
 	public void initializeController() {
@@ -232,19 +241,19 @@ public class Main implements Runnable, ActionListener {
 		}
 		else 
 			if (i == MOVE_RIGHT) {
-				//TODO set X velocity
-				currentMap.player.setXVelocity(5);
+				//currentMap.player.setXVelocity(10);
+				currentMap.player.setXVelocity(currentMap.player.xVelocity+10);
 			}
 			else if (i == MOVE_LEFT) {
-				//TODO set X velocity
-				currentMap.player.setXVelocity(-5);
+				//currentMap.player.setXVelocity(-10);
+				currentMap.player.setXVelocity(currentMap.player.xVelocity-10);
 			}
 			else if (i == JUMP) {
 				currentMap.player.jump();
 			}
-			else if(i == STOP){
+			/*else if(i == STOP_LEFT){
 				currentMap.player.setXVelocity(0);
-			}
+			} */
 	}
 /*
 	@Override
