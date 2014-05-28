@@ -45,9 +45,9 @@ public class Room extends Screen{
 		ec.moveAll();
 		for(Sprite sprite : sprites){
 			if(sprite.getX() < 0)
-				sprite.setX(0);
+				sprite.setX(5);
 			else if(sprite.getX()+sprite.getWidth() > manager.getWidth())
-				sprite.setX(manager.getWidth()-sprite.getWidth());
+				sprite.setX(manager.getWidth()-sprite.getWidth()-5);
 			sprite.draw(g,sprites);
 		}
 	}
