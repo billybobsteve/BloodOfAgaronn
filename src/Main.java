@@ -34,6 +34,8 @@ public class Main implements Runnable, ActionListener {
 	JFrame frame;
 	Container content;
 	JPanel panel;
+	boolean leftHeld = false;
+	boolean rightHeld = false;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
@@ -46,7 +48,8 @@ public class Main implements Runnable, ActionListener {
 	public static final int MOVE_LEFT = -1;
 	public static final int MOVE_RIGHT = 1;
 	public static final int JUMP = 0;
-	public static final int STOP = 2;
+	public static final int STOP_LEFT = 2;
+	public static final int STOP_RIGHT = 3;
 
 
 	public static void main(String[] args) {
@@ -91,9 +94,14 @@ public class Main implements Runnable, ActionListener {
 		    	movePlayer(JUMP);
 		    }
 		};
-		Action stop = new AbstractAction() {
+		Action stop_left = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
-		    	movePlayer(STOP);
+		    	movePlayer(STOP_LEFT);
+		    }
+		};
+		Action stop_right = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	movePlayer(STOP_RIGHT);
 		    }
 		};
 		Action attack = new AbstractAction() {
@@ -106,15 +114,14 @@ public class Main implements Runnable, ActionListener {
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), "jump");
-		//panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop");
-		//panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "left");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "right");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "attack");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
-		//panel.getActionMap().put("stop", stop);
+		panel.getActionMap().put("stop_left", stop_left);
+		panel.getActionMap().put("stop_right", stop_right);
 		panel.getActionMap().put("attack", attack);
 	}
 	
@@ -242,18 +249,31 @@ public class Main implements Runnable, ActionListener {
 		else 
 			if (i == MOVE_RIGHT) {
 				//currentMap.player.setXVelocity(10);
-				currentMap.player.setXVelocity(currentMap.player.xVelocity+10);
+				rightHeld = true;
+				currentMap.player.setXVelocity(10);
 			}
 			else if (i == MOVE_LEFT) {
 				//currentMap.player.setXVelocity(-10);
-				currentMap.player.setXVelocity(currentMap.player.xVelocity-10);
+				leftHeld = true;
+				currentMap.player.setXVelocity(-10);
 			}
 			else if (i == JUMP) {
 				currentMap.player.jump();
 			}
-			/*else if(i == STOP_LEFT){
-				currentMap.player.setXVelocity(0);
-			} */
+			else if(i == STOP_LEFT){
+				leftHeld = false;
+				if (rightHeld == true)
+					currentMap.player.setXVelocity(10);
+				else
+					currentMap.player.setXVelocity(0);
+			}
+			else if(i == STOP_RIGHT){
+				rightHeld = false;
+				if (leftHeld == true)
+					currentMap.player.setXVelocity(-10);
+				else
+					currentMap.player.setXVelocity(0);
+			}
 	}
 /*
 	@Override
