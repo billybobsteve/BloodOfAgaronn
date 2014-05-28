@@ -14,7 +14,6 @@ public class EnemyControl {
 		return list;
 	}
 	public void moveAll(){
-		System.out.println(list.size());
 		for(int i = 0;i<list.size();i++){
 			Enemy e = list.get(i);
 			if(e.getHealth() <= 0){
@@ -23,17 +22,15 @@ public class EnemyControl {
 				i--;
 				continue;
 			}
-			System.out.println("asdf"+distance(player,e));
 			if(distance(player, e)<=activationDistance)
 				e.activate();
 			if(e.isActive()){
 				if(player.getX()-e.getX() != 0){
 					int dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
 					e.setXVelocity(enemySpeed * dir);
-					System.out.println(enemySpeed+"a");
 				}
 			}
-			if(Math.random()<.0001){
+			if(Math.random()<.0009){
 				e.jump();
 			}
 		}

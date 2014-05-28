@@ -106,7 +106,6 @@ public class Main implements Runnable, ActionListener {
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
 		panel.getActionMap().put("stop", stop);
-		//System.out.println(panel.isFocusable()); 
 	}
 	
 	public void initializeController() {
@@ -169,7 +168,6 @@ public class Main implements Runnable, ActionListener {
 			panel.add(c);
 		}
 		boolean b = false;
-		System.out.println(frame.isVisible());
 		while(gameRunning) {
 			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
 			if (!components.equals(componentsReplacement)) {
