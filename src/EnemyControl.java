@@ -22,16 +22,23 @@ public class EnemyControl {
 				i--;
 				continue;
 			}
-			if(distance(player, e)<=activationDistance)
-				e.activate();
-			if(e.isActive()){
-				if(player.getX()-e.getX() != 0){
-					int dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
-					e.setXVelocity(enemySpeed * dir);
+			if(!e.isBounce()){
+				if(distance(player, e)<=activationDistance)
+					e.activate();
+				if(e.isActive()){
+					int dir = 0;
+					if(player.getX()-e.getX() != 0){
+						dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
+						e.setXVelocity(enemySpeed * dir);
+					}
+					if(e.intersects(player)){
+						e.bounce();
+						e.setXVelocity(-dir + enemySpeed);
+					}
 				}
-			}
-			if(Math.random()<.0009){
-				e.jump();
+				if(Math.random()<.0009){
+					e.jump();
+				}
 			}
 		}
 	}
