@@ -75,13 +75,14 @@ public class Main implements Runnable, ActionListener {
 	@SuppressWarnings("serial")
 	public void initializeKeyboard() {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
+		frame.setFocusTraversalKeysEnabled(false);
 		Action right = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
 		    	movePlayer(MOVE_RIGHT);
 		    }
 		};
 		Action left = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) { 
 		    	movePlayer(MOVE_LEFT);
 		    }
 		};
