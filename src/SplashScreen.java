@@ -9,7 +9,7 @@ public class SplashScreen extends Screen {
 
 	Main main;
 	long timeSinceStart = System.currentTimeMillis();
-	static final long DELAY = 3000;
+	static final long DELAY = 1500;
 
 	public SplashScreen(Main m) {
 		main = m;
