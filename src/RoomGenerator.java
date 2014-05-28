@@ -10,6 +10,8 @@ public class RoomGenerator {
 		ec.setList(enemies);
 		sprites.addAll(enemies);
 		sprites.addAll(doors);
+		sprites.add(new Sprite(sm.getWidth(),sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
+		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(player);
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));

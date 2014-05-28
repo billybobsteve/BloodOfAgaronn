@@ -10,6 +10,8 @@ public class Map {
 	public static final int PLAYER_WIDTH = 123; //123
 	public static final int ENEMY_HEIGHT = 150;
 	public static final int ENEMY_WIDTH = 100;
+	public static final int WALL_WIDTH = 25;
+	public static final int WALL_HEIGHT = 10000;//REALLYREALLYTALL
 	public static final int DOOR_HEIGHT = 221;
 	public static final int DOOR_WIDTH = 187;
 	

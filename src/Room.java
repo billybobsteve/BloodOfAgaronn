@@ -44,6 +44,10 @@ public class Room extends Screen{
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
 		ec.moveAll();
 		for(Sprite sprite : sprites){
+			if(sprite.getX() < 0)
+				sprite.setX(0);
+			else if(sprite.getX()+sprite.getWidth() > manager.getWidth())
+				sprite.setX(manager.getWidth()-sprite.getWidth());
 			sprite.draw(g,sprites);
 		}
 	}
