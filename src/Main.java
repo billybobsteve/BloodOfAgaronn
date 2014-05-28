@@ -216,6 +216,12 @@ public class Main implements Runnable, ActionListener {
 				initializeKeyboard();
 				b = true;
 			}
+			try {
+				Thread.sleep(3);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 		screenManager.restoreScreen();

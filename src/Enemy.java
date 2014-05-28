@@ -34,7 +34,7 @@ public class Enemy extends MovableSprite {
 	}
 	
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		if(bounce && System.currentTimeMillis() - bounceStart > 3000)
+		if(bounce && System.currentTimeMillis() - bounceStart > 1500)
 			bounce = false;
 		super.draw(g, sprites);
 	}

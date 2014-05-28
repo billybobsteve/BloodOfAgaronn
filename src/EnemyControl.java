@@ -33,7 +33,7 @@ public class EnemyControl {
 					}
 					if(e.intersects(player)){
 						e.bounce();
-						e.setXVelocity(-dir + enemySpeed);
+						e.setXVelocity(-dir * 5);
 					}
 				}
 				if(Math.random()<.0009){
