@@ -8,6 +8,7 @@ public class MovableSprite extends Sprite{
 	public MovableSprite(int x, int y, int width, int height, int health, String fileName){
 		super(x,y,width,height,fileName);
 		jumpVelocity = -25;
+		this.health = health;
 	}
 
 	public void jump(){

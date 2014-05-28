@@ -18,7 +18,6 @@ public class Map {
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
 	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
 	Player player;
-	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	EnemyControl ec;
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
@@ -28,13 +27,10 @@ public class Map {
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,0,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
-		ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.2), manager.getFractionOfScreenX(.01));
-		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, ec ,manager);
-		startingRoom.setEnemies(startingRoom.generateStartingEnemies());
-		startingRoom.setDoors(doors);
-		generateMap(startingRoom, 0);
-		currRoom = startingRoom;
 		
+		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
+		generateMap(startingRoom, 0);
+		currRoom = startingRoom;	
 
 	}
 
@@ -54,7 +50,7 @@ public class Map {
 			doors.add(d);
 			doors.add(new Door(100,200,187,201,"DoorManBro.png", null));
 			doors.add(new Door(400,400,187,201,"DoorManBro.png", null));
-			Room f = RoomGenerator.getRandomRoom(doors, player, r, ec, manager);
+			Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
 			d.setLinkingRoom(f);
 
 		}
