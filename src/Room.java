@@ -42,6 +42,10 @@ public class Room extends Screen{
 	public void draw(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
+		g.setColor(Color.RED);
+		g.fillRect(50, 50, 600, 50);
+		g.setColor(Color.GREEN);
+		g.fillRect(50, 50, (int)(600*((double)player.getHealth()/(player.getBaseHealth()+player.getArmor().getStrength()))), 50);
 		ec.moveAll();
 		for(Sprite sprite : sprites){
 			if(sprite.getX() < 0)
@@ -49,7 +53,7 @@ public class Room extends Screen{
 			else if(sprite.getX()+sprite.getWidth() > manager.getWidth())
 				sprite.setX(manager.getWidth()-sprite.getWidth()-5);
 			sprite.draw(g,sprites);
-		}
+		}	
 	}
 
 	public Room backtrack(Room original, Room r){

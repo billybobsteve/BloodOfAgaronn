@@ -17,8 +17,8 @@ public class Player extends MovableSprite{
 	public Player(int x, int y, int width, int height, int health, String fileName, Weapon weapon, Armor armor) {
 		super(x, y, width, height, health, fileName);
 		this.weapon = weapon;
-		setArmor(armor);
 		baseHealth = health;
+		setArmor(armor);
 		imageReversed = flip(image);
 		imageNormal = image;
 	}
@@ -42,6 +42,10 @@ public class Player extends MovableSprite{
 	
 	public Armor getArmor(){
 		return armor;
+	}
+	
+	public int getBaseHealth(){
+		return baseHealth;
 	}
 
 	public void setArmor(Armor a){
@@ -78,6 +82,7 @@ public class Player extends MovableSprite{
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
+		System.out.println(health);
 		if(attacking){
 			Rectangle attack = weapon.attack();
 			if(image == imageReversed && attack != null)

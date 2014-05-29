@@ -25,7 +25,6 @@ public class Weapon extends Item{
 	}	
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		System.out.println(time);
 		if(time > 0)
 			time--;
 		if(parent != null){
