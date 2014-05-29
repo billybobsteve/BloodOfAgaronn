@@ -13,8 +13,10 @@ public abstract class Item extends Sprite{
 		parent = s;
 	}
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		this.x = parent.getX();
-		this.y = parent.getY();
+		if(parent != null){
+			this.x = parent.getX();
+			this.y = parent.getY();
+		}
 		super.draw(g, sprites);
 	}
 }

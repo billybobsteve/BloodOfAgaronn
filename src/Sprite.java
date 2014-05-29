@@ -55,6 +55,7 @@ public class Sprite {
 		return false;
 	}
 	public boolean intersects(Rectangle r){
+		if(r == null) return false;
 		if(!hidden)
 			return new Rectangle(x,y,width,height).intersects(r);
 		return false;

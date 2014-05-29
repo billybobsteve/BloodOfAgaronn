@@ -77,8 +77,9 @@ public class Main implements Runnable, ActionListener {
 
 	@SuppressWarnings("serial")
 	public void initializeKeyboard() {
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(panel);
 		frame.setFocusTraversalKeysEnabled(false);
+		panel.setFocusTraversalKeysEnabled(false);
 		Action right = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
 		    	movePlayer(MOVE_RIGHT);
@@ -116,7 +117,7 @@ public class Main implements Runnable, ActionListener {
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), "jump");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "attack");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_L, 0, false), "attack");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
