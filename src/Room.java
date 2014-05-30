@@ -23,7 +23,7 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
-		System.out.println(sprites);
+		//System.out.println(sprites);
 
 	}
 	
