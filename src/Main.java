@@ -210,6 +210,7 @@ public class Main implements Runnable, ActionListener {
 			screenManager.update();
 
 			Screen nextScreen = currentScreen.nextScreen();
+			if(nextScreen== null) System.out.println(nextScreen != null);
 			if (nextScreen != null && nextScreen != currentScreen) 
 				currentScreen = nextScreen;
 			if(b == false){

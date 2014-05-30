@@ -31,7 +31,8 @@ public class Map {
 		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
 		generateMap(startingRoom, 0);
-		currRoom = startingRoom;	
+		currRoom = startingRoom;
+		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom());
 
 	}
 
@@ -40,7 +41,7 @@ public class Map {
 			return;
 		generateNextLevel(original);
 		for(int i = 0; i<original.doors.size(); i++){
-			//if(original.doors.get(i).getLinkingRoom() != original)
+			if(original != startingRoom && i!=0)
 				generateMap(original.doors.get(i).getLinkingRoom(), n+1);
 		}
 	}
