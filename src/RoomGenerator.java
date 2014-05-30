@@ -13,8 +13,15 @@ public class RoomGenerator {
 		sprites.add(new Sprite(sm.getWidth(),sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(player);
+		sprites.add(player.getWeapon());
+		sprites.add(player.getArmor());
+		for(Door door : doors){
+			sprites.add(new Sprite(door.getX(),door.getY()+door.getHeight(),door.getWidth(),Map.FLOOR_HEIGHT,"BasedCutman.png"));
+			sprites.add(new Sprite(door.getX()-50-Map.FLOOR_WIDTH,door.getY()+door.getHeight()+Map.ENEMY_HEIGHT+20,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,"BasedCutman.png"));
+		}
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
+			
 		}
 		Room r = new Room(doors, player, previous, sprites, ec, sm);
 		return r;
@@ -31,6 +38,8 @@ public class RoomGenerator {
 		sprites.add(new Sprite(200,625,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,200,350,50,"BasedCutman.png"));
 		sprites.add(player);
+		sprites.add(player.getWeapon());
+		sprites.add(player.getArmor());
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 		}
@@ -41,7 +50,7 @@ public class RoomGenerator {
 	public static ArrayList<Enemy> generateEnemies(int n, ScreenManager manager){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<n; i++){
-			enemies.add(new Enemy((200*i)+100,100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+			enemies.add(new Enemy((200*i)+100,100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",5));
 		}
 		return enemies;
 	}
@@ -49,7 +58,7 @@ public class RoomGenerator {
 	private static ArrayList<Enemy> generateStartingEnemies(ScreenManager manager){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 0; i<3; i++){
-			enemies.add(new Enemy(200+(i*300),50,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));
+			enemies.add(new Enemy(200+(i*300),50,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",5));
 		}
 
 		enemies.add(new Enemy(500,manager.getHeight()-Map.FLOOR_HEIGHT-Map.ENEMY_HEIGHT,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",20));

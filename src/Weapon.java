@@ -15,7 +15,7 @@ public class Weapon extends Item{
 		this.name = name;
 		this.damage = damage;
 	}
-	
+
 	public Rectangle attack(){
 		if(time == 0){
 			time = attackSpeed;
@@ -23,16 +23,20 @@ public class Weapon extends Item{
 		}
 		return null;
 	}	
-	
+
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
 		if(time > 0)
 			time--;
+		if(parent != null){
+			attackArea.x = parent.x + parent.width + 3;
+			attackArea.y = parent.y;
+		}
 		super.draw(g, sprites);
 	}
-	
+
 	public int getDamage(){
 		return damage;
 	}
-	
-	
+
+
 }

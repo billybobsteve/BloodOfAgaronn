@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class MovableSprite extends Sprite{
 	protected int xVelocity, yVelocity, health, jumpVelocity;
 	protected boolean jumpHeightReached = false, jumping = false;
+	protected long lastTimeHurt = System.currentTimeMillis();
 	public MovableSprite(int x, int y, int width, int height, int health, String fileName){
 		super(x,y,width,height,fileName);
 		jumpVelocity = -25;
@@ -28,7 +29,10 @@ public class MovableSprite extends Sprite{
 	}
 
 	public void hurt(int h){
-		health-=h;
+		if(System.currentTimeMillis() - lastTimeHurt > 250){
+			health-=h;
+			lastTimeHurt = System.currentTimeMillis();
+		}
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
@@ -37,7 +41,7 @@ public class MovableSprite extends Sprite{
 		x+=xVelocity;
 		y+=yVelocity;
 		for(Sprite sprite : sprites){
-			if(this.intersects(sprite) && !(sprite instanceof MovableSprite || sprite instanceof Door)){
+			if(this.intersects(sprite) && !(sprite instanceof MovableSprite || sprite instanceof Door || sprite instanceof Item)){
 				if(!(sprite.intersects(new Rectangle(x,y,this.width-xVelocity,this.height)))){
 					x = tempx;
 					xVelocity = 0;

@@ -17,7 +17,7 @@ public class Map {
 	
 	Room currRoom;
 	ScreenManager manager;
-	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,30,60),1000,"NailBiter", 25);
+	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,60,148),15,"NailBiter", 25);
 	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
 	Player player;
 	EnemyControl ec;
@@ -28,11 +28,16 @@ public class Map {
 		manager = m;
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,0,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
-		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 100,"DudeBroDude.png", defaultWeapon,defaultArmor);
+		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 1000,"DudeBroDude.png", defaultWeapon,defaultArmor);
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
 		generateMap(startingRoom, 0);
 		currRoom = startingRoom;
+<<<<<<< HEAD
 		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom());
+=======
+		defaultWeapon.setParent(player);
+		defaultArmor.setParent(player);
+>>>>>>> FETCH_HEAD
 
 	}
 

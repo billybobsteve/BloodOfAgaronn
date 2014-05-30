@@ -100,7 +100,7 @@ public class ScreenManager
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println("hello");
+				//System.out.println("hello");
 			}
 
 			@Override

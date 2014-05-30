@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.DefaultKeyboardFocusManager;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.KeyboardFocusManager;
@@ -77,8 +76,10 @@ public class Main implements Runnable, ActionListener {
 
 	@SuppressWarnings("serial")
 	public void initializeKeyboard() {
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(frame);
+
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(panel);
 		frame.setFocusTraversalKeysEnabled(false);
+		panel.setFocusTraversalKeysEnabled(false);
 		Action right = new AbstractAction() {
 		    public void actionPerformed(ActionEvent e) {
 		    	movePlayer(MOVE_RIGHT);
@@ -107,16 +108,16 @@ public class Main implements Runnable, ActionListener {
 		Action attack = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				currentMap.player.attack();
+				panel.requestFocusInWindow();
 			}
 		};
-		System.out.println("keyboard");
 		screenManager.getFullScreenWindow().enableInputMethods(true);
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), "jump");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "attack");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "attack");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
@@ -216,6 +217,12 @@ public class Main implements Runnable, ActionListener {
 			if(b == false){
 				initializeKeyboard();
 				b = true;
+			}
+			try {
+				Thread.sleep(3);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
