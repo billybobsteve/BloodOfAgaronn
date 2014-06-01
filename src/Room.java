@@ -9,6 +9,7 @@ public class Room extends Screen{
 	ArrayList<Door> doors; 
 	Player player;
 	EnemyControl ec;
+	Color bgColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 
 
 	public Room(){
@@ -40,7 +41,7 @@ public class Room extends Screen{
 	}
 
 	public void draw(Graphics g){
-		g.setColor(Color.GRAY);
+		g.setColor(bgColor);
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
 		g.setColor(Color.RED);
 		g.fillRect(50, 50, 600, 50);

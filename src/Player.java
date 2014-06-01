@@ -82,7 +82,7 @@ public class Player extends MovableSprite{
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
-		System.out.println(health);
+		//System.out.println(health);
 		if(attacking){
 			Rectangle attack = weapon.attack();
 			if(image == imageReversed && attack != null)

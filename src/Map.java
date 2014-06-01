@@ -14,7 +14,7 @@ public class Map {
 	public static final int WALL_HEIGHT = 10000;//REALLYREALLYTALL
 	public static final int DOOR_HEIGHT = 221;
 	public static final int DOOR_WIDTH = 187;
-	
+
 	Room currRoom;
 	ScreenManager manager;
 	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,60,148),15,"NailBiter", 25);
@@ -30,17 +30,17 @@ public class Map {
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,0,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 1000,"DudeBroDude.png", defaultWeapon,defaultArmor);
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
-		generateMap(startingRoom, 0);
+		ArrayList<Room> start = new ArrayList<Room>();
+		start.add(startingRoom);
+		generateMap(start, 0);
 		currRoom = startingRoom;
-<<<<<<< HEAD
 		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom());
-=======
 		defaultWeapon.setParent(player);
 		defaultArmor.setParent(player);
->>>>>>> FETCH_HEAD
+
 
 	}
-
+	/*
 	public void generateMap(Room original, int n){
 		if(n>3)
 			return;
@@ -50,17 +50,65 @@ public class Map {
 				generateMap(original.doors.get(i).getLinkingRoom(), n+1);
 		}
 	}
+*/
+	
+	public ArrayList<Room> generateMap(ArrayList<Room> l, int n){
 
-	public void generateNextLevel(Room r){
-		for(Door d : r.doors){
-			ArrayList<Door> doors = new ArrayList<Door>();
-			doors.add(d);
-			doors.add(new Door(100,200,187,201,"DoorManBro.png", null));
-			doors.add(new Door(400,400,187,201,"DoorManBro.png", null));
-			Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
-			d.setLinkingRoom(f);
-
+		ArrayList<Room> level = new ArrayList<Room>();
+		for(Room r : l){
+			level.addAll(successors(r));
 		}
+		if(n > 3)
+			return level;
+		ArrayList<Room> nextLevel = generateMap(level,n+1);
+		/*
+		for(Room r : l){
+			generateNextLevel(r);
+			for(Door d : r.doors){
+				for(Door w : d,getLinkingRoom().doors){
+					w.setLinkingRoom();
+					level.add(d.getLinkingRoom());
+				}
+			}
+		}
+		*/
+		for(int i = 0;i<nextLevel.size();i++){
+			int j = i/2;
+			for(Door d:level.get(j).doors){
+				d.setLinkingRoom(nextLevel.get(i));
+				i++;
+			}
+		}
+		return level;
+ 
+	}
+	public ArrayList<Room> successors(Room r){
+		ArrayList<Room> successors = new ArrayList<Room>();
+		if(r.doors.size() == 2){
+			for(int i = 0;i<2;i++){
+				Door d = r.doors.get(i);
+				ArrayList<Door> doors = new ArrayList<Door>();
+				doors.add(d);
+				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
+				successors.add(f);
+				d.setLinkingRoom(f);
+			}
+		}
+		else if(r.doors.size() == 3){
+			for(int i = 1;i<3;i++){
+				Door d = r.doors.get(i);
+				ArrayList<Door> doors = new ArrayList<Door>();
+				doors.add(d);
+				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
+				successors.add(f);
+				d.setLinkingRoom(f);
+			}
+		}
+		return successors;
 	}
 
 	public Room getNextRoom(){
