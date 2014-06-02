@@ -31,6 +31,8 @@ public class SplashScreen extends Screen {
 					image = ImageIO.read(new FileInputStream("splash/splash_0000" + frame + ".jpg"));
 				else if (frame / 10 < 10)
 					image = ImageIO.read(new FileInputStream("splash/splash_000" + frame + ".jpg"));
+				else //if (frame / 10 < 100)
+					image = ImageIO.read(new FileInputStream("splash/splash_00" + frame + ".jpg"));
 			} catch (Exception e) { e.printStackTrace(); }
 		}
 
@@ -46,7 +48,7 @@ public class SplashScreen extends Screen {
 	}
 
 	public Screen nextScreen() {
-		if (frame > 77) {
+		if (frame > 82) {
 			main.menu = new MainMenu(main);
 			return main.menu;
 		}
