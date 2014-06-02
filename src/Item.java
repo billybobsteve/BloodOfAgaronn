@@ -1,10 +1,12 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public abstract class Item extends Sprite{
+public class Item extends Sprite{
 	protected Sprite parent;
-	public Item(int x, int y, int width, int height, String fileName) {
+	protected String name;
+	public Item(int x, int y, int width, int height, String fileName, String name) {
 		super(x, y, width, height, fileName);
+		this.name = name;
 	}	
 	public Sprite parent(){
 		return parent;
@@ -14,9 +16,12 @@ public abstract class Item extends Sprite{
 	}
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
 		if(parent != null){
-			this.x = parent.getX();
-			this.y = parent.getY();
+			this.x = parent.getX()+parent.getWidth()/2;
+			this.y = parent.getY()-parent.getHeight()/2+20;
 		}
 		super.draw(g, sprites);
+	}
+	public String toString(){
+		return name;
 	}
 }

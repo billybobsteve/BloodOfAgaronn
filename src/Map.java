@@ -6,8 +6,8 @@ public class Map {
 
 	public static final int FLOOR_HEIGHT = 49;
 	public static final int FLOOR_WIDTH = 256;
-	public static final int PLAYER_HEIGHT = 148; //148
-	public static final int PLAYER_WIDTH = 123; //123
+	public static final int PLAYER_HEIGHT = 105; //148
+	public static final int PLAYER_WIDTH = 75; //123
 	public static final int ENEMY_HEIGHT = 150;
 	public static final int ENEMY_WIDTH = 100;
 	public static final int WALL_WIDTH = 25;
@@ -17,8 +17,8 @@ public class Map {
 
 	Room currRoom;
 	ScreenManager manager;
-	Weapon defaultWeapon = new Weapon(5,0,30,60,null, new Rectangle(5,0,60,148),15,"NailBiter", 25);
-	Armor defaultArmor = new Armor(0,0,100,100,null,20,1);
+	Weapon defaultWeapon = new Weapon(5,0,100,100,"NailBiter.png", new Rectangle(5,0,60,148),15,"NailBiter", 25);
+	Armor defaultArmor = new Armor(0,0,100,100,null,"Iron Defense", 20,1);
 	Player player;
 	EnemyControl ec;
 	ArrayList<Door> doors = new ArrayList<Door>(); 
@@ -61,17 +61,6 @@ public class Map {
 		if(n > 3)
 			return level;
 		ArrayList<Room> nextLevel = generateMap(level,n+1);
-		/*
-		for(Room r : l){
-			generateNextLevel(r);
-			for(Door d : r.doors){
-				for(Door w : d,getLinkingRoom().doors){
-					w.setLinkingRoom();
-					level.add(d.getLinkingRoom());
-				}
-			}
-		}
-		*/
 		for(int i = 0;i<nextLevel.size();i++){
 			int j = i/2;
 			for(Door d:level.get(j).doors){

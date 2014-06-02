@@ -29,7 +29,8 @@ public class MovableSprite extends Sprite{
 	}
 
 	public void hurt(int h){
-		if(System.currentTimeMillis() - lastTimeHurt > 250){
+		System.out.println(h);
+		if(System.currentTimeMillis() - lastTimeHurt > 500){
 			health-=h;
 			lastTimeHurt = System.currentTimeMillis();
 		}
@@ -55,7 +56,7 @@ public class MovableSprite extends Sprite{
 				return;
 			}
 			else if(this.intersects(sprite) && sprite instanceof Enemy && this instanceof Player){
-				health-=((Enemy)sprite).getDamage();
+				this.hurt(((Enemy)sprite).getDamage());
 			}
 		}
 		if(yVelocity!=0 && !jumpHeightReached){
