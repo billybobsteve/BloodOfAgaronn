@@ -36,7 +36,8 @@ public class SplashScreen extends Screen {
 			} catch (Exception e) { e.printStackTrace(); }
 		}
 
-		g.drawImage(image, 0, 0, null); 
+		//g.drawImage(image, 0, 0, null); 
+		g.drawImage(image, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
 		
 		frame++;
 
