@@ -39,11 +39,9 @@ public class Main implements Runnable, ActionListener {
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
 	public static final int MENU_MUSIC = 0;
-	public static final int AMBIENT_MUSIC_1 = 1;
-	public static final int SPLASH_MUSIC = 2;
-	//public static final int DAMAGE_SOUND = 1;
-	//public static final int MOVEMENT_SOUND = 2;
-	//public static final int JUMP_SOUND = 3;
+	public static final int DAMAGE_SOUND = 1;
+	public static final int MOVEMENT_SOUND = 2;
+	public static final int JUMP_SOUND = 3;
 	//TODO add more sounds
 
 	public static final int MOVE_LEFT = -1;
@@ -232,10 +230,7 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	public void initializeSoundEngine() {
-		//sfx.add(new SoundClip("sounds/whisper.wav"));
-		sfx.add(new SoundClip("sounds/main.wav"));
-		sfx.add(new SoundClip("sounds/ambient.wav"));
-		sfx.add(new SoundClip("splash/splash.wav"));
+		sfx.add(new SoundClip("sounds/whisper.wav"));
 		/*sfx.add(new SoundClip("path/to/damage/sound"));
 		sfx.add(new SoundClip("path/to/movement/sound"));
 		sfx.add(new SoundClip("path/to/jump/sound")); */
@@ -247,18 +242,12 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			playSound(AMBIENT_MUSIC_1);
 			currentMap = new Map(screenManager);
 		}
 	}
 
 	public void playSound(int sound) {
 		sfx.get(sound).play();
-	}
-	
-	public void stopSound(int sound) {
-		sfx.get(sound).stop();
-		sfx.get(sound).close();
 	}
 
 	public void movePlayer(int i) {
