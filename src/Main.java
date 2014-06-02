@@ -24,7 +24,6 @@ public class Main implements Runnable, ActionListener {
 	SplashScreen splash = null;
 	MainMenu menu = null;
 	ScreenManager screenManager;
-	boolean gameRunning = true;
 	Thread init;
 	ControllerLiason cL;
 	Player pc;
@@ -33,8 +32,8 @@ public class Main implements Runnable, ActionListener {
 	JFrame frame;
 	Container content;
 	JPanel panel;
-	boolean leftHeld = false;
-	boolean rightHeld = false;
+	boolean gameRunning = true, leftHeld = false, rightHeld = false;
+	PauseMenu pause;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
@@ -113,6 +112,11 @@ public class Main implements Runnable, ActionListener {
 				panel.requestFocusInWindow();
 			}
 		};
+		Action pause = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				pause();
+			}
+		};
 		screenManager.getFullScreenWindow().enableInputMethods(true);
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
@@ -120,12 +124,22 @@ public class Main implements Runnable, ActionListener {
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0, true), "attack");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "pause");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
 		panel.getActionMap().put("stop_left", stop_left);
 		panel.getActionMap().put("stop_right", stop_right);
 		panel.getActionMap().put("attack", attack);
+		panel.getActionMap().put("pause", pause);
+	}
+	
+	public void pause() {
+		if (currentScreen == menu || currentScreen == splash)
+			return;
+		else {
+			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
+		}
 	}
 	
 	public void initializeController() {
