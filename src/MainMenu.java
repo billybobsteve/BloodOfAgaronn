@@ -13,7 +13,7 @@ public class MainMenu extends Screen {
 	public MainMenu(Main m) {
 		main = m;
 		setUpComponents();
-		main.playSound(Main.MENU_MUSIC);
+		//main.playSound(Main.MENU_MUSIC);
 	}
 
 	public void draw(Graphics g) {

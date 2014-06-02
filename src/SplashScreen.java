@@ -50,6 +50,7 @@ public class SplashScreen extends Screen {
 	public Screen nextScreen() {
 		if (frame > 82) {
 			main.menu = new MainMenu(main);
+			main.playSound(Main.MENU_MUSIC);
 			return main.menu;
 		}
 		return this;
