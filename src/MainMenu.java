@@ -35,8 +35,10 @@ public class MainMenu extends Screen {
 	}
 
 	public Screen nextScreen() {
-		if (main.currentMap != null)
+		if (main.currentMap != null) {
+			main.stopSound(main.MENU_MUSIC);
 			return main.currentMap.getNextRoom();
+		}
 		return this;
 	}
 
