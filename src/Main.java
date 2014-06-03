@@ -118,6 +118,7 @@ public class Main implements Runnable, ActionListener {
 				pause();
 			}
 		};
+		//TODO FIX PAUSE MENU ISSUE WITH MOVEMENT
 		screenManager.getFullScreenWindow().enableInputMethods(true);
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
@@ -223,6 +224,8 @@ public class Main implements Runnable, ActionListener {
 					for (JComponent c : menu.components) 
 						panel.add(c);
 					content.remove(pausePanel);
+					content.remove(panel);
+					content.add(panel, BorderLayout.SOUTH);
 
 					//TODO FIX PAUSE MENU!!!
 
@@ -268,6 +271,7 @@ public class Main implements Runnable, ActionListener {
 			}
 		}
 		screenManager.restoreScreen();
+		System.exit(0);
 	}
 
 	public void initializeSoundEngine() {
@@ -283,12 +287,14 @@ public class Main implements Runnable, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(menu.quit)) {
 			gameRunning = false;
-			System.exit(0);
+			//System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
 			//playSound(AMBIENT_MUSIC_1);
-			currentMap = new Map(screenManager);
+			if (currentMap == null)
+				currentMap = new Map(screenManager);
 			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
+			pausePanel.removeAll();
 			pausePanel.add(pause);
 			panel.removeAll();
 			gameStarted = true;
