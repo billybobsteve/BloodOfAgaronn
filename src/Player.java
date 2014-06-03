@@ -35,15 +35,15 @@ public class Player extends MovableSprite{
 		inventory.add(w);
 		weapon = w;
 	}
-	
+
 	public Weapon getWeapon(){
 		return weapon;
 	}
-	
+
 	public Armor getArmor(){
 		return armor;
 	}
-	
+
 	public int getBaseHealth(){
 		return baseHealth;
 	}
@@ -71,14 +71,21 @@ public class Player extends MovableSprite{
 		startTime = System.currentTimeMillis();
 	}
 
-	public BufferedImage flip(BufferedImage img) {
-		int w = img.getWidth();
-		int h = img.getHeight();
-		BufferedImage dimg = new BufferedImage(w, h, img.getType());
-		Graphics2D g = dimg.createGraphics();
-		g.drawImage(img, 0, 0, w, h, w, 0, 0, h, null);
-		g.dispose();
-		return dimg;
+	public static BufferedImage flip(BufferedImage img) {
+		if(img != null){
+			int w = img.getWidth();
+			int h = img.getHeight();
+			BufferedImage dimg = new BufferedImage(w, h, img.getType());
+			Graphics2D g = dimg.createGraphics();
+			g.drawImage(img, 0, 0, w, h, w, 0, 0, h, null);
+			g.dispose();
+			return dimg;
+		}
+		return null;
+	}
+
+	public boolean isFlipped(){
+		return image == imageReversed;
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
