@@ -3,9 +3,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Room extends Screen{
-	private ArrayList<Sprite> sprites;
-	private Room parentRoom;
-	private ScreenManager manager;
+	protected ArrayList<Sprite> sprites;
+	protected Room parentRoom;
+	protected ScreenManager manager;
 	ArrayList<Door> doors; 
 	Player player;
 	EnemyControl ec;
@@ -64,7 +64,7 @@ public class Room extends Screen{
 		doors = list;
 	}
 
-	public Room nextScreen() {
+	public Screen nextScreen() {
 		for(Door d : doors){
 			if(player.intersects(d)){
 				Room temp = d.getLinkingRoom();

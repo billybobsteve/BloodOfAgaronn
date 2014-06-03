@@ -6,13 +6,11 @@ public class Weapon extends Item{
 	protected Rectangle attackArea;
 	protected int attackSpeed;
 	private int time;
-	protected String name;
 	protected int damage;
 	public Weapon(int x, int y, int width, int height, String fileName, Rectangle attackArea, int attackSpeed, String name, int damage) {
-		super(x, y, width, height, fileName);
+		super(x, y, width, height, fileName, name);
 		this.attackArea = attackArea;
 		this.attackSpeed = attackSpeed;
-		this.name = name;
 		this.damage = damage;
 	}
 

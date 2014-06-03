@@ -18,11 +18,18 @@ public class RoomGenerator {
 		*/
 		sprites.add(new Sprite(sm.getWidth(),sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
+<<<<<<< HEAD
 		
 		sprites.add(player);
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
 		
+=======
+		sprites.add(player.getWeapon());
+		sprites.add(player.getArmor());
+		sprites.add(player);
+		/**
+>>>>>>> FETCH_HEAD
 		for(Door door : doors){
 			sprites.add(new Sprite(door.getX(),door.getY()+door.getHeight(),door.getWidth(),Map.FLOOR_HEIGHT,"BasedCutman.png"));
 			sprites.add(new Sprite(door.getX()-50-Map.FLOOR_WIDTH,door.getY()+door.getHeight()+Map.ENEMY_HEIGHT+20,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,"BasedCutman.png"));
@@ -46,9 +53,9 @@ public class RoomGenerator {
 		sprites.add(new Sprite(500,425,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite(200,625,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,200,350,50,"BasedCutman.png"));
-		sprites.add(player);
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
+		sprites.add(player);
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 		}
