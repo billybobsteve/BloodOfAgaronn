@@ -25,7 +25,7 @@ public class SplashScreen extends Screen {
 
 	@Override
 	public void draw(Graphics g) {
-		if (System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY) {
+		if (true/*System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY*/) {
 			try {
 				if (frame / 10 < 1)
 					image = ImageIO.read(new FileInputStream("splash/splash_0000" + frame + ".jpg"));
