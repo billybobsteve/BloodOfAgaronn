@@ -18,18 +18,16 @@ public class RoomGenerator {
 		*/
 		sprites.add(new Sprite(sm.getWidth(),sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
-<<<<<<< HEAD
+
 		
 		sprites.add(player);
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
 		
-=======
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
 		sprites.add(player);
-		/**
->>>>>>> FETCH_HEAD
+		
 		for(Door door : doors){
 			sprites.add(new Sprite(door.getX(),door.getY()+door.getHeight(),door.getWidth(),Map.FLOOR_HEIGHT,"BasedCutman.png"));
 			sprites.add(new Sprite(door.getX()-50-Map.FLOOR_WIDTH,door.getY()+door.getHeight()+Map.ENEMY_HEIGHT+20,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,"BasedCutman.png"));
