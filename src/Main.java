@@ -32,8 +32,8 @@ public class Main implements Runnable, ActionListener {
 	static Thread thread;
 	JFrame frame;
 	Container content;
-	JPanel panel, pausePanel;
-	boolean gameRunning = true, leftHeld = false, rightHeld = false, paused = false;
+	JPanel panel, pausePanel, inventoryPanel;
+	boolean gameRunning = true, leftHeld = false, rightHeld = false, paused = false, musicIsPlaying = true;
 	PauseMenu pause;
 	boolean gameStarted = false;
 
@@ -214,6 +214,7 @@ public class Main implements Runnable, ActionListener {
 		}
 
 		pausePanel = new JPanel(new GridLayout(1,1));
+		inventoryPanel = new JPanel(new GridLayout(1,1));
 		//content.add(pausePanel,BorderLayout.SOUTH);
 
 		boolean b = false;
@@ -240,14 +241,29 @@ public class Main implements Runnable, ActionListener {
 				}
 				else if(pause.isInventoryButtonPressed()){
 					inventory = pause.getInventory();
-					System.out.println(inventory);	
 					if(inventory != null)
-						panel.add(inventory);
+						inventoryPanel.add(inventory);
+					content.add(inventoryPanel, BorderLayout.NORTH);
+					pause.isInventoryButtonPressed = false;
+					//TODO Inventory
 				}
 				else if (pause.isResumeButtonPressed) {
 					paused = false;
 					content.remove(pausePanel);
 					pause.isResumeButtonPressed = false;
+				}
+				else if (pause.isMusicButtonPressed) {
+					if (musicIsPlaying) {
+						stopSound(MENU_MUSIC);
+						initializeSoundEngine();
+						musicIsPlaying = false;
+						pause.isMusicButtonPressed = false;
+					}
+					else {
+						playSound(MENU_MUSIC);
+						musicIsPlaying = true;
+						pause.isMusicButtonPressed = false;
+					}
 				}
 			}
 			else {
@@ -285,6 +301,7 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	public void initializeSoundEngine() {
+		sfx.clear();
 		//sfx.add(new SoundClip("sounds/whisper.wav"));
 		sfx.add(new SoundClip("sounds/main.wav"));
 		sfx.add(new SoundClip("sounds/ambient.wav"));
