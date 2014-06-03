@@ -53,6 +53,11 @@ public class Player extends MovableSprite{
 		armor = a;
 		health = baseHealth + armor.getStrength();
 	}
+	
+	public void changeArmor(Armor a){
+		armor = a;
+		health = baseHealth + armor.getStrength();
+	}
 
 	public void setXVelocity(int xvel){
 		if(xvel == 0){
@@ -86,6 +91,10 @@ public class Player extends MovableSprite{
 
 	public boolean isFlipped(){
 		return image == imageReversed;
+	}
+	
+	public void changeWeapon(Weapon w){
+		weapon = w;
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){

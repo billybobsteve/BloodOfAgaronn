@@ -43,7 +43,7 @@ public class PauseMenu extends JPanel implements ActionListener{
 		}
 		else if(e.getSource() == inventory){
 			isInventoryButtonPressed = true;
-			i = new Inventory(0,0,300,500,p.getInventory());
+			i = new Inventory(0,0,300,500,p);
 		}
 		else if(e.getSource() == music){
 			isMusicButtonPressed = true;
