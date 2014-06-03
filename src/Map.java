@@ -14,6 +14,8 @@ public class Map {
 	public static final int WALL_HEIGHT = 10000;//REALLYREALLYTALL
 	public static final int DOOR_HEIGHT = 221;
 	public static final int DOOR_WIDTH = 187;
+	public static int difficulty = 0;
+	public static int rooms_passed = 0;
 
 	Room currRoom;
 	ScreenManager manager;
@@ -24,7 +26,6 @@ public class Map {
 	ArrayList<Door> doors = new ArrayList<Door>(); 
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	Room startingRoom;
-	int difficulty;
 	public Map(ScreenManager m, int d){
 		difficulty = d;
 		manager = m;

@@ -26,7 +26,7 @@ public class Room extends Screen{
 		ec = c;
 		System.out.println("Room bong bong " + d.size());
 	}
-	
+
 	public void setEnemies(ArrayList<Enemy> list){
 		ec.setList(list);
 	}
@@ -67,18 +67,28 @@ public class Room extends Screen{
 	public Screen nextScreen() {
 		for(Door d : doors){
 			if(player.intersects(d) && ec.getEnemies().size() <= 0){
-				ArrayList<Door> nextDoors = new ArrayList<Door>();
-				nextDoors.add(new Door(0, manager.getHeight()-(Map.DOOR_HEIGHT+Map.FLOOR_HEIGHT), Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
-				nextDoors.add(new Door(manager.getWidth()-Map.DOOR_WIDTH, 0, Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
-				
-				
-				Room temp = RoomGenerator.getRandomRoom(nextDoors, player, null, manager);
-			//	Map.setDoorPositions(temp, manager);
-				player.setX(manager.getWidth()/2);
-				player.setY(manager.getHeight()/2);
-				
-				d.setLinkingRoom(this);
-				return temp;
+				if(Map.rooms_passed < Map.difficulty){
+					ArrayList<Door> nextDoors = new ArrayList<Door>();
+					nextDoors.add(new Door(0, manager.getHeight()-(Map.DOOR_HEIGHT+Map.FLOOR_HEIGHT), Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
+					nextDoors.add(new Door(manager.getWidth()-Map.DOOR_WIDTH, 0, Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
+
+
+					Room temp = RoomGenerator.getRandomRoom(nextDoors, player, null, manager);
+					//	Map.setDoorPositions(temp, manager);
+					player.setX(manager.getWidth()/2);
+					player.setY(manager.getHeight()/2);
+
+					d.setLinkingRoom(this);
+					Map.rooms_passed++;
+					return temp;
+				}
+			}
+			else{
+				ArrayList<Door> stupidDoors = new ArrayList<Door>();
+				ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+				ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+				EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.4), manager.getFractionOfScreenX(.009));
+				return new BossRoom(stupidDoors, player, null, sprites, ec, manager);
 			}
 		}
 		return this;
