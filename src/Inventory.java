@@ -14,10 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-public class Inventory extends JInternalFrame implements ActionListener{
+public class Inventory extends JInternalFrame implements ActionListener {
 	HashMap<Item, ImageIcon> map = new HashMap<Item, ImageIcon>();
 	boolean back;
-	JButton backButton = new JButton("Back");
 	public class ImageListCellRenderer extends DefaultListCellRenderer{
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus){
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -40,12 +39,10 @@ public class Inventory extends JInternalFrame implements ActionListener{
 		JScrollPane scroll = new JScrollPane(invList);
 		this.setLayout(new BorderLayout());
 		this.add(scroll, BorderLayout.CENTER);
-		this.add(backButton, BorderLayout.SOUTH);
-		backButton.addActionListener(this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		back = true;
+		//back = true;
 	}
 	public boolean shouldGoBack(){
 		return back;

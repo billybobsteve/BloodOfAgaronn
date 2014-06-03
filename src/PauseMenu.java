@@ -29,10 +29,11 @@ public class PauseMenu extends JPanel implements ActionListener{
 	}
 	
 	public void paint(Graphics g){
+		/*
 		if(i != null)
 			if(i.shouldGoBack()){
 				isResumeButtonPressed = true;
-			}
+			} */
 		super.paint(g);
 	}
 

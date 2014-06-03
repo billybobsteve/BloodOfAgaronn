@@ -150,6 +150,7 @@ public class Main implements Runnable, ActionListener {
 		else if (paused) {
 			paused = false;
 			content.remove(pausePanel);
+			content.remove(inventoryPanel);
 			//playSound(MENU_MUSIC);
 		}
 	}
@@ -241,6 +242,7 @@ public class Main implements Runnable, ActionListener {
 				}
 				else if(pause.isInventoryButtonPressed()){
 					inventory = pause.getInventory();
+					inventoryPanel.removeAll();
 					if(inventory != null)
 						inventoryPanel.add(inventory);
 					content.add(inventoryPanel, BorderLayout.NORTH);
@@ -250,6 +252,7 @@ public class Main implements Runnable, ActionListener {
 				else if (pause.isResumeButtonPressed) {
 					paused = false;
 					content.remove(pausePanel);
+					content.remove(inventoryPanel);
 					pause.isResumeButtonPressed = false;
 				}
 				else if (pause.isMusicButtonPressed) {
