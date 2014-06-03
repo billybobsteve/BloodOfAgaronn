@@ -100,7 +100,7 @@ public class Map {
 		return successors;
 	}
 
-	public Room getNextRoom(){
+	public Screen getNextRoom(){
 		return currRoom.nextScreen();
 	}
 
