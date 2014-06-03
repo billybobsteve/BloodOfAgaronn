@@ -13,7 +13,7 @@ public class PauseMenu extends JPanel implements ActionListener{
 	JButton mainMenu = new JButton("Main Menu");
 	Player p;
 	Inventory i;
-	boolean isMenuButtonPressed, isResumeButtonPressed, isSettingsButtonPressed;
+	boolean isMenuButtonPressed, isResumeButtonPressed, isSettingsButtonPressed, isInventoryButtonPressed;
 	public PauseMenu(Player p, int x, int y, int width, int height){
 		this.p = p;
 		setBounds(x, y, width, height);
@@ -41,8 +41,8 @@ public class PauseMenu extends JPanel implements ActionListener{
 			isResumeButtonPressed = true;
 		}
 		else if(e.getSource() == inventory){
-			i = new Inventory(this.getX(),this.getY(),this.getWidth(),this.getHeight(),p.getInventory());
-			this.add(i);
+			isInventoryButtonPressed = true;
+			i = new Inventory(0,0,300,500,p.getInventory());
 		}
 		else if(e.getSource() == settings){
 			isSettingsButtonPressed = true;
@@ -50,6 +50,10 @@ public class PauseMenu extends JPanel implements ActionListener{
 		else if(e.getSource() == mainMenu){
 			isMenuButtonPressed = true;
 		}
+	}
+	
+	public Inventory getInventory(){
+		return i;
 	}
 	
 	public boolean isMenuButtonPressed(){
@@ -62,5 +66,9 @@ public class PauseMenu extends JPanel implements ActionListener{
 	
 	public boolean isSettingsButtonPressed(){
 		return isSettingsButtonPressed;
+	}
+	
+	public boolean isInventoryButtonPressed(){
+		return isInventoryButtonPressed;
 	}
 }

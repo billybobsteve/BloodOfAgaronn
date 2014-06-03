@@ -125,7 +125,7 @@ public class Main implements Runnable, ActionListener {
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0, false), "attack");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "pause");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "pause");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
 		panel.getActionMap().put("jump", jump);
@@ -134,7 +134,7 @@ public class Main implements Runnable, ActionListener {
 		panel.getActionMap().put("attack", attack);
 		panel.getActionMap().put("pause", pause);
 	}
-
+	Inventory inventory;
 	public void pause() {
 		if (currentScreen == menu || currentScreen == splash)
 			return;
@@ -218,17 +218,23 @@ public class Main implements Runnable, ActionListener {
 				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
 				g.dispose();
 				screenManager.update();
-				if (pause.isMenuButtonPressed) {
+				if (pause.isMenuButtonPressed()) {
 					System.out.println("Menu comp:" + menu.components.size());
 					for (JComponent c : menu.components) 
 						panel.add(c);
 					content.remove(pausePanel);
-					
+
 					//TODO FIX PAUSE MENU!!!
-					
+
 					paused = false;
 					currentScreen = menu;
 					gameStarted = false;
+				}
+				else if(pause.isInventoryButtonPressed()){
+					inventory = pause.getInventory();
+					System.out.println(inventory);	
+					if(inventory != null)
+						panel.add(inventory);
 				}
 			}
 			else {
