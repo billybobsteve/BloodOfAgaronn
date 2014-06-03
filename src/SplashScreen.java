@@ -13,13 +13,14 @@ public class SplashScreen extends Screen {
 	static final long FRAME_DELAY = 0;
 	static final long DELAY = 10000;
 	BufferedImage image;
-	int frame = 0;
+	int frame = 14;
 
 	public SplashScreen(Main m) {
 		main = m;
 		try {
 			image = ImageIO.read(new FileInputStream("splash/splash_00000.jpg"));
 		} catch (Exception e) { e.printStackTrace(); }
+		long t = System.currentTimeMillis();
 		main.playSound(Main.SPLASH_MUSIC);
 	}
 
@@ -38,7 +39,7 @@ public class SplashScreen extends Screen {
 
 		//g.drawImage(image, 0, 0, null); 
 		g.drawImage(image, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
-		
+
 		frame++;
 
 		/* try {
