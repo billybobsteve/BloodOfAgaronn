@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 
 
 
@@ -9,6 +12,7 @@ public class MainMenu extends Screen {
 
 	Main main;
 	JButton start, options, quit;
+	ArrayList<JComponent> components = new ArrayList<JComponent>();
 
 	public MainMenu(Main m) {
 		main = m;
@@ -35,8 +39,8 @@ public class MainMenu extends Screen {
 	}
 
 	public Screen nextScreen() {
-		if (main.currentMap != null) {
-			main.stopSound(main.MENU_MUSIC);
+		if (main.currentMap != null && main.gameStarted) {
+			//main.stopSound(main.MENU_MUSIC);
 			return main.currentMap.getNextRoom();
 		}
 		return this;

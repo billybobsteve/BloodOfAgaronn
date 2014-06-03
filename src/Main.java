@@ -31,9 +31,10 @@ public class Main implements Runnable, ActionListener {
 	static Thread thread;
 	JFrame frame;
 	Container content;
-	JPanel panel;
-	boolean gameRunning = true, leftHeld = false, rightHeld = false;
+	JPanel panel, pausePanel;
+	boolean gameRunning = true, leftHeld = false, rightHeld = false, paused = false;
 	PauseMenu pause;
+	boolean gameStarted = false;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
@@ -65,7 +66,7 @@ public class Main implements Runnable, ActionListener {
 		screenManager.getFullScreenWindow().setVisible(false);		
 		screenManager.getFullScreenWindow().setVisible(true);
 
-		
+
 		init = new Thread() {
 			public void run() {
 				initializeSoundEngine();
@@ -82,29 +83,29 @@ public class Main implements Runnable, ActionListener {
 		frame.setFocusTraversalKeysEnabled(false);
 		panel.setFocusTraversalKeysEnabled(false);
 		Action right = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
-		    	movePlayer(MOVE_RIGHT);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				movePlayer(MOVE_RIGHT);
+			}
 		};
 		Action left = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) { 
-		    	movePlayer(MOVE_LEFT);
-		    }
+			public void actionPerformed(ActionEvent e) { 
+				movePlayer(MOVE_LEFT);
+			}
 		};
 		Action jump = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
-		    	movePlayer(JUMP);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				movePlayer(JUMP);
+			}
 		};
 		Action stop_left = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
-		    	movePlayer(STOP_LEFT);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				movePlayer(STOP_LEFT);
+			}
 		};
 		Action stop_right = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
-		    	movePlayer(STOP_RIGHT);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				movePlayer(STOP_RIGHT);
+			}
 		};
 		Action attack = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +124,7 @@ public class Main implements Runnable, ActionListener {
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), "jump");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), "stop_right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true), "stop_left");
-		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0, true), "attack");
+		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0, false), "attack");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "pause");
 		panel.getActionMap().put("right", right);
 		panel.getActionMap().put("left", left);
@@ -133,15 +134,20 @@ public class Main implements Runnable, ActionListener {
 		panel.getActionMap().put("attack", attack);
 		panel.getActionMap().put("pause", pause);
 	}
-	
+
 	public void pause() {
 		if (currentScreen == menu || currentScreen == splash)
 			return;
-		else {
-			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
+		else if (!paused) {
+			content.add(pausePanel, BorderLayout.SOUTH);
+			paused = true;
+		}
+		else if (paused) {
+			paused = false;
+			content.remove(pausePanel);
 		}
 	}
-	
+
 	public void initializeController() {
 		cL = new ControllerLiason(this);
 		if(cL.initialize()) {
@@ -170,9 +176,10 @@ public class Main implements Runnable, ActionListener {
 	public void run() {
 		NoRepaintsManager.setAsManager();
 
-		//menu = new MainMenu(this);
 		splash = new SplashScreen(this);
 		currentScreen = splash;
+
+		menu = new MainMenu(this);
 
 		/*
 		///Make some Swing components
@@ -185,7 +192,6 @@ public class Main implements Runnable, ActionListener {
 		button.setBorder(null);
 		button.setToolTipText("This is helpful!"); */
 
-		ArrayList<JComponent> components = null;
 		frame = screenManager.getFullScreenWindow();
 
 		content = frame.getContentPane();
@@ -196,51 +202,64 @@ public class Main implements Runnable, ActionListener {
 		content.add(panel,BorderLayout.SOUTH);
 
 
-		components = currentScreen.getJComponentsToDraw();
-		for (JComponent c : components) {
+		for (JComponent c : menu.components) {
 			//Add them to the window
 			panel.add(c);
 		}
+
+		pausePanel = new JPanel(new GridLayout(1,1));
+		//content.add(pausePanel,BorderLayout.SOUTH);
+
 		boolean b = false;
 		while(gameRunning) {
-			ArrayList<JComponent> componentsReplacement = currentScreen.getJComponentsToDraw();
-			if (!components.equals(componentsReplacement)) {
-				components = componentsReplacement;
-				panel = new JPanel(new GridLayout(1,3));
-				content.setLayout(new BorderLayout());
-				content.add(panel,BorderLayout.SOUTH);
-				components = currentScreen.getJComponentsToDraw();
-				for (JComponent c : components) {	
-					panel.add(c);
+			if (paused) {
+				frame.validate();
+				Graphics2D g = screenManager.getGraphics();
+				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
+				g.dispose();
+				screenManager.update();
+				if (pause.isMenuButtonPressed) {
+					System.out.println("Menu comp:" + menu.components.size());
+					for (JComponent c : menu.components) 
+						panel.add(c);
+					content.remove(pausePanel);
+					
+					//TODO FIX PAUSE MENU!!!
+					
+					paused = false;
+					currentScreen = menu;
+					gameStarted = false;
 				}
 			}
-			frame.validate();
+			else {
+				frame.validate();
 
-			Graphics2D g = screenManager.getGraphics();
-			currentScreen.draw(g);
+				Graphics2D g = screenManager.getGraphics();
+				currentScreen.draw(g);
 
-			//tell Swing that it is time to update
-			if(currentScreen == menu)
-				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
+				//tell Swing that it is time to update
+				if(currentScreen != splash)
+					screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
 
-			g.dispose();
-			screenManager.update();
+				g.dispose();
+				screenManager.update();
 
-			Screen nextScreen = currentScreen.nextScreen();
-			if(nextScreen== null) System.out.println(nextScreen != null);
-			if (nextScreen != null && nextScreen != currentScreen) 
-				currentScreen = nextScreen;
-			if(b == false){
-				initializeKeyboard();
-				b = true;
+				Screen nextScreen = currentScreen.nextScreen();
+				if(nextScreen== null) System.out.println(nextScreen != null);
+				if (nextScreen != null && nextScreen != currentScreen) 
+					currentScreen = nextScreen;
+				if(b == false){
+					initializeKeyboard();
+					b = true;
+				}
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-			try {
-				Thread.sleep(3);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 		}
 		screenManager.restoreScreen();
 	}
@@ -261,15 +280,19 @@ public class Main implements Runnable, ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource().equals(menu.start)) {
-			playSound(AMBIENT_MUSIC_1);
+			//playSound(AMBIENT_MUSIC_1);
 			currentMap = new Map(screenManager);
+			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
+			pausePanel.add(pause);
+			panel.removeAll();
+			gameStarted = true;
 		}
 	}
 
 	public void playSound(int sound) {
 		sfx.get(sound).play();
 	}
-	
+
 	public void stopSound(int sound) {
 		sfx.get(sound).stop();
 		sfx.get(sound).close();
@@ -308,41 +331,5 @@ public class Main implements Runnable, ActionListener {
 					currentMap.player.setXVelocity(0);
 			}
 	}
-/*
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("test");
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == 37)
-			this.movePlayer(this.MOVE_LEFT);
-		else if (e.getKeyCode() == 39)
-			this.movePlayer(this.MOVE_RIGHT);
-		else if (e.getKeyCode() == 38)
-			this.movePlayer(this.JUMP);
-		//TODO CROUCH
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println("test");
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == 37)
-			this.movePlayer(this.MOVE_LEFT);
-		else if (e.getKeyCode() == 39)
-			this.movePlayer(this.MOVE_RIGHT);
-		else if (e.getKeyCode() == 38)
-			this.movePlayer(this.JUMP);
-		//TODO CROUCH
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("test");
-
-	}
-*/
 
 }
