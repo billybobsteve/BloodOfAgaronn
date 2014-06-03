@@ -145,12 +145,10 @@ public class Main implements Runnable, ActionListener {
 			paused = true;
 			rightHeld = false;
 			leftHeld = false;
-			//stopSound(MENU_MUSIC);
 		}
 		else if (paused) {
 			paused = false;
 			content.remove(pausePanel);
-			//playSound(MENU_MUSIC);
 		}
 	}
 
@@ -232,8 +230,8 @@ public class Main implements Runnable, ActionListener {
 					content.remove(panel);
 					content.add(panel, BorderLayout.SOUTH);
 
-					//playSound(MENU_MUSIC);
-					
+					//TODO FIX PAUSE MENU!!!
+
 					paused = false;
 					currentScreen = menu;
 					gameStarted = false;
@@ -243,11 +241,6 @@ public class Main implements Runnable, ActionListener {
 					System.out.println(inventory);	
 					if(inventory != null)
 						panel.add(inventory);
-				}
-				else if (pause.isResumeButtonPressed) {
-					paused = false;
-					content.remove(pausePanel);
-					pause.isResumeButtonPressed = false;
 				}
 			}
 			else {
