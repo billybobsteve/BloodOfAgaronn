@@ -33,7 +33,7 @@ public class Room extends Screen{
 		System.out.println("Room bong bong " + d.size());
 		BufferedImage tile = null;
 		try {
-			bg = ImageIO.read(new File("wallmandude.png"));
+			bg = ImageIO.read(new File("duck_you.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,7 +63,6 @@ public class Room extends Screen{
 	public void draw(Graphics g){
 		g.setColor(bgColor);
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
-		
 		g.drawImage(bg, 0,0,manager.getWidth(),manager.getHeight(),null);
 		System.out.println("qqqqqqslfkdjlsdkjfsl");
 		g.setColor(Color.RED);

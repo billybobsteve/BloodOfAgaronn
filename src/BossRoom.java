@@ -5,6 +5,8 @@ public class BossRoom extends Room {
 	public BossRoom(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
 		super(d,p,pr,s,c,manager);
 		this.doors = new ArrayList<Door>();
+		sprites.add(p.getWeapon());
+		sprites.add(p.getArmor());
 		sprites.add(p);
 		ArrayList<Enemy> bossList = new ArrayList<Enemy>();
 		boss = new Enemy(0,0,300,300,200,"boss.png",40);
