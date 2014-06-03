@@ -1,6 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Room extends Screen{
 	protected ArrayList<Sprite> sprites;
@@ -10,7 +15,7 @@ public class Room extends Screen{
 	Player player;
 	EnemyControl ec;
 	Color bgColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-
+	BufferedImage bg;
 
 	public Room(){
 
@@ -19,12 +24,28 @@ public class Room extends Screen{
 	public Room(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
 
 		this.manager = manager;
+		bg = new BufferedImage(manager.getWidth(),manager.getHeight(),BufferedImage.TYPE_INT_ARGB);
 		doors = d;
 		player = p;
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
 		System.out.println("Room bong bong " + d.size());
+		BufferedImage tile = null;
+		try {
+			bg = ImageIO.read(new File("wallmandude.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*
+		System.out.println("alskdfjasldkfjalsdkfjasldkfjasldkfjaslkdjf");
+		for(int i = 0; i<manager.getWidth(); i+=142){
+			for(int h = 0; h<manager.getHeight(); i+= 144){
+				bg.getGraphics().drawImage(tile, i, h, 142, 144, null);
+			}
+		}
+		System.out.println("lkjhdfaksdjfhasdkfjhasdkfjahsdkfjhasdfkjashdfkasjdhfaksjdfhaksdjfh");
+		*/
 	}
 
 	public void setEnemies(ArrayList<Enemy> list){
@@ -42,6 +63,9 @@ public class Room extends Screen{
 	public void draw(Graphics g){
 		g.setColor(bgColor);
 		g.fillRect(0, 0, manager.getWidth(), manager.getHeight());
+		
+		g.drawImage(bg, 0,0,manager.getWidth(),manager.getHeight(),null);
+		System.out.println("qqqqqqslfkdjlsdkjfsl");
 		g.setColor(Color.RED);
 		g.fillRect(50, 50, 600, 50);
 		g.setColor(Color.GREEN);
@@ -82,14 +106,15 @@ public class Room extends Screen{
 					Map.rooms_passed++;
 					return temp;
 				}
+				else{
+					ArrayList<Door> stupidDoors = new ArrayList<Door>();
+					ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+					ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+					EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.4), manager.getFractionOfScreenX(.009));
+					return new BossRoom(stupidDoors, player, null, sprites, ec, manager);
+				}
 			}
-			else{
-				ArrayList<Door> stupidDoors = new ArrayList<Door>();
-				ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-				ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-				EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.4), manager.getFractionOfScreenX(.009));
-				return new BossRoom(stupidDoors, player, null, sprites, ec, manager);
-			}
+			
 		}
 		return this;
 	}
