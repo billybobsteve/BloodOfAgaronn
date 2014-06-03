@@ -142,6 +142,8 @@ public class Main implements Runnable, ActionListener {
 		else if (!paused) {
 			content.add(pausePanel, BorderLayout.SOUTH);
 			paused = true;
+			rightHeld = false;
+			leftHeld = false;
 		}
 		else if (paused) {
 			paused = false;
