@@ -10,17 +10,24 @@ public class RoomGenerator {
 		ec.setList(enemies);
 		sprites.addAll(enemies);
 		sprites.addAll(doors);
+		/*
+		for(Door d : doors){
+			if(d.getY() < sm.getHeight()-(Map.DOOR_HEIGHT + Map.FLOOR_HEIGHT))
+				sprites.add(new Sprite(d.getX()-50,d.getY()+Map.DOOR_HEIGHT,350,50,"BasedCutman.png"));
+		}
+		*/
 		sprites.add(new Sprite(sm.getWidth(),sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
+		
 		sprites.add(player);
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
-		/**
+		
 		for(Door door : doors){
 			sprites.add(new Sprite(door.getX(),door.getY()+door.getHeight(),door.getWidth(),Map.FLOOR_HEIGHT,"BasedCutman.png"));
 			sprites.add(new Sprite(door.getX()-50-Map.FLOOR_WIDTH,door.getY()+door.getHeight()+Map.ENEMY_HEIGHT+20,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,"BasedCutman.png"));
 		}
-		*/
+		
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 			

@@ -24,8 +24,7 @@ public class Room extends Screen{
 		parentRoom = pr;
 		sprites = s;
 		ec = c;
-		//System.out.println(sprites);
-
+		System.out.println("Room bong bong " + d.size());
 	}
 	
 	public void setEnemies(ArrayList<Enemy> list){
@@ -69,17 +68,17 @@ public class Room extends Screen{
 		for(Door d : doors){
 			if(player.intersects(d)){
 				Room temp = d.getLinkingRoom();
+				Map.setDoorPositions(temp, manager);
 				if(d.getX() > manager.getWidth()/2){
-					d.setX(0);
+					player.setX(d.getX()-200);
+					player.setY(d.getY());
+					
+				}
+				else{
 					player.setX(d.getX()+200);
 					player.setY(d.getY());
 				}
-				else{
-					d.setX(manager.getWidth()-Map.DOOR_WIDTH);
-					player.setX(d.getX()-200);
-					player.setY(d.getY());
-				}
-				player.setX(200);
+				
 				d.setLinkingRoom(this);
 				return temp;
 			}

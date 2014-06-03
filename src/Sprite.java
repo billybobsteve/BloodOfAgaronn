@@ -35,7 +35,7 @@ public class Sprite {
 	}
 	
 	public void setY(int n){
-		x = n;
+		y = n;
 	}
 	public int getWidth(){
 		return width;

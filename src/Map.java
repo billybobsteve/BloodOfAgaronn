@@ -33,8 +33,9 @@ public class Map {
 		ArrayList<Room> start = new ArrayList<Room>();
 		start.add(startingRoom);
 		generateMap(start, 0);
+
 		currRoom = startingRoom;
-		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom());
+		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom().doors.size());
 		defaultWeapon.setParent(player);
 		defaultArmor.setParent(player);
 
@@ -50,8 +51,8 @@ public class Map {
 				generateMap(original.doors.get(i).getLinkingRoom(), n+1);
 		}
 	}
-*/
-	
+	 */
+
 	public ArrayList<Room> generateMap(ArrayList<Room> l, int n){
 
 		ArrayList<Room> level = new ArrayList<Room>();
@@ -61,17 +62,6 @@ public class Map {
 		if(n > 3)
 			return level;
 		ArrayList<Room> nextLevel = generateMap(level,n+1);
-		/*
-		for(Room r : l){
-			generateNextLevel(r);
-			for(Door d : r.doors){
-				for(Door w : d,getLinkingRoom().doors){
-					w.setLinkingRoom();
-					level.add(d.getLinkingRoom());
-				}
-			}
-		}
-		*/
 		for(int i = 0;i<nextLevel.size();i++){
 			int j = i/2;
 			for(Door d:level.get(j).doors){
@@ -80,7 +70,7 @@ public class Map {
 			}
 		}
 		return level;
- 
+
 	}
 	public ArrayList<Room> successors(Room r){
 		ArrayList<Room> successors = new ArrayList<Room>();
@@ -89,8 +79,8 @@ public class Map {
 				Door d = r.doors.get(i);
 				ArrayList<Door> doors = new ArrayList<Door>();
 				doors.add(d);
-				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
-				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				doors.add(new Door(100,400,DOOR_WIDTH, DOOR_HEIGHT, "DoorManBro.png", null));
+				doors.add(new Door(300,400,DOOR_WIDTH, DOOR_HEIGHT, "DoorManBro.png", null));
 				Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
 				successors.add(f);
 				d.setLinkingRoom(f);
@@ -101,8 +91,8 @@ public class Map {
 				Door d = r.doors.get(i);
 				ArrayList<Door> doors = new ArrayList<Door>();
 				doors.add(d);
-				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
-				doors.add(new Door((int)(Math.random()*1000),this.manager.getHeight()-(int)(Math.random()*300),187,201,"DoorManBro.png", null));
+				doors.add(new Door(100,400,DOOR_WIDTH, DOOR_HEIGHT, "DoorManBro.png", null));
+				doors.add(new Door(300,400,DOOR_WIDTH, DOOR_HEIGHT, "DoorManBro.png", null));
 				Room f = RoomGenerator.getRandomRoom(doors, player, r, manager);
 				successors.add(f);
 				d.setLinkingRoom(f);
@@ -123,19 +113,60 @@ public class Map {
 		return player;
 	}
 
-	/*
-	public static void main(String[] args){
-		ArrayList<Door> doors = new ArrayList<Door>();
-		Room original = new Room(null, null, null, null);
-		doors.add(new Door(1,1,1,1, null,original));
-		doors.add(new Door(1,1,1,1, null,original));
-		original.setDoors(doors);
-		Map map = new Map(null, original);
-		generateMap(startingRoom, 0);
-		System.out.println(counter);
+	public static void setDoorPositions(Room r, ScreenManager manager){
+		if(r == null) return;
+		if(r.doors.size() == 2){
+			Door d = r.doors.get(0);
+			d.setX(0);
+			d.setY(manager.getHeight()-(DOOR_HEIGHT+FLOOR_HEIGHT));
+			r.doors.get(1).setX(manager.getWidth()-DOOR_WIDTH);
+			r.doors.get(1).setY(manager.getHeight()-(DOOR_HEIGHT+FLOOR_HEIGHT));
+			/*
+			for(int i = 0;i<2;i++){
+				d = r.doors.get(i);
+				d.setX(i*300);
+				d.setY(i*100);
+				//d.setX((int)(Math.random()*manager.getWidth()));
+				//d.setY((int)(Math.random()*manager.getHeight()));
+				if(d.getX() > (manager.getWidth()-DOOR_WIDTH))
+					d.setX(manager.getWidth()-DOOR_WIDTH);
+				if(d.getY() > manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT))
+					d.setY(manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT));
+			} */
+		}
 
+		if(r.doors.size() == 3){
+			Door d = r.doors.get(0);
+			/*
+			if(d.getX() > manager.getWidth()/2){
+				d.setX(Math.abs(d.getX()-manager.getWidth()));
+			}
+			if(d.getX() < manager.getWidth()/2){
+				d.setX(manager.getWidth()-d.getX());
+			}
+			*/
+			d.setX(0);
+			d.setY(manager.getHeight()-(DOOR_HEIGHT+FLOOR_HEIGHT));
+			/*
+			for(int i = 1;i<3;i++){
+				d = r.doors.get(i);
+				d.setX(i*300);
+				d.setY(i*100);
+				//d.setX((int)(Math.random()*manager.getWidth()));
+				//d.setY((int)(Math.random()*manager.getHeight()));
+				if(d.getX() > (manager.getWidth()-DOOR_WIDTH))
+					d.setX(manager.getWidth()-DOOR_WIDTH);
+				if(d.getY() > manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT))
+					d.setY(manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT));
+			}
+			*/
+			r.doors.get(1).setX(manager.getWidth()-DOOR_WIDTH);
+			r.doors.get(1).setY(manager.getHeight()-(DOOR_HEIGHT+FLOOR_HEIGHT));
+			r.doors.get(2).setX(manager.getWidth()-DOOR_WIDTH);
+			r.doors.get(2).setY(0);
+			
+		}
 	}
-	 */
-
-
 }
+
+
