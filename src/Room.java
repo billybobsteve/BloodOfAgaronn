@@ -67,17 +67,16 @@ public class Room extends Screen{
 	public Screen nextScreen() {
 		for(Door d : doors){
 			if(player.intersects(d)){
-				Room temp = d.getLinkingRoom();
+				
+				ArrayList<Door> nextDoors = new ArrayList<Door>();
+				for(int i = 0; i<3; i++){
+					//nextDoors.add()
+				}
+				
+				Room temp = new Room();
 				Map.setDoorPositions(temp, manager);
-				if(d.getX() > manager.getWidth()/2){
-					player.setX(d.getX()-200);
-					player.setY(d.getY());
-					
-				}
-				else{
-					player.setX(d.getX()+200);
-					player.setY(d.getY());
-				}
+				player.setX(manager.getWidth()/2);
+				player.setY(manager.getHeight()/2);
 				
 				d.setLinkingRoom(this);
 				return temp;

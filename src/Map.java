@@ -32,7 +32,6 @@ public class Map {
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
 		ArrayList<Room> start = new ArrayList<Room>();
 		start.add(startingRoom);
-		generateMap(start, 0);
 
 		currRoom = startingRoom;
 		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom().doors.size());
@@ -52,7 +51,7 @@ public class Map {
 		}
 	}
 	 */
-
+/*
 	public ArrayList<Room> generateMap(ArrayList<Room> l, int n){
 
 		ArrayList<Room> level = new ArrayList<Room>();
@@ -100,7 +99,7 @@ public class Map {
 		}
 		return successors;
 	}
-
+*/
 	public Screen getNextRoom(){
 		return currRoom.nextScreen();
 	}
