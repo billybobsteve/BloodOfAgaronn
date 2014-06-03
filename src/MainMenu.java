@@ -1,17 +1,22 @@
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-
-
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 
 public class MainMenu extends Screen {
 
 	Main main;
-	JButton start, options, quit;
+	JButton start, music, quit;
+	JLabel difficulty = new JLabel("Difficulty:");
+	JSlider difficultySlider = new JSlider(3, 25, 11);
+	JPanel fix = new JPanel(new FlowLayout());
 	ArrayList<JComponent> components = new ArrayList<JComponent>();
 
 	public MainMenu(Main m) {
@@ -29,12 +34,15 @@ public class MainMenu extends Screen {
 	public void setUpComponents() {
 		start = new JButton("Start");
 		start.addActionListener(main);
-		options = new JButton("Options");
-		options.addActionListener(main);
+		music = new JButton("Music On/Off");
+		music.addActionListener(main);
 		quit = new JButton("Quit");
 		quit.addActionListener(main);
+		fix.add(difficulty);
+		fix.add(difficultySlider);
 		components.add(start);
-		components.add(options);
+		components.add(music);
+		components.add(fix);
 		components.add(quit);
 	}
 

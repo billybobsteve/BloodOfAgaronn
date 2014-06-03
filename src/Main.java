@@ -13,7 +13,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -36,6 +35,7 @@ public class Main implements Runnable, ActionListener {
 	boolean gameRunning = true, leftHeld = false, rightHeld = false, paused = false, musicIsPlaying = true;
 	PauseMenu pause;
 	boolean gameStarted = false;
+	Inventory inventory;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
 
@@ -119,7 +119,6 @@ public class Main implements Runnable, ActionListener {
 				pause();
 			}
 		};
-		//TODO FIX PAUSE MENU ISSUE WITH MOVEMENT
 		screenManager.getFullScreenWindow().enableInputMethods(true);
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
@@ -136,7 +135,6 @@ public class Main implements Runnable, ActionListener {
 		panel.getActionMap().put("attack", attack);
 		panel.getActionMap().put("pause", pause);
 	}
-	Inventory inventory;
 	public void pause() {
 		if (currentScreen == menu || currentScreen == splash)
 			return;
@@ -322,12 +320,23 @@ public class Main implements Runnable, ActionListener {
 		else if (e.getSource().equals(menu.start)) {
 			//playSound(AMBIENT_MUSIC_1);
 			if (currentMap == null)
-				currentMap = new Map(screenManager);
+				currentMap = new Map(screenManager, menu.difficultySlider.getValue());
 			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
 			pausePanel.removeAll();
 			pausePanel.add(pause);
 			panel.removeAll();
 			gameStarted = true;
+		}
+		else if (e.getSource().equals(menu.music)){
+			if (musicIsPlaying) {
+				stopSound(MENU_MUSIC);
+				initializeSoundEngine();
+				musicIsPlaying = false;
+			}
+			else {
+				playSound(MENU_MUSIC);
+				musicIsPlaying = true;
+			}
 		}
 	}
 
