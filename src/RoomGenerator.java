@@ -20,10 +20,7 @@ public class RoomGenerator {
 		sprites.add(new Sprite(0,sm.getHeight(),Map.WALL_WIDTH, Map.WALL_HEIGHT,null));
 
 		
-		sprites.add(player);
-		sprites.add(player.getWeapon());
-		sprites.add(player.getArmor());
-		
+
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
 		sprites.add(player);

@@ -34,7 +34,7 @@ public class Map {
 		start.add(startingRoom);
 
 		currRoom = startingRoom;
-		System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom().doors.size());
+		//System.out.println("asposing " + startingRoom.doors.get(0).getLinkingRoom().doors.get(1).getLinkingRoom().doors.size());
 		defaultWeapon.setParent(player);
 		defaultArmor.setParent(player);
 

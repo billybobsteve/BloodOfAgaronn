@@ -66,15 +66,14 @@ public class Room extends Screen{
 
 	public Screen nextScreen() {
 		for(Door d : doors){
-			if(player.intersects(d)){
-				
+			if(player.intersects(d) && ec.getEnemies().size() <= 0){
 				ArrayList<Door> nextDoors = new ArrayList<Door>();
-				for(int i = 0; i<3; i++){
-					//nextDoors.add()
-				}
+				nextDoors.add(new Door(0, manager.getHeight()-(Map.DOOR_HEIGHT+Map.FLOOR_HEIGHT), Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
+				nextDoors.add(new Door(manager.getWidth()-Map.DOOR_WIDTH, 0, Map.DOOR_WIDTH, Map.DOOR_HEIGHT, "DoorManBro.png", null));
 				
-				Room temp = new Room();
-				Map.setDoorPositions(temp, manager);
+				
+				Room temp = RoomGenerator.getRandomRoom(nextDoors, player, null, manager);
+			//	Map.setDoorPositions(temp, manager);
 				player.setX(manager.getWidth()/2);
 				player.setY(manager.getHeight()/2);
 				
