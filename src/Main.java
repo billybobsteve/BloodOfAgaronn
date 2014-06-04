@@ -43,8 +43,6 @@ public class Main implements Runnable, ActionListener {
 	public static final int MENU_MUSIC = 0; 
 	public static final int SPLASH_MUSIC = 1;
 	public static final int AMBIENT_MUSIC = 2;
-	public static final int VICTORY_MUSIC = 3;
-	public static final int DEFEAT_MUSIC = 4;
 
 	/* Constants for movement */
 	public static final int MOVE_LEFT = -1;
@@ -309,21 +307,29 @@ public class Main implements Runnable, ActionListener {
 		sfx.add(new SoundClip("sounds/main.wav"));
 		sfx.add(new SoundClip("splash/splash.wav"));
 		sfx.add(new SoundClip("sounds/ambient.wav"));
-		sfx.add(new SoundClip("sounds/victory.wav"));
-		sfx.add(new SoundClip("sounds/defeat.wav"));
 	}
 	
-	public void pcDamageSound() {
+	public static void victorySound() {
+		SoundClip c = new SoundClip("sounds/victory.wav");
+		c.play();
+	}
+	
+	public static void defeatSound() {
+		SoundClip c = new SoundClip("sounds/defeat.wav");
+		c.play();
+	}
+	
+	public static void pcDamageSound() {
 		SoundClip c = new SoundClip("sounds/pc_hit.wav");
 		c.play();
 	}
 	
-	public void npcDamageSound() {
+	public static void npcDamageSound() {
 		SoundClip c = new SoundClip("sounds/npc_hit.wav");
 		c.play();
 	}
 	
-	public void swordSound() {
+	public static void swordSound() {
 		SoundClip c = new SoundClip("sounds/sword.wav");
 		c.play();
 	}

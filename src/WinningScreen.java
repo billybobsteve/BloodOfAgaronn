@@ -7,6 +7,10 @@ public class WinningScreen extends Screen {
 	String endText;
 	int victoryOrDefeat; // 1 = victory 2 = defeat
 	public WinningScreen(ScreenManager m, String t, int s){
+		if (s == 1)
+			Main.victorySound();
+		else if (s == 2) 
+			Main.defeatSound();
 		manager = m;
 		endText = t;
 		victoryOrDefeat = s;

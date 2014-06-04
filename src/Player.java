@@ -76,6 +76,7 @@ public class Player extends MovableSprite{
 	}
 
 	public void attack(){
+		Main.swordSound();
 		attacking = true;
 		startTime = System.currentTimeMillis();
 	}
