@@ -18,7 +18,7 @@ public class WinningScreen extends Screen {
 		g.fillRect(0,0,manager.getWidth(),manager.getHeight());
 		g.setColor(Color.MAGENTA);
 		g.drawString(endText,(manager.getWidth()/2)-200,  manager.getHeight()/2);
-		g.drawString("Credits: ",(manager.getWidth()/2)-200 , (manager.getHeight()/2)+100);
+		g.drawString("Credits: ",(manager.getWidth()/2)-200 , (manager.getHeight()/2)+50);
 		g.drawString("Programmers: Chase Goddard, Thomas Ragucci, and Nathan Spring",(manager.getWidth()/2)-200 , (manager.getHeight()/2)+100);
 		g.drawString("Drawer of Title Screen: Acacia Dougan",(manager.getWidth()/2)-200 , (manager.getHeight()/2)+150);
 		g.drawString("Special Thanks to our Lord and Savior Andrew \"Does That Make Sense\" Burke for a stock photo",(manager.getWidth()/2)-200 , (manager.getHeight()/2)+200);
