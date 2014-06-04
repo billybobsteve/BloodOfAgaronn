@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -18,17 +21,41 @@ public class MainMenu extends Screen {
 	JSlider difficultySlider = new JSlider(3, 25, 11);
 	JPanel fix = new JPanel(new FlowLayout());
 	ArrayList<JComponent> components = new ArrayList<JComponent>();
+	BufferedImage image;
+	int frame = 0;
 
 	public MainMenu(Main m) {
 		main = m;
 		setUpComponents();
+		
+		try {
+			image = ImageIO.read(new FileInputStream("main/main_00000.jpg"));
+		} catch (Exception e) { e.printStackTrace(); }
+		
 		//main.playSound(Main.MENU_MUSIC);
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.BLUE);
-		//TODO change width/height
-		g.fillRect(0, 0, main.screenManager.getWidth(), main.screenManager.getHeight());
+		
+		if (frame > 122)
+			frame = 0;
+		
+		if (true/*System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY*/) {
+			try {
+				if (frame / 10 < 1)
+					image = ImageIO.read(new FileInputStream("main/castle_0000" + frame + ".jpg"));
+				else if (frame / 10 < 10)
+					image = ImageIO.read(new FileInputStream("main/castle_000" + frame + ".jpg"));
+				else //if (frame / 10 < 100)
+					image = ImageIO.read(new FileInputStream("splash/castle_00" + frame + ".jpg"));
+			} catch (Exception e) { e.printStackTrace(); }
+		}
+
+		//g.drawImage(image, 0, 0, null); 
+		g.drawImage(image, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
+
+		frame++;
+		
 	}
 
 	public void setUpComponents() {

@@ -20,7 +20,7 @@ public class SplashScreen extends Screen {
 		try {
 			image = ImageIO.read(new FileInputStream("splash/splash_00000.jpg"));
 		} catch (Exception e) { e.printStackTrace(); }
-		long t = System.currentTimeMillis();
+		//long t = System.currentTimeMillis();
 		main.playSound(Main.SPLASH_MUSIC);
 	}
 
