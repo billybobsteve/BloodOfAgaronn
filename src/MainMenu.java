@@ -58,9 +58,8 @@ public class MainMenu extends Screen {
 
 			frame++;
 			
-			if (drawInfo) {
+			if (drawInfo)
 				g.drawImage(information, ((main.screenManager.getWidth()-information.getWidth())/2), ((main.screenManager.getHeight()-information.getHeight())/2), information.getWidth(), information.getHeight(), null);
-			}
 
 	}
 
