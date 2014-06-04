@@ -11,6 +11,7 @@ public class SoundClip {
 	private File file;
 	private Clip clip;
 	private AudioInputStream inputStream;
+	//plays a sound
 	public SoundClip(String filename){
 		file = new File(filename);
 		try {
@@ -22,6 +23,7 @@ public class SoundClip {
 			e.printStackTrace();
 		}
 	}
+	//play the sound
 	public void play(){
 		new Thread(new Runnable(){
 			public void run(){
@@ -29,10 +31,10 @@ public class SoundClip {
 			}
 		}).start();
 	}
+	//stop the sound
 	public void stop(){
 		clip.stop();
 	}
-
 	public void close(){
 		clip.close();
 	}

@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
+//an enemy
 public class Enemy extends MovableSprite {
 	protected int damage;
 	protected boolean activated = false, bounce = false;
@@ -11,6 +11,7 @@ public class Enemy extends MovableSprite {
 		this.damage = damage;
 	}
 	
+	//"bounce" away from the player
 	public void bounce(){
 		bounce = true;
 		bounceStart = System.currentTimeMillis();

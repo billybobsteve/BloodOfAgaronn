@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+//an item that can be held by the player, such as a sword
 public class Item extends Sprite{
 	protected Sprite parent;
 	protected String name;
