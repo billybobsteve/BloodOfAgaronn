@@ -23,11 +23,11 @@ public class BossRoom extends Room {
 	public Screen nextScreen(){
 		
 		if(boss.health <= 0){
-			return new WinningScreen(manager, "Congratulations!  You have defeated the evil Gorabarr!  The kingdom has been saved!");
+			return new WinningScreen(manager, "Congratulations!  You have defeated the evil Gorabarr!  The kingdom has been saved!", 1);
 		}
 		
 		if(player.getHealth() <= 0){
-			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!");
+			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!", 2);
 		}
 		
 		return this;

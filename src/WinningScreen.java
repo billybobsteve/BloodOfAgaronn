@@ -5,9 +5,11 @@ import java.awt.Graphics;
 public class WinningScreen extends Screen { 
 	ScreenManager manager;
 	String endText;
-	public WinningScreen(ScreenManager m, String t){
+	int victoryOrDefeat; // 1 = victory 2 = defeat
+	public WinningScreen(ScreenManager m, String t, int s){
 		manager = m;
 		endText = t;
+		victoryOrDefeat = s;
 	}
 
 	//creates an endgame screen that contains parameter message and credits

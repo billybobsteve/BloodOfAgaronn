@@ -73,7 +73,7 @@ public class Room extends Screen{
 	public Screen nextScreen() {
 		//if health is less or equal to zero, return a gameover screen with a losing message
 		if(player.getHealth() <= 0){
-			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!");
+			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!", 2);
 		}
 		//checks intersection with each door and that all enemies in the room are dead, if so then make a new room and return that room as next room
 		for(Door d : doors){
