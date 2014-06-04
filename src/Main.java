@@ -237,6 +237,9 @@ public class Main implements Runnable, ActionListener {
 					paused = false;
 					currentScreen = menu;
 					gameStarted = false;
+					stopSound(AMBIENT_MUSIC);
+					initializeSoundEngine();
+					playSound(MENU_MUSIC);
 				}
 				else if(pause.isInventoryButtonPressed()){ // checks for inventory button press -- brings up inventory
 					inventory = pause.getInventory();
