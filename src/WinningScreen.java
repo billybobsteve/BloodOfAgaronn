@@ -10,7 +10,7 @@ public class WinningScreen extends Screen {
 		endText = t;
 	}
 
-	@Override
+	//creates an endgame screen that contains parameter message and credits
 	public void draw(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,manager.getWidth(),manager.getHeight());
@@ -24,7 +24,7 @@ public class WinningScreen extends Screen {
 		g.drawString("Bless Him.",(manager.getWidth()/2)-100 , (manager.getHeight()/2)+300);
 	}
 
-	@Override
+	
 	public Screen nextScreen() {
 		return null;
 	}

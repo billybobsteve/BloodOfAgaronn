@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class BossRoom extends Room {
 	Enemy boss;
+	//sets up position, creates/displays boss, same as normal room w/boss enemy
 	public BossRoom(ArrayList<Door> d, Player p, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
 		super(d,p,s,c,manager);
 		this.doors = new ArrayList<Door>();
@@ -18,6 +19,7 @@ public class BossRoom extends Room {
 			this.sprites.add(new Sprite(i,manager.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,"BasedCutman.png"));
 		}
 	}
+	//determines next screen, if boss health is less/equal to zero, good gameover message, if you die bad gameover message
 	public Screen nextScreen(){
 		
 		if(boss.health <= 0){
