@@ -281,6 +281,12 @@ public class Main implements Runnable, ActionListener {
 				g.dispose();
 				screenManager.update();
 
+				if (currentScreen instanceof WinningScreen) {
+					stopSound(AMBIENT_MUSIC);
+					stopSound(MENU_MUSIC);
+					initializeSoundEngine();
+				}
+				
 				Screen nextScreen = currentScreen.nextScreen(); // asks for next screen
 				if(nextScreen== null) System.out.println(nextScreen != null);
 				if (nextScreen != null && nextScreen != currentScreen) 
