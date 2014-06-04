@@ -41,11 +41,11 @@ public class Main implements Runnable, ActionListener {
 	
 	/* Constants to play sound effects */
 	public static final int MENU_MUSIC = 0; 
-	//public static final int AMBIENT_MUSIC_1 = 1;
 	public static final int SPLASH_MUSIC = 1;
-	public static final int DAMAGE_SOUND = 2;
-	public static final int MOVEMENT_SOUND = 3;
-	public static final int JUMP_SOUND = 4;
+	public static final int SWORD_SOUND = 2;
+	public static final int DAMAGE_SOUND_PC = 3;
+	public static final int DAMAGE_SOUND_NPC = 4;
+	public static final int VICTORY_MUSIC = 5;
 
 	/* Constants for movement */
 	public static final int MOVE_LEFT = -1;
@@ -304,13 +304,12 @@ public class Main implements Runnable, ActionListener {
 
 	public void initializeSoundEngine() { //loads sounds
 		sfx.clear();
-		//sfx.add(new SoundClip("sounds/whisper.wav"));
 		sfx.add(new SoundClip("sounds/main.wav"));
-		//sfx.add(new SoundClip("sounds/ambient.wav"));
 		sfx.add(new SoundClip("splash/splash.wav"));
-		/*sfx.add(new SoundClip("path/to/damage/sound"));
-		sfx.add(new SoundClip("path/to/movement/sound"));
-		sfx.add(new SoundClip("path/to/jump/sound")); */
+		sfx.add(new SoundClip("sounds/sword.wav"));
+		sfx.add(new SoundClip("sounds/pc_hit.wav"));
+		sfx.add(new SoundClip("sounds/npc_hit.wav")); 
+		sfx.add(new SoundClip("sounds/victory.wav"));
 	}
 
 	public void actionPerformed(ActionEvent e) {
