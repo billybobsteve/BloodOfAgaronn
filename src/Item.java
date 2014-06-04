@@ -25,7 +25,7 @@ public class Item extends Sprite{
 			int modifier = 0;
 			int modifier2 = 20;
 			if(parent instanceof Player){
-				if(((Player)parent).isFlipped()){
+				if(((Player)parent).isFlipped()){ //flip image if parent is flipped
 					image = reversedImage;
 					modifier = -parent.getWidth();
 					if(this.name.equals("swwuuud")){
@@ -40,7 +40,7 @@ public class Item extends Sprite{
 					}
 				}
 				this.x = parent.getX()+modifier;
-				this.y = parent.getY()-parent.getHeight()/2+modifier2;
+				this.y = parent.getY()-parent.getHeight()/2+modifier2;//position image correctly
 			}
 		}
 		super.draw(g, sprites);
