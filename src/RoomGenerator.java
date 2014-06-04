@@ -69,7 +69,7 @@ public class RoomGenerator {
 	public static ArrayList<Enemy> generateEnemies(int n, ScreenManager manager){
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for(int i = 1; i<n+1; i++){
-			enemies.add(new Enemy((int)(Math.random()*((manager.getWidth()/n)*i)),100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50,"DudeBroMan.png",5));
+			enemies.add(new Enemy((int)(Math.random()*((manager.getWidth()/n)*i)),100,Map.ENEMY_WIDTH,Map.ENEMY_HEIGHT,50+10*Map.rooms_passed+(Map.difficulty/3),"DudeBroMan.png",5+3*Map.rooms_passed));
 		}
 		return enemies;
 	}
