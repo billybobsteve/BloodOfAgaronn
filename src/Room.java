@@ -89,7 +89,7 @@ public class Room extends Screen{
 					player.setX(manager.getWidth()/2);
 					player.setY(manager.getHeight()/2);
 
-					d.setLinkingRoom(this);
+
 					Map.rooms_passed++;
 					return temp;
 				}

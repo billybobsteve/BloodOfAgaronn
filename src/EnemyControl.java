@@ -25,13 +25,13 @@ public class EnemyControl {
 				list.remove(i);
 				i--;
 				if(Math.random() > .3){
-					if(Math.random()>.93)
+					if(Math.random()>.96)
 						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Rekt.png", new Rectangle(e.getX(),e.getY(),120,120),7,"Rekt", 100));
-					else if(Math.random()>.93)
+					else if(Math.random()>.96)
 						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Vengancer.png", new Rectangle(e.getX(),e.getY(),145,120),5,"Vengancer", 80));
-					else if(Math.random()>.87)
+					else if(Math.random()>.90)
 						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Flametooth.png", new Rectangle(e.getX(),e.getY(),135,120),3,"Flametooth", 75));
-					else if(Math.random()>.75)
+					else if(Math.random()>.70)
 						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Decapatatir.png", new Rectangle(e.getX(),e.getY(),120,100),3,"Decapatatir", 60));
 					else if(Math.random()>.5)
 						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Swwuuud.png", new Rectangle(e.getX(),e.getY(),100,100),5,"Swwuuud", 50));
