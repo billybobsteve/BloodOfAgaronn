@@ -13,12 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+//graphical inventory
 public class Inventory extends JInternalFrame implements ListSelectionListener {
 	HashMap<Item, ImageIcon> map = new HashMap<Item, ImageIcon>();
 	JList invList;
 	Player player;
 	boolean back;
-	public class ImageListCellRenderer extends DefaultListCellRenderer{
+	public class ImageListCellRenderer extends DefaultListCellRenderer{ // show images in jlist
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus){
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			label.setIcon(map.get((Item)value));
@@ -50,6 +51,7 @@ public class Inventory extends JInternalFrame implements ListSelectionListener {
 	}
 
 	@Override
+	//change player's weapon on selection
 	public void valueChanged(ListSelectionEvent e) {
 		Item i = (Item)invList.getSelectedValue();
 		if(i instanceof Weapon){

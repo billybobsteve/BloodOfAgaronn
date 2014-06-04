@@ -14,6 +14,7 @@ public class Weapon extends Item{
 		this.damage = damage;
 	}
 
+	//attack if the weapon is ready to do so
 	public Rectangle attack(){
 		if(time == 0){
 			time = attackSpeed;
