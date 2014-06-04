@@ -5,6 +5,7 @@ public class BossRoom extends Room {
 	public BossRoom(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
 		super(d,p,pr,s,c,manager);
 		this.doors = new ArrayList<Door>();
+		sprites.addAll(player.getInventory());
 		sprites.add(p.getWeapon());
 		sprites.add(p.getArmor());
 		sprites.add(p);
@@ -18,9 +19,15 @@ public class BossRoom extends Room {
 		}
 	}
 	public Screen nextScreen(){
+		
 		if(boss.health <= 0){
-			return new WinningScreen(manager);
+			return new WinningScreen(manager, "Congratulations!  You have defeated the evil Gorabarr!  The kingdom has been saved!");
 		}
+		
+		if(player.getHealth() <= 0){
+			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!");
+		}
+		
 		return this;
 	}
 }

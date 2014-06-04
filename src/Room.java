@@ -88,6 +88,11 @@ public class Room extends Screen{
 	}
 
 	public Screen nextScreen() {
+		
+		if(player.getHealth() <= 0){
+			return new WinningScreen(manager, "Sorry, you are a big, fat, stinky looser!");
+		}
+		
 		for(Door d : doors){
 			if(player.intersects(d) && ec.getEnemies().size() <= 0){
 				if(Map.rooms_passed < Map.difficulty){

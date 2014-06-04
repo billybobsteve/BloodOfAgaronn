@@ -26,6 +26,7 @@ public class RoomGenerator {
 		//sprites.add(new Sprite(200,625,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,200,350,50,"BasedCutman.png"));
 
+		sprites.addAll(player.getInventory());
 
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
@@ -54,6 +55,7 @@ public class RoomGenerator {
 		sprites.add(new Sprite(500,425,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite(200,625,200,50,"BasedCutman.png"));
 		sprites.add(new Sprite((sm.getWidth()-Map.DOOR_WIDTH-Map.FLOOR_WIDTH)+100,200,350,50,"BasedCutman.png"));
+		sprites.addAll(player.getInventory());
 		sprites.add(player.getWeapon());
 		sprites.add(player.getArmor());
 		sprites.add(player);

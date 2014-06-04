@@ -4,8 +4,10 @@ import java.awt.Graphics;
 
 public class WinningScreen extends Screen { 
 	ScreenManager manager;
-	public WinningScreen(ScreenManager m){
+	String endText;
+	public WinningScreen(ScreenManager m, String t){
 		manager = m;
+		endText = t;
 	}
 
 	@Override
@@ -13,7 +15,7 @@ public class WinningScreen extends Screen {
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,manager.getWidth(),manager.getHeight());
 		g.setColor(Color.MAGENTA);
-		g.drawString("You have slain the evil Gorabarr!  The Kingdom has been saved!",manager.getWidth()/2,  manager.getHeight()/2);
+		g.drawString(endText,manager.getWidth()/2-50,  manager.getHeight()/2);
 		
 	}
 
