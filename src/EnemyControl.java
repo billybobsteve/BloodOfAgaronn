@@ -1,6 +1,7 @@
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+// control all enemies in a room
 public class EnemyControl {
 	private ArrayList<Enemy> list;
 	private Player player;
@@ -19,7 +20,7 @@ public class EnemyControl {
 	public void moveAll(){
 		for(int i = 0;i<list.size();i++){
 			Enemy e = list.get(i);
-			if(e.getHealth() <= 0){
+			if(e.getHealth() <= 0){ // if the enemy is dead, remove it and drop loot
 				e.setHidden(true);
 				list.remove(i);
 				i--;
@@ -40,16 +41,16 @@ public class EnemyControl {
 			}
 			if(!e.isBounce()){
 				if(distance(player, e)<=activationDistance)
-					e.activate();
+					e.activate(); //activate enemies when player is close enough
 				if(e.isActive()){
 					int dir = 0;
 					if(player.getX()-e.getX() != 0){
 						dir = (player.getX()-e.getX())/Math.abs(player.getX()-e.getX());
-						e.setXVelocity(enemySpeed * dir);
+						e.setXVelocity(enemySpeed * dir); //move toward player
 					}
 					if(e.intersects(player)){
 						e.bounce();
-						e.setXVelocity(-dir * 5);
+						e.setXVelocity(-dir * 5); //if hit player, move backward to give chance to recover
 					}
 				}
 				if(Math.random()<.0009){

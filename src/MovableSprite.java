@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+//a sprite that moves with simulated physics
 public class MovableSprite extends Sprite{
 	protected int xVelocity, yVelocity, health, jumpVelocity;
 	protected boolean jumpHeightReached = false, jumping = false;
@@ -11,7 +12,8 @@ public class MovableSprite extends Sprite{
 		jumpVelocity = -25;
 		this.health = health;
 	}
-
+	
+	//jump by setting a y velocity
 	public void jump(){
 		if(!jumping){
 			yVelocity=jumpVelocity;
@@ -20,6 +22,7 @@ public class MovableSprite extends Sprite{
 		}
 	}
 
+	//set x velocity
 	public void setXVelocity(int xvel){
 		xVelocity = xvel;
 	}
@@ -28,6 +31,7 @@ public class MovableSprite extends Sprite{
 		return health;
 	}
 
+	//do damage if the sprite has not taken damage recently
 	public void hurt(int h){
 		System.out.println(h);
 		if(System.currentTimeMillis() - lastTimeHurt > 500){
@@ -36,6 +40,7 @@ public class MovableSprite extends Sprite{
 		}
 	}
 
+	//draw the sprite and simulate physics
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
 		int tempx = x;
 		int tempy = y;
