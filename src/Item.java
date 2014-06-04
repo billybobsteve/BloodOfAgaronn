@@ -22,22 +22,32 @@ public class Item extends Sprite{
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
 		if(parent != null){
 			int modifier = 0;
+			int modifier2 = 20;
 			if(parent instanceof Player){
 				if(((Player)parent).isFlipped()){
 					image = reversedImage;
 					modifier = -parent.getWidth();
+					if(this.name.equals("swwuuud")){
+						modifier2 = -20;
+					}
 				}
 				else{
 					image = normalImage;
 					modifier = parent.getWidth()/2;
+					if(this.name.equals("swwuuud")){
+						modifier2 = 10;
+					}
 				}
 				this.x = parent.getX()+modifier;
-				this.y = parent.getY()-parent.getHeight()/2+20;
+				this.y = parent.getY()-parent.getHeight()/2+modifier2;
 			}
 		}
 		super.draw(g, sprites);
 	}
 	public String toString(){
 		return name;
+	}
+	public boolean equals(Object other){
+		return ((Item)other).name.equals(this.name);
 	}
 }

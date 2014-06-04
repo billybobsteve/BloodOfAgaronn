@@ -34,6 +34,7 @@ public class Player extends MovableSprite{
 	public void setWeapon(Weapon w){
 		inventory.add(w);
 		weapon = w;
+		w.setHidden(false);
 	}
 
 	public Weapon getWeapon(){
@@ -94,7 +95,9 @@ public class Player extends MovableSprite{
 	}
 	
 	public void changeWeapon(Weapon w){
+		weapon.setHidden(true);
 		weapon = w;
+		w.setHidden(false);
 	}
 
 	public void draw(Graphics g, ArrayList<Sprite> sprites){
@@ -120,6 +123,8 @@ public class Player extends MovableSprite{
 		for(Sprite s : sprites){
 			if(this.intersects(s) && s instanceof Item && !inventory.contains((Item)s)){
 				inventory.add((Item)s);
+				((Item)s).setParent(this);
+				s.setHidden(true);
 			}
 		}
 		super.draw(g, sprites);

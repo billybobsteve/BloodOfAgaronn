@@ -23,8 +23,19 @@ public class EnemyControl {
 				e.setHidden(true);
 				list.remove(i);
 				i--;
-				if(Math.random()>.5)
-					sprites.add(new Weapon(e.getX(),e.getY(),30,60,"placeholder.png",new Rectangle(e.getX(),e.getY(),50,100),5,"Swwuuud", 50));
+				if(Math.random() > .3){
+					if(Math.random()>.93)
+						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Rekt.png", new Rectangle(e.getX(),e.getY(),120,120),3,"Rekt", 100));
+					else if(Math.random()>.93)
+						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Vengancer.png", new Rectangle(e.getX(),e.getY(),145,120),3,"Vengancer", 80));
+					else if(Math.random()>.87)
+						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Flametooth.png", new Rectangle(e.getX(),e.getY(),135,120),3,"Flametooth", 75));
+					else if(Math.random()>.75)
+						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Decapatatir.png", new Rectangle(e.getX(),e.getY(),120,100),3,"Decapatatir", 60));
+					else if(Math.random()>.5)
+						sprites.add(new Weapon(e.getX(),e.getY(),100,100,"Swwuuud.png", new Rectangle(e.getX(),e.getY(),100,100),5,"Swwuuud", 50));
+				}
+
 				continue;
 			}
 			if(!e.isBounce()){
