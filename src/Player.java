@@ -117,6 +117,11 @@ public class Player extends MovableSprite{
 			attacking = false;
 			startTime = 0;
 		}
+		for(Sprite s : sprites){
+			if(this.intersects(s) && s instanceof Item && !inventory.contains((Item)s)){
+				inventory.add((Item)s);
+			}
+		}
 		super.draw(g, sprites);
 	}
 }

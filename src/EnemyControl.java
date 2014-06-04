@@ -23,7 +23,8 @@ public class EnemyControl {
 				e.setHidden(true);
 				list.remove(i);
 				i--;
-				sprites.add(new Weapon(e.getX(),e.getY(),30,60,"placeholder.png",new Rectangle(e.getX(),e.getY(),50,100),5,"Swwuuud", 50));
+				if(Math.random()>.5)
+					sprites.add(new Weapon(e.getX(),e.getY(),30,60,"placeholder.png",new Rectangle(e.getX(),e.getY(),50,100),5,"Swwuuud", 50));
 				continue;
 			}
 			if(!e.isBounce()){
