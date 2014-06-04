@@ -82,7 +82,8 @@ public class MainMenu extends Screen {
 
 	public Screen nextScreen() {
 		if (main.currentMap != null && main.gameStarted) {
-			//main.stopSound(main.MENU_MUSIC);
+			main.stopSound(main.MENU_MUSIC);
+			main.playSound(main.AMBIENT_MUSIC);
 			return main.currentMap.getNextRoom();
 		}
 		return this;

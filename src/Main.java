@@ -42,10 +42,9 @@ public class Main implements Runnable, ActionListener {
 	/* Constants to play sound effects */
 	public static final int MENU_MUSIC = 0; 
 	public static final int SPLASH_MUSIC = 1;
-	public static final int SWORD_SOUND = 2;
-	public static final int DAMAGE_SOUND_PC = 3;
-	public static final int DAMAGE_SOUND_NPC = 4;
-	public static final int VICTORY_MUSIC = 5;
+	public static final int AMBIENT_MUSIC = 2;
+	public static final int VICTORY_MUSIC = 3;
+	public static final int DEFEAT_MUSIC = 4;
 
 	/* Constants for movement */
 	public static final int MOVE_LEFT = -1;
@@ -256,13 +255,13 @@ public class Main implements Runnable, ActionListener {
 				}
 				else if (pause.isMusicButtonPressed) { //Stops music
 					if (musicIsPlaying) {
-						stopSound(MENU_MUSIC);
+						stopSound(AMBIENT_MUSIC);
 						initializeSoundEngine(); //Resets sound engine
 						musicIsPlaying = false;
 						pause.isMusicButtonPressed = false;
 					}
 					else {
-						playSound(MENU_MUSIC);
+						playSound(AMBIENT_MUSIC);
 						musicIsPlaying = true;
 						pause.isMusicButtonPressed = false;
 					}
@@ -306,10 +305,24 @@ public class Main implements Runnable, ActionListener {
 		sfx.clear();
 		sfx.add(new SoundClip("sounds/main.wav"));
 		sfx.add(new SoundClip("splash/splash.wav"));
-		sfx.add(new SoundClip("sounds/sword.wav"));
-		sfx.add(new SoundClip("sounds/pc_hit.wav"));
-		sfx.add(new SoundClip("sounds/npc_hit.wav")); 
+		sfx.add(new SoundClip("sounds/ambient.wav"));
 		sfx.add(new SoundClip("sounds/victory.wav"));
+		sfx.add(new SoundClip("sounds/defeat.wav"));
+	}
+	
+	public void pcDamageSound() {
+		SoundClip c = new SoundClip("sounds/pc_hit.wav");
+		c.play();
+	}
+	
+	public void npcDamageSound() {
+		SoundClip c = new SoundClip("sounds/npc_hit.wav");
+		c.play();
+	}
+	
+	public void swordSound() {
+		SoundClip c = new SoundClip("sounds/sword.wav");
+		c.play();
 	}
 
 	public void actionPerformed(ActionEvent e) {
