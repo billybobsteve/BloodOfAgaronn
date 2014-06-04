@@ -19,7 +19,7 @@ public class BossRoom extends Room {
 	}
 	public Screen nextScreen(){
 		if(boss.health <= 0){
-			return new WinningScreen();
+			return new WinningScreen(manager);
 		}
 		return this;
 	}
