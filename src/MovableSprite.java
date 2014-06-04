@@ -33,11 +33,12 @@ public class MovableSprite extends Sprite{
 
 	//do damage if the sprite has not taken damage recently
 	public void hurt(int h){
-		if (this instanceof Player)
-			Main.pcDamageSound();
-		else
-			Main.npcDamageSound();
+		
 		if(System.currentTimeMillis() - lastTimeHurt > 500){
+			if (this instanceof Player)
+				Main.pcDamageSound();
+			else
+				Main.npcDamageSound();
 			health-=h;
 			lastTimeHurt = System.currentTimeMillis();
 		}
