@@ -109,7 +109,7 @@ public class Room extends Screen{
 					ArrayList<Door> stupidDoors = new ArrayList<Door>();
 					ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 					ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-					EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.4), manager.getFractionOfScreenX(.009));
+					EnemyControl ec = new EnemyControl(enemies, player, manager.getFractionOfScreenX(.4), manager.getFractionOfScreenX(.009),sprites);
 					return new BossRoom(stupidDoors, player, null, sprites, ec, manager);
 				}
 			}

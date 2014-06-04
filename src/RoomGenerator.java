@@ -6,7 +6,7 @@ public class RoomGenerator {
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		enemies = generateEnemies(3, sm);
-		EnemyControl ec = new EnemyControl(enemies, player, sm.getFractionOfScreenX(.2), sm.getFractionOfScreenX(.01));
+		EnemyControl ec = new EnemyControl(enemies, player, sm.getFractionOfScreenX(.2), sm.getFractionOfScreenX(.01),sprites);
 		ec.setList(enemies);
 		sprites.addAll(enemies);
 		sprites.addAll(doors);
@@ -46,8 +46,8 @@ public class RoomGenerator {
 
 	public static Room getStartingRoom(ArrayList<Door> doors, Player player, Room previous, ScreenManager sm){
 		ArrayList<Enemy> enemies = generateStartingEnemies(sm);
-		EnemyControl ec = new EnemyControl(enemies, player, sm.getFractionOfScreenX(.2), sm.getFractionOfScreenX(.01));
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+		EnemyControl ec = new EnemyControl(enemies, player, sm.getFractionOfScreenX(.2), sm.getFractionOfScreenX(.01),sprites);
 		sprites.addAll(enemies);
 		sprites.addAll(doors);
 		sprites.add(new Sprite(800,225,200,50,"BasedCutman.png"));

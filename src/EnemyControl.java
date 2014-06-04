@@ -1,14 +1,17 @@
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class EnemyControl {
 	private ArrayList<Enemy> list;
 	private Player player;
 	private int activationDistance, enemySpeed;
-	public EnemyControl(ArrayList<Enemy> list, Player player, int activationDistance, int enemySpeed){
+	private ArrayList<Sprite> sprites;
+	public EnemyControl(ArrayList<Enemy> list, Player player, int activationDistance, int enemySpeed, ArrayList<Sprite> sprites){
 		this.list = list;
 		this.player = player;
 		this.activationDistance = activationDistance;
 		this.enemySpeed = enemySpeed;
+		this.sprites = sprites;
 	}
 	public ArrayList<Enemy> getEnemies(){
 		return list;
@@ -20,6 +23,7 @@ public class EnemyControl {
 				e.setHidden(true);
 				list.remove(i);
 				i--;
+				sprites.add(new Weapon(e.getX(),e.getY(),30,60,"placeholder.png",new Rectangle(e.getX(),e.getY(),50,100),5,"Swwuuud", 50));
 				continue;
 			}
 			if(!e.isBounce()){
