@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+//the player
 public class Player extends MovableSprite{
 	private Weapon weapon;
 	private Armor armor;
@@ -31,6 +32,7 @@ public class Player extends MovableSprite{
 		return inventory;
 	}
 
+	//add the weapon to the inventory, set as active weapon, and hide old weapon
 	public void setWeapon(Weapon w){
 		inventory.add(w);
 		weapon = w;
@@ -55,6 +57,7 @@ public class Player extends MovableSprite{
 		health = baseHealth + armor.getStrength();
 	}
 	
+	//change armor without adding to inventory
 	public void changeArmor(Armor a){
 		armor = a;
 		health = baseHealth + armor.getStrength();
@@ -77,6 +80,7 @@ public class Player extends MovableSprite{
 		startTime = System.currentTimeMillis();
 	}
 
+	//get the mirror of an image
 	public static BufferedImage flip(BufferedImage img) {
 		if(img != null){
 			int w = img.getWidth();
@@ -94,6 +98,7 @@ public class Player extends MovableSprite{
 		return image == imageReversed;
 	}
 	
+	//change weapon without adding to inventory
 	public void changeWeapon(Weapon w){
 		weapon.setHidden(true);
 		weapon = w;
@@ -105,7 +110,7 @@ public class Player extends MovableSprite{
 		if(attacking){
 			Rectangle attack = weapon.attack();
 			if(image == imageReversed && attack != null)
-				attack.x = attack.x-this.width-attack.width-3;
+				attack.x = attack.x-this.width-attack.width-3; 
 			for(Sprite sprite : sprites){
 				if(sprite.intersects(attack) && sprite instanceof Enemy){
 					((Enemy)sprite).hurt(weapon.getDamage());

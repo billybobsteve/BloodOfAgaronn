@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+//a graphical pause menu
 public class PauseMenu extends JPanel implements ActionListener{
 	JButton resume = new JButton("Resume");
 	JButton inventory = new JButton("Inventory");
@@ -13,7 +14,7 @@ public class PauseMenu extends JPanel implements ActionListener{
 	JButton mainMenu = new JButton("Main Menu");
 	Player p;
 	Inventory i;
-	boolean isMenuButtonPressed, isResumeButtonPressed, isMusicButtonPressed, isInventoryButtonPressed;
+	boolean isMenuButtonPressed, isResumeButtonPressed, isMusicButtonPressed, isInventoryButtonPressed; //booleans for the pressed buttons
 	public PauseMenu(Player p, int x, int y, int width, int height){
 		this.p = p;
 		setBounds(x, y, width, height);
@@ -38,7 +39,7 @@ public class PauseMenu extends JPanel implements ActionListener{
 		}
 		else if(e.getSource() == inventory){
 			isInventoryButtonPressed = true;
-			i = new Inventory(0,0,300,500,p);
+			i = new Inventory(0,0,300,500,p); //create a new inventory
 		}
 		else if(e.getSource() == music){
 			isMusicButtonPressed = true;
