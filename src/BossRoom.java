@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class BossRoom extends Room {
 	Enemy boss;
-	public BossRoom(ArrayList<Door> d, Player p, Room pr, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
-		super(d,p,pr,s,c,manager);
+	public BossRoom(ArrayList<Door> d, Player p, ArrayList<Sprite> s, EnemyControl c, ScreenManager manager){
+		super(d,p,s,c,manager);
 		this.doors = new ArrayList<Door>();
 		sprites.addAll(player.getInventory());
 		sprites.add(p.getWeapon());

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class RoomGenerator {
 	public static final String floorName = "BasedCutman.png";
-	public static Room getRandomRoom(ArrayList<Door> doors, Player player, Room previous, ScreenManager sm){
+	public static Room getRandomRoom(ArrayList<Door> doors, Player player, ScreenManager sm){
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		enemies = generateEnemies(3+(Map.rooms_passed/3), sm);
@@ -41,7 +41,7 @@ public class RoomGenerator {
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 
 		}
-		Room r = new Room(doors, player, previous, sprites, ec, sm);
+		Room r = new Room(doors, player, sprites, ec, sm);
 		return r;
 	}
 
@@ -62,7 +62,7 @@ public class RoomGenerator {
 		for(int i = 0;i<sm.getWidth();i+=256){
 			sprites.add(new Sprite(i,sm.getHeight()-Map.FLOOR_HEIGHT,Map.FLOOR_WIDTH,Map.FLOOR_HEIGHT,floorName));
 		}
-		Room r = new Room(doors, player, previous, sprites, ec, sm);
+		Room r = new Room(doors, player, sprites, ec, sm);
 		return r;
 	}
 
