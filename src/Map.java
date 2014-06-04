@@ -32,7 +32,7 @@ public class Map {
 		manager = m;
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,manager.getHeight()-(DOOR_HEIGHT + FLOOR_HEIGHT),DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
 		doors.add(new Door(manager.getWidth()-DOOR_WIDTH,0,DOOR_WIDTH,DOOR_HEIGHT,"DoorManBro.png", null));
-		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 750,"DudeBroDude.png", defaultWeapon,defaultArmor);
+		player = new Player(0,0,PLAYER_WIDTH,PLAYER_HEIGHT, 1000,"DudeBroDude.png", defaultWeapon,defaultArmor);
 		startingRoom = RoomGenerator.getStartingRoom(doors, player, null, manager);
 		ArrayList<Room> start = new ArrayList<Room>();
 		start.add(startingRoom);
