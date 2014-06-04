@@ -25,7 +25,7 @@ public class SplashScreen extends Screen {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g) { // Draws jpeg sequence
 		if (true/*System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY*/) {
 			try {
 				if (frame / 10 < 1)

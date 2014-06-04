@@ -15,7 +15,11 @@ import java.util.Scanner;
 
 import arduino_interface.ArduinoTest2;
 
-
+/**
+ * Not fully implemented Arduino controller code
+ * @author Work
+ *
+ */
 public class ControllerLiason implements SerialPortEventListener {
 
 	BufferedReader input;

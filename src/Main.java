@@ -31,22 +31,23 @@ public class Main implements Runnable, ActionListener {
 	static Thread thread;
 	JFrame frame;
 	Container content;
-	JPanel panel, pausePanel, inventoryPanel;
+	JPanel panel, pausePanel, inventoryPanel; //various panels
 	boolean gameRunning = true, leftHeld = false, rightHeld = false, paused = false, musicIsPlaying = true;
 	PauseMenu pause;
 	boolean gameStarted = false;
 	Inventory inventory;
 
 	ArrayList<SoundClip> sfx = new ArrayList<SoundClip>();
+	
+	/* Constants to play sound effects */
+	public static final int MENU_MUSIC = 0; 
+	//public static final int AMBIENT_MUSIC_1 = 1;
+	public static final int SPLASH_MUSIC = 1;
+	public static final int DAMAGE_SOUND = 2;
+	public static final int MOVEMENT_SOUND = 3;
+	public static final int JUMP_SOUND = 4;
 
-	public static final int MENU_MUSIC = 0;
-	public static final int AMBIENT_MUSIC_1 = 1;
-	public static final int SPLASH_MUSIC = 2;
-	//public static final int DAMAGE_SOUND = 1;
-	//public static final int MOVEMENT_SOUND = 2;
-	//public static final int JUMP_SOUND = 3;
-	//TODO add more sounds
-
+	/* Constants for movement */
 	public static final int MOVE_LEFT = -1;
 	public static final int MOVE_RIGHT = 1;
 	public static final int JUMP = 0;
@@ -78,11 +79,14 @@ public class Main implements Runnable, ActionListener {
 	}
 
 	@SuppressWarnings("serial")
+	/**
+	 * Sets up keyboard input; uses key bindings instead of keylistener
+	 */
 	public void initializeKeyboard() {
 
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().setGlobalCurrentFocusCycleRoot(panel);
 		frame.setFocusTraversalKeysEnabled(false);
-		panel.setFocusTraversalKeysEnabled(false);
+		panel.setFocusTraversalKeysEnabled(false); 
 		Action right = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				movePlayer(MOVE_RIGHT);
@@ -119,6 +123,8 @@ public class Main implements Runnable, ActionListener {
 				pause();
 			}
 		};
+		
+		/* Bindings */
 		screenManager.getFullScreenWindow().enableInputMethods(true);
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"right");
 		panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false), "left");
@@ -134,18 +140,22 @@ public class Main implements Runnable, ActionListener {
 		panel.getActionMap().put("stop_right", stop_right);
 		panel.getActionMap().put("attack", attack);
 		panel.getActionMap().put("pause", pause);
+		/* End bindings */
 	}
+	/**
+	 * Brings up pause menu
+	 */
 	public void pause() {
 		if (currentScreen == menu || currentScreen == splash)
 			return;
-		else if (!paused) {
+		else if (!paused) { //pause -- adds pause menu
 			content.add(pausePanel, BorderLayout.SOUTH);
 			paused = true;
 			rightHeld = false;
 			leftHeld = false;
 			//stopSound(MENU_MUSIC);
 		}
-		else if (paused) {
+		else if (paused) { //unpause -- removes pause menu
 			paused = false;
 			content.remove(pausePanel);
 			content.remove(inventoryPanel);
@@ -153,6 +163,9 @@ public class Main implements Runnable, ActionListener {
 		}
 	}
 
+	/**
+	 * Arduino controller code -- not fully implemented yet -- please use keyboard input only
+	 */
 	public void initializeController() {
 		cL = new ControllerLiason(this);
 		if(cL.initialize()) {
@@ -178,24 +191,16 @@ public class Main implements Runnable, ActionListener {
 		System.out.println("Done.");
 	}
 
+	/**
+	 * Main thread
+	 */
 	public void run() {
 		NoRepaintsManager.setAsManager();
 
-		splash = new SplashScreen(this);
+		splash = new SplashScreen(this); //Splash screen is the first screen that's loaded
 		currentScreen = splash;
 
 		menu = new MainMenu(this);
-
-		/*
-		///Make some Swing components
-		JLabel label = new JLabel("Welcome!", SwingConstants.CENTER);
-		JButton button = new JButton("CLICK");
-
-		Cursor c = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
-		button.setCursor(c);
-		//button.addActionListener();
-		button.setBorder(null);
-		button.setToolTipText("This is helpful!"); */
 
 		frame = screenManager.getFullScreenWindow();
 
@@ -204,59 +209,55 @@ public class Main implements Runnable, ActionListener {
 		panel = new JPanel(new GridLayout(1,3));
 
 		content.setLayout(new BorderLayout());
-		content.add(panel,BorderLayout.SOUTH);
+		content.add(panel,BorderLayout.SOUTH); //Adds panel to screen
 
 
-		for (JComponent c : menu.components) {
+		for (JComponent c : menu.components) { //Add main menu components to panel
 			//Add them to the window
 			panel.add(c);
 		}
 
-		pausePanel = new JPanel(new GridLayout(1,1));
-		inventoryPanel = new JPanel(new GridLayout(1,1));
-		//content.add(pausePanel,BorderLayout.SOUTH);
+		pausePanel = new JPanel(new GridLayout(1,1)); //Panel for pause menu
+		inventoryPanel = new JPanel(new GridLayout(1,1)); //Panel for inventory menu
 
 		boolean b = false;
-		while(gameRunning) {
-			if (paused) {
-				frame.validate();
+		while(gameRunning) { // Game loop
+			if (paused) { //Doesn't redraw while game is paused -- just draws components
+				frame.validate(); 
 				Graphics2D g = screenManager.getGraphics();
 				screenManager.getFullScreenWindow().getLayeredPane().paintComponents(g);
 				g.dispose();
 				screenManager.update();
-				if (pause.isMenuButtonPressed()) {
-					System.out.println("Menu comp:" + menu.components.size());
+				if (pause.isMenuButtonPressed()) { // checks for main menu button press
 					for (JComponent c : menu.components) 
-						panel.add(c);
-					content.remove(pausePanel);
-					content.remove(panel);
+						panel.add(c); //adds components back to main panel
+					content.remove(pausePanel); // removes pause panel from screen
+					/* Remove then add main panel -- for some reason this fixes an issue we had */
+					content.remove(panel); 
 					content.add(panel, BorderLayout.SOUTH);
-
-					//playSound(MENU_MUSIC);
-
 					paused = false;
 					currentScreen = menu;
 					gameStarted = false;
 				}
-				else if(pause.isInventoryButtonPressed()){
+				else if(pause.isInventoryButtonPressed()){ // checks for inventory button press -- brings up inventory
 					inventory = pause.getInventory();
-					inventoryPanel.removeAll();
-					if(inventory != null)
+					inventoryPanel.removeAll(); //Makes sure that we don't add a second copy of inventory
+					if(inventory != null) // Catches potential error
 						inventoryPanel.add(inventory);
 					content.add(inventoryPanel, BorderLayout.NORTH);
 					pause.isInventoryButtonPressed = false;
 					//TODO Inventory
 				}
-				else if (pause.isResumeButtonPressed) {
+				else if (pause.isResumeButtonPressed) { //Resumes game -- can also press esc
 					paused = false;
 					content.remove(pausePanel);
 					content.remove(inventoryPanel);
 					pause.isResumeButtonPressed = false;
 				}
-				else if (pause.isMusicButtonPressed) {
+				else if (pause.isMusicButtonPressed) { //Stops music
 					if (musicIsPlaying) {
 						stopSound(MENU_MUSIC);
-						initializeSoundEngine();
+						initializeSoundEngine(); //Resets sound engine
 						musicIsPlaying = false;
 						pause.isMusicButtonPressed = false;
 					}
@@ -280,16 +281,16 @@ public class Main implements Runnable, ActionListener {
 				g.dispose();
 				screenManager.update();
 
-				Screen nextScreen = currentScreen.nextScreen();
+				Screen nextScreen = currentScreen.nextScreen(); // asks for next screen
 				if(nextScreen== null) System.out.println(nextScreen != null);
 				if (nextScreen != null && nextScreen != currentScreen) 
 					currentScreen = nextScreen;
 				if(b == false){
-					initializeKeyboard();
+					initializeKeyboard(); 
 					b = true;
 				}
 				try {
-					Thread.sleep(3);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -301,11 +302,11 @@ public class Main implements Runnable, ActionListener {
 		System.exit(0);
 	}
 
-	public void initializeSoundEngine() {
+	public void initializeSoundEngine() { //loads sounds
 		sfx.clear();
 		//sfx.add(new SoundClip("sounds/whisper.wav"));
 		sfx.add(new SoundClip("sounds/main.wav"));
-		sfx.add(new SoundClip("sounds/ambient.wav"));
+		//sfx.add(new SoundClip("sounds/ambient.wav"));
 		sfx.add(new SoundClip("splash/splash.wav"));
 		/*sfx.add(new SoundClip("path/to/damage/sound"));
 		sfx.add(new SoundClip("path/to/movement/sound"));
@@ -317,10 +318,11 @@ public class Main implements Runnable, ActionListener {
 			gameRunning = false;
 			//System.exit(0);
 		}
-		else if (e.getSource().equals(menu.start)) {
+		else if (e.getSource().equals(menu.start)) { //Starts game
 			//playSound(AMBIENT_MUSIC_1);
 			if (currentMap == null)
 				currentMap = new Map(screenManager, menu.difficultySlider.getValue());
+			Map.rooms_passed = 0;
 			pause = new PauseMenu(currentMap.player, screenManager.getFirstThirdX(), screenManager.getFirstThirdY(), screenManager.getFirstThirdX(), screenManager.getFirstThirdY());
 			pausePanel.removeAll();
 			pausePanel.add(pause);
@@ -355,6 +357,10 @@ public class Main implements Runnable, ActionListener {
 		sfx.get(sound).close();
 	}
 
+	/**
+	 * Passes keystrokes to player
+	 * @param i
+	 */
 	public void movePlayer(int i) {
 		if (currentScreen == this.menu) {
 			//BUTTONS

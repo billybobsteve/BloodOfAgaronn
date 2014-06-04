@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -37,7 +36,7 @@ public class MainMenu extends Screen {
 		//main.playSound(Main.MENU_MUSIC);
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics g) { // Draws jpeg sequence
 
 			if (frame > 122)
 				frame = 0;
