@@ -5,7 +5,7 @@ public class RoomGenerator {
 	public static Room getRandomRoom(ArrayList<Door> doors, Player player, Room previous, ScreenManager sm){
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-		enemies = generateEnemies(3, sm);
+		enemies = generateEnemies(3+(Map.rooms_passed/3), sm);
 		EnemyControl ec = new EnemyControl(enemies, player, sm.getFractionOfScreenX(.2), sm.getFractionOfScreenX(.01),sprites);
 		ec.setList(enemies);
 		sprites.addAll(enemies);
