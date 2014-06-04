@@ -233,7 +233,7 @@ public class Main implements Runnable, ActionListener {
 					content.add(panel, BorderLayout.SOUTH);
 
 					//playSound(MENU_MUSIC);
-					
+
 					paused = false;
 					currentScreen = menu;
 					gameStarted = false;
@@ -337,6 +337,12 @@ public class Main implements Runnable, ActionListener {
 				playSound(MENU_MUSIC);
 				musicIsPlaying = true;
 			}
+		}
+		else if (e.getSource().equals(menu.info)) {
+			if (!menu.drawInfo)
+				menu.drawInfo = true;
+			else
+				menu.drawInfo = false;
 		}
 	}
 

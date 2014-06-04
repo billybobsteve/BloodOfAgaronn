@@ -16,46 +16,51 @@ import javax.swing.JSlider;
 public class MainMenu extends Screen {
 
 	Main main;
-	JButton start, music, quit;
+	JButton start, music, quit, info;
 	JLabel difficulty = new JLabel("Difficulty:");
 	JSlider difficultySlider = new JSlider(3, 25, 11);
 	JPanel fix = new JPanel(new FlowLayout());
 	ArrayList<JComponent> components = new ArrayList<JComponent>();
-	BufferedImage image;
+	BufferedImage image, information;
 	int frame = 0;
+	boolean drawInfo = false;
 
 	public MainMenu(Main m) {
 		main = m;
 		setUpComponents();
-		
+
 		try {
 			image = ImageIO.read(new FileInputStream("main/castle_00000.jpg"));
+			information = ImageIO.read(new FileInputStream("info.png"));
 		} catch (Exception e) { e.printStackTrace(); }
-		
+
 		//main.playSound(Main.MENU_MUSIC);
 	}
 
 	public void draw(Graphics g) {
-		
-		if (frame > 122)
-			frame = 0;
-		
-		if (true/*System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY*/) {
-			try {
-				if (frame / 10 < 1)
-					image = ImageIO.read(new FileInputStream("main/castle_0000" + frame + ".jpg"));
-				else if (frame / 10 < 10)
-					image = ImageIO.read(new FileInputStream("main/castle_000" + frame + ".jpg"));
-				else //if (frame / 10 < 100)
-					image = ImageIO.read(new FileInputStream("main/castle_00" + frame + ".jpg"));
-			} catch (Exception e) { e.printStackTrace(); }
-		}
 
-		//g.drawImage(image, 0, 0, null); 
-		g.drawImage(image, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
+			if (frame > 122)
+				frame = 0;
 
-		frame++;
-		
+			if (true/*System.currentTimeMillis() - timeSinceLastFrame >= FRAME_DELAY*/) {
+				try {
+					if (frame / 10 < 1)
+						image = ImageIO.read(new FileInputStream("main/castle_0000" + frame + ".jpg"));
+					else if (frame / 10 < 10)
+						image = ImageIO.read(new FileInputStream("main/castle_000" + frame + ".jpg"));
+					else //if (frame / 10 < 100)
+						image = ImageIO.read(new FileInputStream("main/castle_00" + frame + ".jpg"));
+				} catch (Exception e) { e.printStackTrace(); }
+			}
+
+			//g.drawImage(image, 0, 0, null); 
+			g.drawImage(image, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
+
+			frame++;
+			
+			if (drawInfo)
+				g.drawImage(information, 0, 0, main.screenManager.getWidth(), main.screenManager.getHeight(), null);
+
 	}
 
 	public void setUpComponents() {
@@ -63,6 +68,8 @@ public class MainMenu extends Screen {
 		start.addActionListener(main);
 		music = new JButton("Music On/Off");
 		music.addActionListener(main);
+		info = new JButton("How to play");
+		info.addActionListener(main);
 		quit = new JButton("Quit");
 		quit.addActionListener(main);
 		fix.add(difficulty);
@@ -70,6 +77,7 @@ public class MainMenu extends Screen {
 		components.add(start);
 		components.add(music);
 		components.add(fix);
+		components.add(info);
 		components.add(quit);
 	}
 
