@@ -29,7 +29,7 @@ public class MainMenu extends Screen {
 		setUpComponents();
 		
 		try {
-			image = ImageIO.read(new FileInputStream("main/main_00000.jpg"));
+			image = ImageIO.read(new FileInputStream("main/castle_00000.jpg"));
 		} catch (Exception e) { e.printStackTrace(); }
 		
 		//main.playSound(Main.MENU_MUSIC);
@@ -47,7 +47,7 @@ public class MainMenu extends Screen {
 				else if (frame / 10 < 10)
 					image = ImageIO.read(new FileInputStream("main/castle_000" + frame + ".jpg"));
 				else //if (frame / 10 < 100)
-					image = ImageIO.read(new FileInputStream("splash/castle_00" + frame + ".jpg"));
+					image = ImageIO.read(new FileInputStream("main/castle_00" + frame + ".jpg"));
 			} catch (Exception e) { e.printStackTrace(); }
 		}
 
